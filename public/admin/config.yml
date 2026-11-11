@@ -1,7 +1,6 @@
 backend:
-  name: github
-  repo: eandycom-lab/Website
-  branch: main
+  name: turbo-github
+  turbo_site_id: 588a0ec9-e0a6-4570-be56-043a987e85db
 
 media_folder: "public/images"
 public_folder: "/images"
