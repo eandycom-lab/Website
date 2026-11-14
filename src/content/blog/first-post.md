@@ -3,7 +3,7 @@ title: Neuanfang mit Astro, Decap CMS und Cloudflare Pages
 description: "Ein Blick unter die Haube: Warum diese Website auf statische
   Performance, Git-basiertes Headless-Publishing und Edge-Hosting setzt."
 pubDate: 2026-11-11T21:56:00.000+01:00
-heroImage: ""
+heroImage: /images/headbildmcp.jpg
 ---
 Willkommen auf der neuen Website! 
 
