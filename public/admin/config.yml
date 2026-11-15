@@ -7,7 +7,7 @@ public_folder: "/images"
 
 collections:
   - name: "blog"
-    label: "Blog"
+    label: "Blog-Artikel"
     folder: "src/content/blog"
     create: true
     slug: "{{slug}}"
@@ -18,3 +18,16 @@ collections:
       - { label: "Pub Date", name: "pubDate", widget: "datetime" }
       - { label: "Hero Image", name: "heroImage", widget: "image", default: "/blog-placeholder-1.jpg", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "Website-Einstellungen"
+    files:
+      - name: "general"
+        label: "Allgemein & Sidebar"
+        file: "src/data/settings.json"
+        fields:
+          - { label: "Blog-Name (oben links)", name: "siteTitle", widget: "string" }
+          - { label: "SEO-Kurzbeschreibung", name: "siteDescription", widget: "string" }
+          - { label: "Sidebar: Über-Box Titel", name: "aboutTitle", widget: "string" }
+          - { label: "Sidebar: Über-Box Text", name: "aboutText", widget: "text" }
+          - { label: "Kategorien (Sidebar)", name: "categories", widget: "list" }

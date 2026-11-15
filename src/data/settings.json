@@ -1,0 +1,13 @@
+{
+  "siteTitle": "Astro Blog",
+  "siteDescription": "Praxisnahe Einblicke in Linux, Self-Hosting & Local AI",
+  "aboutTitle": "Über das Projekt",
+  "aboutText": "Praxisnahe Einblicke in Linux, Self-Hosting, Docker-Stacks, lokale KI-Modelle und moderne Cloud-Infrastruktur.",
+  "categories": [
+    "Linux & OS",
+    "Self-Hosting",
+    "Local AI",
+    "Home Automation",
+    "Cloud & Dev"
+  ]
+}
