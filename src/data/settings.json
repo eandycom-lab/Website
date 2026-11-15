@@ -1,8 +1,8 @@
 {
-  "siteTitle": "Astro Blog",
-  "siteDescription": "Praxisnahe Einblicke in Linux, Self-Hosting & Local AI",
+  "siteTitle": "HostAI Blog",
+  "siteDescription": "News zu Linux, Self-Hosting & (Local) AI",
   "aboutTitle": "Über das Projekt",
-  "aboutText": "Praxisnahe Einblicke in Linux, Self-Hosting, Docker-Stacks, lokale KI-Modelle und moderne Cloud-Infrastruktur.",
+  "aboutText": "Ich veräffenltiche Blogs rund um die Themen Linux, Self-Hosting, Docker-Stacks, lokale KI-Modelle und moderne Cloud-Infrastruktur.",
   "categories": [
     "Linux & OS",
     "Self-Hosting",
