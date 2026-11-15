@@ -29,5 +29,6 @@ collections:
           - { label: "Blog-Name (oben links)", name: "siteTitle", widget: "string" }
           - { label: "SEO-Kurzbeschreibung", name: "siteDescription", widget: "string" }
           - { label: "Sidebar: Über-Box Titel", name: "aboutTitle", widget: "string" }
+          - { label: "Sidebar: Über-Box Foto", name: "aboutImage", widget: "image", required: false }
           - { label: "Sidebar: Über-Box Text", name: "aboutText", widget: "text" }
           - { label: "Kategorien (Sidebar)", name: "categories", widget: "list" }

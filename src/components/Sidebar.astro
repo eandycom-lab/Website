@@ -16,6 +16,16 @@ for (const post of allPosts) {
 	counts[c] = (counts[c] || 0) + 1;
 }
 
+const slugify = (text: string) =>
+	text
+		.toLowerCase()
+		.replace(/ä/g, "ae")
+		.replace(/ö/g, "oe")
+		.replace(/ü/g, "ue")
+		.replace(/ß/g, "ss")
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/(^-|-$)/g, "");
+
 const resolveImg = (img?: string) => {
 	if (!img) return "/blog-placeholder-1.jpg";
 	return img.replace("../../assets/", "/");
@@ -25,9 +35,18 @@ const resolveImg = (img?: string) => {
 <aside class="sidebar">
 	<div class="widget">
 		<h3 class="widget-title">{settings.aboutTitle}</h3>
-		<p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">
-			{settings.aboutText}
-		</p>
+		<div class="about-box">
+			{settings.aboutImage && (
+				<img
+					src={resolveImg(settings.aboutImage)}
+					alt={settings.aboutTitle}
+					class="about-avatar"
+				/>
+			)}
+			<p class="about-text">
+				{settings.aboutText}
+			</p>
+		</div>
 	</div>
 
 	<div class="widget">
@@ -35,8 +54,10 @@ const resolveImg = (img?: string) => {
 		<ul class="cat-list">
 			{Object.entries(counts).map(([name, count]) => (
 				<li>
-					<span>{name}</span>
-					<span class="cat-count">{count}</span>
+					<a href={`/category/${slugify(name)}/`} class="cat-link">
+						<span>{name}</span>
+						<span class="cat-count">{count}</span>
+					</a>
 				</li>
 			))}
 		</ul>
@@ -59,22 +80,48 @@ const resolveImg = (img?: string) => {
 </aside>
 
 <style>
+	.about-box {
+		overflow: hidden;
+	}
+	.about-avatar {
+		width: 76px;
+		height: 76px;
+		border-radius: 50%;
+		object-fit: cover;
+		float: left;
+		margin: 0.15rem 1rem 0.4rem 0;
+		border: 2px solid var(--border-hover);
+	}
+	.about-text {
+		margin: 0;
+		font-size: 0.9rem;
+		color: var(--text-muted);
+		line-height: 1.55;
+	}
 	.cat-list {
 		list-style: none;
 		padding: 0;
 		margin: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 0.55rem;
+		gap: 0.25rem;
 	}
 	.cat-list li {
+		border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+	}
+	.cat-link {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		font-size: 0.9rem;
 		color: var(--text-muted);
-		padding: 0.35rem 0;
-		border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+		padding: 0.5rem 0.4rem;
+		border-radius: 6px;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+	.cat-link:hover {
+		background: var(--bg-elevated);
+		color: var(--text-main);
 	}
 	.cat-count {
 		background: var(--bg-elevated);
