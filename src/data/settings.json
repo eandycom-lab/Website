@@ -2,7 +2,8 @@
   "siteTitle": "HostAI Blog",
   "siteDescription": "News zu Linux, Self-Hosting & (Local) AI",
   "aboutTitle": "Über das Projekt",
-  "aboutText": "Ich veräffenltiche Blogs rund um die Themen Linux, Self-Hosting, Docker-Stacks, lokale KI-Modelle und moderne Cloud-Infrastruktur.",
+  "aboutImage": "/blog-placeholder-1.jpg",
+  "aboutText": "Ich veröffentliche Blogs rund um die Themen Linux, Self-Hosting, Docker-Stacks, lokale KI-Modelle und moderne Cloud-Infrastruktur.",
   "categories": [
     "Linux & OS",
     "Self-Hosting",
