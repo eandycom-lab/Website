@@ -40,6 +40,14 @@ if (!img) return "/blog-placeholder-1.jpg";
 return img.replace("../../assets/", "/");
 };
 
+const activeCategory = category || "Self-Hosting";
+const categoryUrl = `/category/${slugify(activeCategory)}/`;
+const breadcrumbs = [
+{ name: "Home", url: "/" },
+{ name: activeCategory, url: categoryUrl },
+{ name: title, url: Astro.url.pathname },
+];
+
 const heroSrc = resolveImg(typeof heroImage === "string" ? heroImage : heroImage?.src);
 const tocHeadings = (headings as Heading[]).filter((h) => h.depth === 2 || h.depth === 3);
 
@@ -52,7 +60,7 @@ const relatedPosts = allPosts
 .filter((p) => p.id !== currentId)
 .map((p) => {
 let score = 0;
-if ((p.data.category || "Self-Hosting") === (category || "Self-Hosting")) score += 2;
+if ((p.data.category || "Self-Hosting") === activeCategory) score += 2;
 for (const t of p.data.tags ?? []) {
 if (currentTags.has(t.toLowerCase())) score += 3;
 }
@@ -72,9 +80,10 @@ description={description}
 image={heroSrc}
 pubDate={pubDate}
 updatedDate={updatedDate}
-category={category}
+category={activeCategory}
 tags={tags}
 isArticle={true}
+breadcrumbs={breadcrumbs}
 />
 </head>
 <body>
@@ -82,8 +91,16 @@ isArticle={true}
 <main class="container mag-layout">
 <div class="article-column">
 <article class="article-box" data-pagefind-body>
+<nav class="breadcrumbs" aria-label="Breadcrumb" data-pagefind-ignore>
+<a href="/">Home</a>
+<span class="crumb-sep">/</span>
+<a href={categoryUrl}>{activeCategory}</a>
+<span class="crumb-sep">/</span>
+<span class="crumb-current">{title}</span>
+</nav>
+
 <div>
-<span class="badge" data-pagefind-filter="Kategorie">{category || "Self-Hosting"}</span>
+<span class="badge" data-pagefind-filter="Kategorie">{activeCategory}</span>
 <h1 style="font-size: 2rem; line-height: 1.25; margin: 0.75rem 0 0.5rem;">{title}</h1>
 <div class="meta-date">
 Veröffentlicht am <FormattedDate date={pubDate} />
@@ -188,6 +205,31 @@ wrapper.appendChild(btn);
 <style>
 .article-column {
 min-width: 0;
+}
+.breadcrumbs {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+gap: 0.45rem;
+font-size: 0.8rem;
+color: var(--text-dim);
+margin-bottom: 1rem;
+}
+.breadcrumbs a {
+color: var(--text-muted);
+}
+.breadcrumbs a:hover {
+color: var(--accent-light);
+}
+.crumb-sep {
+color: var(--text-dim);
+}
+.crumb-current {
+color: var(--text-dim);
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+max-width: 340px;
 }
 .toc-box {
 background: rgba(30, 41, 59, 0.55);
