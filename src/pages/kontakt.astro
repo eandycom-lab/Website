@@ -5,10 +5,7 @@ import Footer from "../components/Footer.astro";
 import Sidebar from "../components/Sidebar.astro";
 import { SITE_TITLE } from "../consts";
 
-// Hier deinen kostenlosen Key von https://web3forms.com eintragen:
-const WEB3FORMS_ACCESS_KEY = "DEIN_WEB3FORMS_ACCESS_KEY";
-// Optional: Dein Site-Key aus dem Cloudflare Dashboard -> Turnstile:
-const TURNSTILE_SITE_KEY = "DEIN_TURNSTILE_SITE_KEY";
+const WEB3FORMS_ACCESS_KEY = "fbcb1b6d-0397-4752-8306-d024ec262772";
 ---
 
 <html lang="de">
@@ -17,9 +14,6 @@ const TURNSTILE_SITE_KEY = "DEIN_TURNSTILE_SITE_KEY";
 title={`Kontakt – ${SITE_TITLE}`}
 description={`Schreib mir eine Nachricht oder abonniere Updates rund um Linux, Self-Hosting und Local AI auf ${SITE_TITLE}.`}
 />
-{TURNSTILE_SITE_KEY !== "DEIN_TURNSTILE_SITE_KEY" && (
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-)}
 </head>
 <body>
 <Header />
@@ -37,7 +31,6 @@ Fragen zu einem Setup, Feedback zu einem Artikel oder Themenvorschläge zu Linux
 <input type="hidden" name="from_name" value={SITE_TITLE} />
 <input type="hidden" id="form_loaded_at" name="form_loaded_at" value="" />
 
-<!-- Honeypot-Falle gegen Bots -->
 <div class="hp-field" aria-hidden="true">
 <label for="website_url">Website</label>
 <input type="text" id="website_url" name="botcheck" tabindex="-1" autocomplete="off" />
@@ -77,10 +70,6 @@ Fragen zu einem Setup, Feedback zu einem Artikel oder Themenvorschläge zu Linux
 </span>
 </label>
 
-{TURNSTILE_SITE_KEY !== "DEIN_TURNSTILE_SITE_KEY" && (
-<div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark"></div>
-)}
-
 <div class="form-actions">
 <button type="submit" id="contact-submit-btn" class="submit-btn">
 Nachricht absenden
@@ -115,7 +104,6 @@ statusBox.style.display = "block";
 form.addEventListener("submit", async (e) => {
 e.preventDefault();
 
-// 1. Honeypot-Check
 const hp = form.querySelector("input[name=\"botcheck\"]");
 if (hp && hp.value) {
 showStatus("Danke! Deine Nachricht wurde gesendet.", false);
@@ -123,24 +111,17 @@ form.reset();
 return;
 }
 
-// 2. Zeitstempel-Check (Bots schicken < 2.5 Sek. ab)
 if (Date.now() - startTime < 2500) {
 showStatus("Bitte nimm dir einen kurzen Moment Zeit, bevor du das Formular absendest.", true);
 return;
 }
 
-// 3. Basis-Validierung
 if (!form.checkValidity()) {
 form.reportValidity();
 return;
 }
 
 const formData = new FormData(form);
-const accessKey = formData.get("access_key");
-if (!accessKey || accessKey === "DEIN_WEB3FORMS_ACCESS_KEY") {
-showStatus("Hinweis: Bitte trage noch deinen Web3Forms Access-Key in src/pages/kontakt.astro ein.", true);
-return;
-}
 
 submitBtn.disabled = true;
 submitBtn.textContent = "Wird gesendet...";
@@ -156,7 +137,6 @@ const result = await response.json();
 if (result.success) {
 showStatus("Vielen Dank! Deine Nachricht ist angekommen.", false);
 form.reset();
-if (window.turnstile) window.turnstile.reset();
 } else {
 showStatus(result.message || "Senden fehlgeschlagen. Bitte versuche es später erneut.", true);
 }
