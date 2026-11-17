@@ -1,0 +1,301 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Sidebar from "../components/Sidebar.astro";
+import { SITE_TITLE } from "../consts";
+
+// Hier deinen kostenlosen Key von https://web3forms.com eintragen:
+const WEB3FORMS_ACCESS_KEY = "DEIN_WEB3FORMS_ACCESS_KEY";
+// Optional: Dein Site-Key aus dem Cloudflare Dashboard -> Turnstile:
+const TURNSTILE_SITE_KEY = "DEIN_TURNSTILE_SITE_KEY";
+---
+
+<html lang="de">
+<head>
+<BaseHead
+title={`Kontakt – ${SITE_TITLE}`}
+description={`Schreib mir eine Nachricht oder abonniere Updates rund um Linux, Self-Hosting und Local AI auf ${SITE_TITLE}.`}
+/>
+{TURNSTILE_SITE_KEY !== "DEIN_TURNSTILE_SITE_KEY" && (
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+)}
+</head>
+<body>
+<Header />
+<main class="container mag-layout">
+<section class="article-box">
+<span class="badge">Kontakt & Updates</span>
+<h1 style="font-size: 2rem; line-height: 1.25; margin: 0.75rem 0 0.5rem;">Nachricht senden</h1>
+<p class="contact-intro">
+Fragen zu einem Setup, Feedback zu einem Artikel oder Themenvorschläge zu Linux, Self-Hosting und lokaler KI? Schreib mir direkt über das Formular.
+</p>
+
+<form id="sysai-contact-form" class="contact-form" novalidate>
+<input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+<input type="hidden" name="subject" value={`Neue Nachricht über ${SITE_TITLE}`} />
+<input type="hidden" name="from_name" value={SITE_TITLE} />
+<input type="hidden" id="form_loaded_at" name="form_loaded_at" value="" />
+
+<!-- Honeypot-Falle gegen Bots -->
+<div class="hp-field" aria-hidden="true">
+<label for="website_url">Website</label>
+<input type="text" id="website_url" name="botcheck" tabindex="-1" autocomplete="off" />
+</div>
+
+<div class="form-row">
+<div class="form-group">
+<label for="name">Name *</label>
+<input type="text" id="name" name="name" required placeholder="Dein Name" />
+</div>
+<div class="form-group">
+<label for="email">E-Mail-Adresse *</label>
+<input type="email" id="email" name="email" required placeholder="du@beispiel.de" />
+</div>
+</div>
+
+<div class="form-group">
+<label for="topic">Thema</label>
+<select id="topic" name="topic">
+<option value="Allgemeine Frage">Allgemeine Frage</option>
+<option value="Linux & Self-Hosting">Linux & Self-Hosting</option>
+<option value="Local AI & Modelle">Local AI & Modelle</option>
+<option value="Themenvorschlag">Themenvorschlag für einen Artikel</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="message">Nachricht *</label>
+<textarea id="message" name="message" rows="6" required placeholder="Worum geht es?"></textarea>
+</div>
+
+<label class="checkbox-card">
+<input type="checkbox" name="newsletter_optin" value="Ja, bitte für den Newsletter vormerken" />
+<span>
+<strong>SysAI-Newsletter abonnieren (optional)</strong>
+<small>Ich möchte bei neuen Guides zu Linux, Self-Hosting & Local AI per E-Mail informiert werden. Kein Spam, jederzeit abbestellbar.</small>
+</span>
+</label>
+
+{TURNSTILE_SITE_KEY !== "DEIN_TURNSTILE_SITE_KEY" && (
+<div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark"></div>
+)}
+
+<div class="form-actions">
+<button type="submit" id="contact-submit-btn" class="submit-btn">
+Nachricht absenden
+</button>
+</div>
+
+<div id="contact-status" class="form-status" role="status" aria-live="polite"></div>
+</form>
+</section>
+
+<Sidebar />
+</main>
+<Footer />
+
+<script is:inline>
+(function () {
+const form = document.getElementById("sysai-contact-form");
+const statusBox = document.getElementById("contact-status");
+const submitBtn = document.getElementById("contact-submit-btn");
+const loadedInput = document.getElementById("form_loaded_at");
+if (!form || !statusBox || !submitBtn) return;
+
+const startTime = Date.now();
+if (loadedInput) loadedInput.value = String(startTime);
+
+function showStatus(msg, isError) {
+statusBox.textContent = msg;
+statusBox.className = "form-status " + (isError ? "error" : "success");
+statusBox.style.display = "block";
+}
+
+form.addEventListener("submit", async (e) => {
+e.preventDefault();
+
+// 1. Honeypot-Check
+const hp = form.querySelector("input[name=\"botcheck\"]");
+if (hp && hp.value) {
+showStatus("Danke! Deine Nachricht wurde gesendet.", false);
+form.reset();
+return;
+}
+
+// 2. Zeitstempel-Check (Bots schicken < 2.5 Sek. ab)
+if (Date.now() - startTime < 2500) {
+showStatus("Bitte nimm dir einen kurzen Moment Zeit, bevor du das Formular absendest.", true);
+return;
+}
+
+// 3. Basis-Validierung
+if (!form.checkValidity()) {
+form.reportValidity();
+return;
+}
+
+const formData = new FormData(form);
+const accessKey = formData.get("access_key");
+if (!accessKey || accessKey === "DEIN_WEB3FORMS_ACCESS_KEY") {
+showStatus("Hinweis: Bitte trage noch deinen Web3Forms Access-Key in src/pages/kontakt.astro ein.", true);
+return;
+}
+
+submitBtn.disabled = true;
+submitBtn.textContent = "Wird gesendet...";
+statusBox.style.display = "none";
+
+try {
+const response = await fetch("https://api.web3forms.com/submit", {
+method: "POST",
+body: formData,
+});
+const result = await response.json();
+
+if (result.success) {
+showStatus("Vielen Dank! Deine Nachricht ist angekommen.", false);
+form.reset();
+if (window.turnstile) window.turnstile.reset();
+} else {
+showStatus(result.message || "Senden fehlgeschlagen. Bitte versuche es später erneut.", true);
+}
+} catch {
+showStatus("Netzwerkfehler beim Senden. Bitte prüfe deine Verbindung.", true);
+} finally {
+submitBtn.disabled = false;
+submitBtn.textContent = "Nachricht absenden";
+}
+});
+})();
+</script>
+
+<style>
+.contact-intro {
+color: var(--text-muted);
+font-size: 0.98rem;
+line-height: 1.6;
+margin-bottom: 1.75rem;
+}
+.contact-form {
+display: flex;
+flex-direction: column;
+gap: 1.15rem;
+}
+.hp-field {
+position: absolute;
+left: -9999px;
+opacity: 0;
+pointer-events: none;
+}
+.form-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1rem;
+}
+@media (max-width: 640px) {
+.form-row {
+grid-template-columns: 1fr;
+}
+}
+.form-group {
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+}
+.form-group label {
+font-size: 0.85rem;
+font-weight: 600;
+color: var(--text-main);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+width: 100%;
+padding: 0.65rem 0.85rem;
+border-radius: 8px;
+border: 1px solid var(--border);
+background: var(--bg-main);
+color: var(--text-main);
+font-family: inherit;
+font-size: 0.95rem;
+outline: none;
+transition: border-color 0.15s ease;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+border-color: var(--accent);
+}
+.checkbox-card {
+display: flex;
+align-items: flex-start;
+gap: 0.75rem;
+padding: 0.9rem 1rem;
+border-radius: 8px;
+background: rgba(30, 41, 59, 0.55);
+border: 1px solid var(--border);
+cursor: pointer;
+transition: border-color 0.15s ease;
+}
+.checkbox-card:hover {
+border-color: var(--accent);
+}
+.checkbox-card input[type="checkbox"] {
+margin-top: 0.2rem;
+width: 17px;
+height: 17px;
+accent-color: var(--accent);
+flex-shrink: 0;
+}
+.checkbox-card strong {
+display: block;
+font-size: 0.9rem;
+color: var(--text-main);
+margin-bottom: 0.2rem;
+}
+.checkbox-card small {
+display: block;
+font-size: 0.8rem;
+color: var(--text-muted);
+line-height: 1.45;
+}
+.submit-btn {
+padding: 0.75rem 1.5rem;
+border: none;
+border-radius: 8px;
+background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+color: #ffffff;
+font-size: 0.95rem;
+font-weight: 700;
+cursor: pointer;
+transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.submit-btn:hover:not(:disabled) {
+opacity: 0.92;
+transform: translateY(-1px);
+}
+.submit-btn:disabled {
+opacity: 0.6;
+cursor: not-allowed;
+}
+.form-status {
+display: none;
+padding: 0.85rem 1rem;
+border-radius: 8px;
+font-size: 0.9rem;
+font-weight: 500;
+}
+.form-status.success {
+background: rgba(34, 197, 94, 0.12);
+border: 1px solid rgba(34, 197, 94, 0.4);
+color: #4ade80;
+}
+.form-status.error {
+background: rgba(239, 68, 68, 0.12);
+border: 1px solid rgba(239, 68, 68, 0.4);
+color: #f87171;
+}
+</style>
+</body>
+</html>
