@@ -5,6 +5,11 @@ import FallbackImage from "../assets/blog-placeholder-1.jpg";
 import { SITE_TITLE } from "../consts";
 import { Font } from "astro:assets";
 
+interface BreadcrumbItem {
+name: string;
+url: string;
+}
+
 interface Props {
 title: string;
 description: string;
@@ -14,6 +19,7 @@ updatedDate?: Date;
 category?: string;
 tags?: string[];
 isArticle?: boolean;
+breadcrumbs?: BreadcrumbItem[];
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -27,12 +33,14 @@ updatedDate,
 category,
 tags = [],
 isArticle = false,
+breadcrumbs = [],
 } = Astro.props;
 
 const imagePath = typeof image === "string" ? image.replace("../../assets/", "/") : image.src;
 const imageUrl = new URL(imagePath, Astro.url).toString();
 
-const jsonLd = isArticle && pubDate
+const articleJsonLd =
+isArticle && pubDate
 ? {
 "@context": "https://schema.org",
 "@type": "BlogPosting",
@@ -55,6 +63,20 @@ mainEntityOfPage: {
 "@type": "WebPage",
 "@id": canonicalURL.toString(),
 },
+  }
+: null;
+
+const breadcrumbJsonLd =
+breadcrumbs.length > 0
+? {
+"@context": "https://schema.org",
+"@type": "BreadcrumbList",
+itemListElement: breadcrumbs.map((item, idx) => ({
+"@type": "ListItem",
+position: idx + 1,
+name: item.name,
+item: new URL(item.url, Astro.site ?? Astro.url).toString(),
+})),
   }
 : null;
 ---
@@ -90,6 +112,9 @@ href={new URL("rss.xml", Astro.site)}
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageUrl} />
 
-{jsonLd && (
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+{articleJsonLd && (
+<script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+)}
+{breadcrumbJsonLd && (
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 )}
