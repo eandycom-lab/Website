@@ -1,0 +1,47 @@
+---
+title: "Willkommen auf dem SysAI Blog: Warum Linux, Self-Hosting und lokale KI zusammengehören"
+description: "Digitale Souveränität statt Cloud-Abhängigkeit: Ein Blick hinter die Kulissen von SysAI Blog, unseren Fokus-Themen und dem schnellen Astro-Tech-Stack."
+pubDate: "2026-11-17"
+heroImage: "/images/sysai-blog-architektur-stack.webp"
+category: "Self-Hosting"
+tags:
+  - Self-Hosting
+  - Linux
+  - Local AI
+  - Astro
+  - Home Assistant
+---
+
+Wer seine eigene Infrastruktur betreibt, merkt schnell: Zwischen einem sauberen Linux-Desktop, stabilen Docker-Containern im Homelab, lokaler KI-Inferenz und einem verlässlichen Smart Home gibt es keine scharfen Grenzen mehr. Genau an dieser Schnittstelle setzt der **SysAI Blog** an.
+
+Statt oberflächlicher Produktankündigungen oder reiner Cloud-Tutorials geht es hier um reproduzierbare Setups aus der Praxis – vom schlanken Arch/CachyOS-Arbeitsplatz über selbst gehostete Dienste bis hin zu Sprachmodellen, die vollständig auf eigener Hardware laufen.
+
+## Vier Schwerpunkte, ein roter Faden
+
+Damit die Inhalte fokussiert und schnell auffindbar bleiben, bündelt der Blog alle Beiträge in vier Kernbereichen:
+
+* **Linux & OS:** Alltagstaugliche Workflows unter Arch-basierten Systemen wie CachyOS, Window-Manager-Konfigurationen (Hyprland & KDE Plasma), Shell-Automatisierung und System-Tuning ohne Ballast.
+* **Self-Hosting:** Schlanke Docker- und Portainer-Stacks, Reverse-Proxy-Setups mit Nginx Proxy Manager, Netzwerk-Absicherung mit Pi-hole sowie dokumentierte Dienste wie Nextcloud, Paperless-ngx oder Vaultwarden.
+* **Local AI:** Lokale LLM-Deployments mit Ollama, Qwen oder Llama – von privater Dokumentenanalyse bis zur Integration eigener Modelle in bestehende Arbeitsabläufe, ganz ohne API-Kosten oder Datenabfluss.
+* **Home Automation:** Lokale Smart-Home-Architekturen auf Basis von Home Assistant, Zigbee- und Thread/Matter-Netzwerken sowie eigene Wetter- und Energiemonitoring-Pipelines.
+
+## Warum dieser Blog selbst ein Self-Hosting-Projekt ist
+
+Ein Blog über schlanke Systeme sollte nicht selbst auf einer überladenen Infrastruktur laufen. Statt eines klassischen Datenbank-CMS mit Dutzenden Plugins setzt der **SysAI Blog** auf einen statischen, kompromisslos schnellen Stack:
+
+| Komponente | Aufgabe im Stack | Vorteil |
+| :--- | :--- | :--- |
+| **Astro** | Static Site Generator | Zero-JS-Standardauslieferung, extrem schnelle Ladezeiten und sauberes JSON-LD-Schema |
+| **Cloudflare Pages** | Globales Edge-Hosting | Automatische Builds direkt aus dem Git-Repository ohne eigenen Webserver-Overhead |
+| **Pagefind** | Clientseitige Volltextsuche | Indexierung direkt beim Build – blitzschnelle Suche ohne externe Tracking-Skripte |
+| **Decap CMS & CLI** | Git-basierter Redaktions-Workflow | Artikel und optimierte WebP-Assets landen direkt als saubere Markdown-Commits im Repo |
+
+## Wie es hier weitergeht
+
+In den nächsten Beiträgen steigen wir direkt in konkrete Setups ein – inklusive vollständiger Konfigurationen, `docker-compose.yml`-Vorlagen und Shell-Skripten zum direkten Nachbauen:
+
+1. **Lokale KI unter Linux:** Wie sich Ollama mit kompakten Modellen für schnelle Dokumentenzusammenfassungen und Terminal-Workflows einrichten lässt.
+2. **Saubere Docker-Stacks:** Warum gezielte Updates und klare Trennung zwischen Proxy-, Infrastruktur- und App-Containern im Homelab langfristig Nerven sparen.
+3. **Hyper-lokale Wetter- und Energiedaten in Home Assistant:** Vom Zigbee-Sensor auf dem Dach bis zur eigenen Vorhersage-Logik ohne Hersteller-Cloud.
+
+Du hast ein bestimmtes Setup-Problem oder einen Themenwunsch? Über die [Kontaktseite](/kontakt) erreichst du mich direkt – und über den [RSS-Feed](/rss.xml) verpasst du keinen neuen Beitrag.
