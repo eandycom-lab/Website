@@ -49,7 +49,7 @@ return img.replace("../../assets/", "/");
 
 <aside class="sidebar-stack" data-pagefind-ignore>
 <!-- 1. Über das Projekt -->
-<div class="sidebar-box">
+<div class="sidebar-box about-box">
 <h3 class="sidebar-title">{settings.aboutTitle || "Über das Projekt"}</h3>
 {settings.aboutImage && (
 <img
@@ -227,12 +227,13 @@ padding-bottom: 0.55rem;
 border-bottom: 1px solid var(--border);
 }
 .about-img {
-width: 100%;
-aspect-ratio: 16 / 9;
+display: block;
+width: 100px;
+height: 100px;
 object-fit: cover;
-border-radius: 8px;
-margin-bottom: 0.85rem;
-border: 1px solid var(--border);
+border-radius: 50%;
+margin: 0 auto 0.9rem auto;
+border: 2px solid var(--border);
 }
 .about-text {
 font-size: 0.9rem;
