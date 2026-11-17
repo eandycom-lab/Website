@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -18,26 +19,71 @@ pubDate,
 updatedDate,
 heroImage,
 category,
+tags = [],
+currentId,
 headings = [],
 readingTime,
 } = Astro.props;
 
-const rawHero = typeof heroImage === "string" ? heroImage : heroImage?.src;
-const heroSrc = rawHero ? rawHero.replace("../../assets/", "/") : "/blog-placeholder-1.jpg";
+const slugify = (text: string) =>
+text
+.toLowerCase()
+.replace(/ä/g, "ae")
+.replace(/ö/g, "oe")
+.replace(/ü/g, "ue")
+.replace(/ß/g, "ss")
+.replace(/[^a-z0-9]+/g, "-")
+.replace(/(^-|-$)/g, "");
 
+const resolveImg = (img?: string) => {
+if (!img) return "/blog-placeholder-1.jpg";
+return img.replace("../../assets/", "/");
+};
+
+const heroSrc = resolveImg(typeof heroImage === "string" ? heroImage : heroImage?.src);
 const tocHeadings = (headings as Heading[]).filter((h) => h.depth === 2 || h.depth === 3);
+
+const allPosts = (await getCollection("blog")).sort(
+(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const currentTags = new Set((tags as string[]).map((t) => t.toLowerCase()));
+const relatedPosts = allPosts
+.filter((p) => p.id !== currentId)
+.map((p) => {
+let score = 0;
+if ((p.data.category || "Self-Hosting") === (category || "Self-Hosting")) score += 2;
+for (const t of p.data.tags ?? []) {
+if (currentTags.has(t.toLowerCase())) score += 3;
+}
+return { post: p, score };
+})
+.filter((item) => item.score > 0)
+.sort((a, b) => b.score - a.score || b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf())
+.slice(0, 2)
+.map((item) => item.post);
 ---
 
 <html lang="de">
 <head>
-<BaseHead title={title} description={description} />
+<BaseHead
+title={title}
+description={description}
+image={heroSrc}
+pubDate={pubDate}
+updatedDate={updatedDate}
+category={category}
+tags={tags}
+isArticle={true}
+/>
 </head>
 <body>
 <Header />
 <main class="container mag-layout">
-<article class="article-box">
+<div class="article-column">
+<article class="article-box" data-pagefind-body>
 <div>
-<span class="badge">{category || "Self-Hosting"}</span>
+<span class="badge" data-pagefind-filter="Kategorie">{category || "Self-Hosting"}</span>
 <h1 style="font-size: 2rem; line-height: 1.25; margin: 0.75rem 0 0.5rem;">{title}</h1>
 <div class="meta-date">
 Veröffentlicht am <FormattedDate date={pubDate} />
@@ -53,7 +99,7 @@ Veröffentlicht am <FormattedDate date={pubDate} />
 {heroSrc && <img class="article-hero" src={heroSrc} alt={title} />}
 
 {tocHeadings.length >= 2 && (
-<details class="toc-box" open>
+<details class="toc-box" open data-pagefind-ignore>
 <summary class="toc-title">Inhaltsverzeichnis</summary>
 <ul class="toc-list">
 {tocHeadings.map((h) => (
@@ -68,7 +114,38 @@ Veröffentlicht am <FormattedDate date={pubDate} />
 <div class="prose">
 <slot />
 </div>
+
+{tags.length > 0 && (
+<div class="tag-bar" data-pagefind-ignore>
+<span class="tag-label">Tags:</span>
+{(tags as string[]).map((t) => (
+<a href={`/tag/${slugify(t)}/`} class="tag-pill">#{t}</a>
+))}
+</div>
+)}
 </article>
+
+{relatedPosts.length > 0 && (
+<section class="related-section" data-pagefind-ignore>
+<h2 class="section-header">Ähnliche Artikel</h2>
+<div class="post-grid">
+{relatedPosts.map((rel) => (
+<a href={`/blog/${rel.id}/`} class="post-card">
+<div class="card-thumb">
+<span class="badge">{rel.data.category || "Self-Hosting"}</span>
+<img src={resolveImg(rel.data.heroImage)} alt={rel.data.title} loading="lazy" />
+</div>
+<div class="card-body">
+<div class="meta-date"><FormattedDate date={rel.data.pubDate} /></div>
+<h3 class="card-title">{rel.data.title}</h3>
+<p class="card-desc">{rel.data.description}</p>
+</div>
+</a>
+))}
+</div>
+</section>
+)}
+</div>
 
 <Sidebar />
 </main>
@@ -109,6 +186,9 @@ wrapper.appendChild(btn);
 </script>
 
 <style>
+.article-column {
+min-width: 0;
+}
 .toc-box {
 background: rgba(30, 41, 59, 0.55);
 border: 1px solid var(--border);
@@ -150,6 +230,38 @@ font-size: 0.86rem;
 .toc-item.depth-3 a::before {
 content: "↳ ";
 color: var(--text-dim);
+}
+.tag-bar {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+gap: 0.5rem;
+margin-top: 2.25rem;
+padding-top: 1.25rem;
+border-top: 1px solid var(--border);
+}
+.tag-label {
+font-size: 0.82rem;
+font-weight: 600;
+color: var(--text-dim);
+margin-right: 0.25rem;
+}
+.tag-pill {
+font-size: 0.8rem;
+font-weight: 500;
+color: var(--text-muted);
+background: var(--bg-elevated);
+border: 1px solid var(--border);
+padding: 0.22rem 0.65rem;
+border-radius: 99px;
+transition: all 0.15s ease;
+}
+.tag-pill:hover {
+color: var(--text-main);
+border-color: var(--accent);
+}
+.related-section {
+margin-top: 2.5rem;
 }
 :global(.prose h2),
 :global(.prose h3) {
