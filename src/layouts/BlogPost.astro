@@ -5,10 +5,27 @@ import Footer from "../components/Footer.astro";
 import Sidebar from "../components/Sidebar.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
-const { title, description, pubDate, updatedDate, heroImage, category } = Astro.props;
+interface Heading {
+depth: number;
+slug: string;
+text: string;
+}
+
+const {
+title,
+description,
+pubDate,
+updatedDate,
+heroImage,
+category,
+headings = [],
+readingTime,
+} = Astro.props;
 
 const rawHero = typeof heroImage === "string" ? heroImage : heroImage?.src;
 const heroSrc = rawHero ? rawHero.replace("../../assets/", "/") : "/blog-placeholder-1.jpg";
+
+const tocHeadings = (headings as Heading[]).filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
 <html lang="de">
@@ -27,10 +44,26 @@ Veröffentlicht am <FormattedDate date={pubDate} />
 {updatedDate && (
 <span> • Aktualisiert am <FormattedDate date={updatedDate} /></span>
 )}
+{readingTime && (
+<span> • {readingTime} Min. Lesezeit</span>
+)}
 </div>
 </div>
 
 {heroSrc && <img class="article-hero" src={heroSrc} alt={title} />}
+
+{tocHeadings.length >= 2 && (
+<details class="toc-box" open>
+<summary class="toc-title">Inhaltsverzeichnis</summary>
+<ul class="toc-list">
+{tocHeadings.map((h) => (
+<li class={`toc-item depth-${h.depth}`}>
+<a href={`#${h.slug}`}>{h.text}</a>
+</li>
+))}
+</ul>
+</details>
+)}
 
 <div class="prose">
 <slot />
@@ -40,5 +73,118 @@ Veröffentlicht am <FormattedDate date={pubDate} />
 <Sidebar />
 </main>
 <Footer />
+
+<script>
+document.querySelectorAll(".prose pre").forEach((pre) => {
+if (pre.parentElement?.classList.contains("code-wrapper")) return;
+
+const wrapper = document.createElement("div");
+wrapper.className = "code-wrapper";
+pre.parentNode?.insertBefore(wrapper, pre);
+wrapper.appendChild(pre);
+
+const btn = document.createElement("button");
+btn.type = "button";
+btn.className = "copy-code-btn";
+btn.textContent = "Kopieren";
+btn.setAttribute("aria-label", "Code in Zwischenablage kopieren");
+
+btn.addEventListener("click", async () => {
+const code = pre.querySelector("code")?.innerText ?? pre.textContent ?? "";
+try {
+await navigator.clipboard.writeText(code);
+btn.textContent = "Kopiert!";
+btn.classList.add("copied");
+setTimeout(() => {
+btn.textContent = "Kopieren";
+btn.classList.remove("copied");
+}, 2000);
+} catch {
+btn.textContent = "Fehler";
+}
+});
+
+wrapper.appendChild(btn);
+});
+</script>
+
+<style>
+.toc-box {
+background: rgba(30, 41, 59, 0.55);
+border: 1px solid var(--border);
+border-left: 3px solid var(--accent);
+border-radius: 8px;
+padding: 1rem 1.25rem;
+margin: 0 0 1.75rem 0;
+}
+.toc-title {
+font-size: 0.9rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: var(--text-main);
+cursor: pointer;
+user-select: none;
+}
+.toc-list {
+list-style: none;
+padding: 0.75rem 0 0 0;
+margin: 0;
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+}
+.toc-item a {
+font-size: 0.92rem;
+color: var(--text-muted);
+display: inline-block;
+line-height: 1.4;
+}
+.toc-item a:hover {
+color: var(--accent-light);
+}
+.toc-item.depth-3 {
+padding-left: 1.15rem;
+font-size: 0.86rem;
+}
+.toc-item.depth-3 a::before {
+content: "↳ ";
+color: var(--text-dim);
+}
+:global(.prose h2),
+:global(.prose h3) {
+scroll-margin-top: 84px;
+}
+:global(.code-wrapper) {
+position: relative;
+margin: 1.25rem 0;
+}
+:global(.code-wrapper pre) {
+margin: 0;
+padding-top: 2.35rem;
+}
+:global(.copy-code-btn) {
+position: absolute;
+top: 0.5rem;
+right: 0.5rem;
+padding: 0.25rem 0.6rem;
+font-size: 0.75rem;
+font-weight: 600;
+color: var(--text-muted);
+background: var(--bg-elevated);
+border: 1px solid var(--border);
+border-radius: 5px;
+cursor: pointer;
+transition: all 0.15s ease;
+}
+:global(.copy-code-btn:hover) {
+color: var(--text-main);
+border-color: var(--accent);
+}
+:global(.copy-code-btn.copied) {
+color: #4ade80;
+border-color: #22c55e;
+}
+</style>
 </body>
 </html>
