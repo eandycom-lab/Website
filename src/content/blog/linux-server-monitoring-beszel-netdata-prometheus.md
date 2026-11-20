@@ -43,7 +43,7 @@ Klassische Enterprise-Systeme wie Zabbix oder Checkmk sind im Homelab oder auf k
 Die Kombination aus **Prometheus** (Zeitreihendatenbank), **Node Exporter / cAdvisor** und **Grafana** ist der Industriestandard – ideal, wenn neben Linux-Servern auch Router oder Smart-Home-Systeme in einem Dashboard zusammenlaufen sollen.
 
 * **Stärken:** Unbegrenzte Anpassbarkeit, riesige Auswahl an Community-Dashboards, lange Datenhistorie.
-* **Schwächen:** Höherer Wartungsaufwand (`prometheus.yml`, Scrape-Targets, Exporter) und mehr Speicherbedarf.
+* **Schwächen:** Höherer Wartungsaufwand (`prometheus.yml`, Scrape-Targets, Exporter) und spürbar mehr Speicherbedarf.
 
 ---
 
