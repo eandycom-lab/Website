@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sysai.sh/sitemap-index.xml
