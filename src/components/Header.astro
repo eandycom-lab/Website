@@ -1,144 +1,113 @@
 ---
-import { SITE_TITLE } from "../consts";
-
-const isSysAI = SITE_TITLE.toLowerCase().startsWith("sysai");
-const suffix = isSysAI ? SITE_TITLE.slice(5).trim() : "";
+import { SITE_TITLE } from '../consts';
+const pathname = new URL(Astro.request.url).pathname;
+const isActive = (path: string) =>
+path === '/' ? pathname === '/' : pathname.startsWith(path);
 ---
 
 <header class="site-header">
-<div class="container header-inner">
+<nav class="nav-inner container">
 <a href="/" class="brand" aria-label={SITE_TITLE}>
-<svg
-class="brand-icon"
-viewBox="0 0 40 40"
-fill="none"
-xmlns="http://www.w3.org/2000/svg"
-aria-hidden="true"
->
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="url(#sysai-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 <defs>
-<linearGradient id="brand-grad" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+<linearGradient id="sysai-grad" x1="0%" y1="0%" x2="100%" y2="100%">
 <stop offset="0%" stop-color="#3b82f6" />
 <stop offset="100%" stop-color="#22d3ee" />
 </linearGradient>
 </defs>
-<rect x="4" y="7" width="13" height="7" rx="2" stroke="url(#brand-grad)" stroke-width="2.1" />
-<rect x="4" y="16.5" width="13" height="7" rx="2" stroke="url(#brand-grad)" stroke-width="2.1" />
-<rect x="4" y="26" width="13" height="7" rx="2" stroke="url(#brand-grad)" stroke-width="2.1" />
-<circle cx="7.5" cy="10.5" r="1.1" fill="#22d3ee" />
-<circle cx="7.5" cy="20" r="1.1" fill="#22d3ee" />
-<circle cx="7.5" cy="29.5" r="1.1" fill="#22d3ee" />
-<path
-d="M17 10.5H25.5L29 7M17 20H31.5M17 29.5H25.5L29 33M23.5 10.5V16H27.5M23.5 29.5V24H27.5"
-stroke="url(#brand-grad)"
-stroke-width="2.1"
-stroke-linecap="round"
-stroke-linejoin="round"
-/>
-<circle cx="30" cy="6.5" r="2.3" fill="#22d3ee" />
-<circle cx="33.5" cy="20" r="2.5" fill="#38bdf8" />
-<circle cx="30" cy="33.5" r="2.3" fill="#22d3ee" />
-<circle cx="28.5" cy="16" r="1.7" fill="#60a5fa" />
-<circle cx="28.5" cy="24" r="1.7" fill="#60a5fa" />
+<rect x="2" y="3" width="20" height="5" rx="1.5" />
+<rect x="2" y="10" width="20" height="5" rx="1.5" />
+<rect x="2" y="17" width="20" height="4" rx="1.5" />
+<circle cx="6" cy="5.5" r="0.8" fill="#22d3ee" />
+<circle cx="6" cy="12.5" r="0.8" fill="#22d3ee" />
 </svg>
-
-{isSysAI ? (
-<span class="brand-wordmark">
-<span class="brand-sys">Sys</span><span class="brand-ai">AI</span>
-{suffix && <span class="brand-sub">{suffix}</span>}
-</span>
-) : (
-<span class="brand-text">{SITE_TITLE}</span>
-)}
+<span class="brand-text"><strong>SysAI</strong> Blog</span>
 </a>
 
-<nav class="nav-links">
-<a href="/">Home</a>
-<a href="/blog">Artikel</a>
-<a href="/about">Über</a>
-<a href="/kontakt">Kontakt</a>
-<a href="/admin/" class="cms-btn">CMS</a>
-</nav>
+<div class="nav-links">
+<a href="/" class={isActive('/') ? 'active' : ''}>Home</a>
+<a href="/blog" class={isActive('/blog') ? 'active' : ''}>Artikel</a>
+<a href="/about" class={isActive('/about') ? 'active' : ''}>?ber</a>
+<a href="/kontakt" class={isActive('/kontakt') ? 'active' : ''}>Kontakt</a>
 </div>
+</nav>
 </header>
 
 <style>
 .site-header {
 position: sticky;
 top: 0;
-z-index: 50;
+z-index: 40;
 background: rgba(11, 15, 25, 0.88);
 backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
 border-bottom: 1px solid var(--border);
 }
-.header-inner {
+.nav-inner {
 display: flex;
 align-items: center;
 justify-content: space-between;
-height: 70px;
+gap: 1.5rem;
+min-height: 64px;
+padding-top: 0.65rem;
+padding-bottom: 0.65rem;
 }
 .brand {
-display: flex;
-align-items: center;
-gap: 0.75rem;
-color: var(--text-main);
-text-decoration: none;
-}
-.brand-icon {
-width: 36px;
-height: 36px;
-flex-shrink: 0;
-filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.35));
-transition: transform 0.25s ease, filter 0.25s ease;
-}
-.brand:hover .brand-icon {
-transform: scale(1.06);
-filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.6));
-}
-.brand-wordmark {
 display: inline-flex;
-align-items: baseline;
-font-size: 1.4rem;
-letter-spacing: -0.03em;
-line-height: 1;
-}
-.brand-sys {
-font-weight: 800;
+align-items: center;
+gap: 0.6rem;
+text-decoration: none;
 color: var(--text-main);
+font-size: 1.15rem;
+letter-spacing: -0.01em;
+flex-shrink: 0;
 }
-.brand-ai {
+.brand-text strong {
 font-weight: 800;
-background: linear-gradient(135deg, #3b82f6 0%, #22d3ee 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
+color: #ffffff;
 }
-.brand-sub {
+.brand-text {
 font-weight: 400;
 color: var(--text-muted);
-margin-left: 0.35rem;
-font-size: 1.25rem;
-letter-spacing: -0.01em;
 }
 .nav-links {
 display: flex;
 align-items: center;
-gap: 1.5rem;
-font-size: 0.95rem;
-font-weight: 500;
+gap: 1.35rem;
+}
+.nav-links a {
 color: var(--text-muted);
+text-decoration: none;
+font-size: 0.94rem;
+font-weight: 500;
+padding: 0.25rem 0;
+border-bottom: 2px solid transparent;
+transition: color 0.15s ease, border-color 0.15s ease;
+white-space: nowrap;
 }
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
 color: var(--text-main);
+border-bottom-color: var(--accent);
 }
-.cms-btn {
-padding: 0.35rem 0.75rem;
-border-radius: 6px;
-background: var(--bg-elevated);
-border: 1px solid var(--border);
-color: var(--text-main) !important;
-font-size: 0.8rem;
+
+@media (max-width: 600px) {
+.nav-inner {
+flex-direction: column;
+align-items: flex-start;
+gap: 0.65rem;
+padding-top: 0.75rem;
+padding-bottom: 0.75rem;
 }
-.cms-btn:hover {
-border-color: var(--accent);
+.nav-links {
+width: 100%;
+justify-content: space-between;
+gap: 0.75rem;
+padding-top: 0.45rem;
+border-top: 1px solid rgba(51, 65, 85, 0.55);
+}
+.nav-links a {
+font-size: 0.9rem;
+}
 }
 </style>
