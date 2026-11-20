@@ -2,8 +2,6 @@ backend:
   name: github
   repo: eandycom-lab/Website
   branch: main
-  base_url: https://sysai.sh
-  auth_endpoint: /api/auth
 
 media_folder: "public/images"
 public_folder: "/images"
