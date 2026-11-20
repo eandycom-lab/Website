@@ -20,7 +20,7 @@ collections:
     fields:
       - { label: "Titel", name: "title", widget: "string" }
       - { label: "Beschreibung (SEO)", name: "description", widget: "text" }
-      - { label: "Ver?ffentlichungsdatum", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Veröffentlichungsdatum", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - { label: "Aktualisiert am", name: "updatedDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
       - { label: "Hero-Bild", name: "heroImage", widget: "image", required: false }
       - label: "Kategorie"
@@ -40,7 +40,7 @@ collections:
         fields:
           - { label: "Blog-Titel", name: "siteTitle", widget: "string" }
           - { label: "Beschreibung", name: "siteDescription", widget: "string" }
-          - { label: "?ber-Box Titel", name: "aboutTitle", widget: "string" }
-          - { label: "?ber-Box Bild", name: "aboutImage", widget: "image" }
-          - { label: "?ber-Box Text", name: "aboutText", widget: "text" }
+          - { label: "Über-Box Titel", name: "aboutTitle", widget: "string" }
+          - { label: "Über-Box Bild", name: "aboutImage", widget: "image" }
+          - { label: "Über-Box Text", name: "aboutText", widget: "text" }
           - { label: "Kategorien", name: "categories", widget: "list" }
