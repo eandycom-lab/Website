@@ -1,9 +1,15 @@
 backend:
-  name: turbo-github
-  turbo_site_id: 588a0ec9-e0a6-4570-be56-043a987e85db
+  name: github
+  repo: eandycom-lab/Website
+  branch: main
+  base_url: https://sysai.sh
+  auth_endpoint: /api/auth
 
 media_folder: "public/images"
 public_folder: "/images"
+site_url: https://sysai.sh
+display_url: https://sysai.sh
+locale: "de"
 
 collections:
   - name: "blog"
@@ -12,24 +18,29 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "string" }
-      - { label: "Category", name: "category", widget: "select", options: ["Linux & OS", "Self-Hosting", "Local AI", "Home Automation", "Cloud & Dev"], default: "Self-Hosting", required: false }
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Beschreibung (SEO)", name: "description", widget: "text" }
+      - { label: "Ver?ffentlichungsdatum", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Aktualisiert am", name: "updatedDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: "Hero-Bild", name: "heroImage", widget: "image", required: false }
+      - label: "Kategorie"
+        name: "category"
+        widget: "select"
+        options: ["Linux & OS", "Self-Hosting", "Local AI", "Home Automation"]
+        default: "Self-Hosting"
       - { label: "Tags", name: "tags", widget: "list", required: false }
-      - { label: "Pub Date", name: "pubDate", widget: "datetime" }
-      - { label: "Hero Image", name: "heroImage", widget: "image", default: "/blog-placeholder-1.jpg", required: false }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Inhalt", name: "body", widget: "markdown" }
 
   - name: "settings"
-    label: "Website-Einstellungen"
+    label: "Blog-Einstellungen"
     files:
-      - name: "general"
-        label: "Allgemein & Sidebar"
+      - label: "Allgemein & Sidebar"
+        name: "general"
         file: "src/data/settings.json"
         fields:
-          - { label: "Blog-Name (oben links)", name: "siteTitle", widget: "string" }
-          - { label: "SEO-Kurzbeschreibung", name: "siteDescription", widget: "string" }
-          - { label: "Sidebar: Über-Box Titel", name: "aboutTitle", widget: "string" }
-          - { label: "Sidebar: Über-Box Foto", name: "aboutImage", widget: "image", required: false }
-          - { label: "Sidebar: Über-Box Text", name: "aboutText", widget: "text" }
-          - { label: "Kategorien (Sidebar)", name: "categories", widget: "list" }
+          - { label: "Blog-Titel", name: "siteTitle", widget: "string" }
+          - { label: "Beschreibung", name: "siteDescription", widget: "string" }
+          - { label: "?ber-Box Titel", name: "aboutTitle", widget: "string" }
+          - { label: "?ber-Box Bild", name: "aboutImage", widget: "image" }
+          - { label: "?ber-Box Text", name: "aboutText", widget: "text" }
+          - { label: "Kategorien", name: "categories", widget: "list" }
