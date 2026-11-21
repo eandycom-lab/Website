@@ -1,6 +1,6 @@
 {
-  "siteTitle": "SysAI Blog",
-  "siteDescription": "News zu Linux, Self-Hosting & (Local) AI",
+  "siteTitle": "SysAI Blog – Linux, Self-Hosting & Local AI",
+  "siteDescription": "Dein Stack, deine Regeln: Praxisnahe Guides zu Linux, Docker, Self-Hosting, Home Assistant und lokalen KI-Modellen wie Ollama.",
   "aboutTitle": "Über das Projekt",
   "aboutImage": "/images/unbenannt.webp",
   "aboutText": "Blog rund um die Themen Linux, Self-Hosting, Docker-Stacks, lokale KI-Modelle",

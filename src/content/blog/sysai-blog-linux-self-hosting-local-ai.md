@@ -1,5 +1,5 @@
 ---
-title: "Willkommen auf dem SysAI Blog: Warum Linux, Self-Hosting und lokale KI zusammengehören"
+title: "SysAI Blog: Linux, Self-Hosting & lokale KI im Fokus"
 description: "Digitale Souveränität statt Cloud-Abhängigkeit: Ein Blick hinter die Kulissen von SysAI Blog, unseren Fokus-Themen und dem schnellen Astro-Tech-Stack."
 pubDate: "2026-11-17"
 heroImage: "/images/sysai-blog-architektur-stack.webp"

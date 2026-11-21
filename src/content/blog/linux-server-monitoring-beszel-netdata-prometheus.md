@@ -1,5 +1,5 @@
 ---
-title: "Linux-Server Monitoring im Vergleich: Beszel, Netdata oder Prometheus + Grafana?"
+title: "Linux-Server Monitoring: Beszel, Netdata oder Prometheus?"
 description: "Die 3 besten Self-Hosted Monitoring-Tools für Linux-Server und Docker im Praxistest – inklusive Quick-Start-Anleitung für Beszel."
 pubDate: "2026-11-20"
 heroImage: "/images/linux-server-monitoring-beszel-netdata-prometheus.webp"
