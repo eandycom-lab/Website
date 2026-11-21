@@ -66,6 +66,22 @@ mainEntityOfPage: {
   }
 : null;
 
+const websiteJsonLd = !isArticle
+  ? {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: SITE_TITLE,
+      url: Astro.site?.toString() || "https://sysai.sh/",
+      description,
+      inLanguage: "de-DE",
+      author: {
+        "@type": "Person",
+        name: "Andreas Thieme",
+        url: "https://sysai.sh/about/",
+      },
+    }
+  : null;
+
 const breadcrumbJsonLd =
 breadcrumbs.length > 0
 ? {
@@ -112,7 +128,7 @@ href={new URL("rss.xml", Astro.site)}
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageUrl} />
 
-{articleJsonLd && (
+{websiteJsonLd && (<script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />)}`r`n{articleJsonLd && (
 <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
 )}
 {breadcrumbJsonLd && (

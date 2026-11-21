@@ -34,14 +34,14 @@ return img.replace("../../assets/", "/");
 {featured && (
 <a href={`/blog/${featured.id}/`} class="featured-card">
 <div class="featured-thumb">
-<img src={resolveImg(featured.data.heroImage)} alt={featured.data.title} />
+<img src={resolveImg(featured.data.heroImage)} alt={featured.data.title} title={featured.data.title} />
 <span class="badge">{featured.data.category || "Self-Hosting"}</span>
 </div>
 <div class="featured-body">
 <div class="meta-date">
 <FormattedDate date={featured.data.pubDate} />
 </div>
-<h3 class="featured-title">{featured.data.title}</h3>
+<h2 class="featured-title">{featured.data.title}</h2>
 <p class="card-desc">{featured.data.description}</p>
 </div>
 </a>
@@ -51,20 +51,29 @@ return img.replace("../../assets/", "/");
 {gridPosts.map((post) => (
 <a href={`/blog/${post.id}/`} class="post-card">
 <div class="card-thumb">
-<img src={resolveImg(post.data.heroImage)} alt={post.data.title} loading="lazy" />
+<img src={resolveImg(post.data.heroImage)} alt={post.data.title} title={post.data.title} loading="lazy" />
 <span class="badge">{post.data.category || "Tech"}</span>
 </div>
 <div class="card-body">
 <div class="meta-date">
 <FormattedDate date={post.data.pubDate} />
 </div>
-<h3 class="card-title">{post.data.title}</h3>
+<h2 class="card-title">{post.data.title}</h2>
 <p class="card-desc">{post.data.description}</p>
 </div>
 </a>
 ))}
 </div>
-</section>
+        <div class="article-box" style="margin-top: 2rem; padding: 1.5rem;">
+          <h2 class="section-header" style="margin-top: 0;">Digitale Souveränität im eigenen Homelab</h2>
+          <p style="color: var(--text-muted); margin-bottom: 0.75rem;">
+            Auf <strong>SysAI Blog</strong> findest du praxiserprobte Schritt-für-Schritt-Anleitungen für deinen eigenen Server-Stack – von schlankem Linux-Monitoring mit Beszel über Docker-Compose-Setups bis hin zur lokalen KI-Integration per <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer">Model Context Protocol (MCP)</a> und <a href="https://ollama.com/" target="_blank" rel="noopener noreferrer">Ollama</a>.
+          </p>
+          <p style="color: var(--text-muted); margin: 0;">
+            Alle Projekte und Konfigurationsbeispiele sind auf Stabilität, Datenschutz und volle Kontrolle ohne Cloud-Zwang ausgelegt – betrieben mit <a href="https://astro.build/" target="_blank" rel="noopener noreferrer">Astro</a> und offen dokumentiert auf <a href="https://github.com/eandycom-lab" target="_blank" rel="noopener noreferrer">GitHub</a>.
+          </p>
+        </div>
+      </section>
 
 <Sidebar />
 </main>

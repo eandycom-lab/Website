@@ -50,7 +50,7 @@ return img.replace("../../assets/", "/");
 <aside class="sidebar-stack" data-pagefind-ignore>
 <!-- 1. Über das Projekt (Bild neben Text) -->
 <div class="sidebar-box">
-<h3 class="sidebar-title">{settings.aboutTitle || "Über das Projekt"}</h3>
+<h3 class="sidebar-title">{settings.aboutTitle || "Über das Projekt"}</h2>
 <div class="about-row">
 {settings.aboutImage && (
 <img
@@ -66,7 +66,7 @@ loading="lazy"
 
 <!-- 2. Volltextsuche (Pagefind) -->
 <div class="sidebar-box">
-<h3 class="sidebar-title">Suche</h3>
+<h3 class="sidebar-title">Suche</h2>
 <div class="search-wrap">
 <input
 type="search"
@@ -82,7 +82,7 @@ autocomplete="off"
 
 <!-- 3. Kategorien -->
 <div class="sidebar-box">
-<h3 class="sidebar-title">Kategorien</h3>
+<h3 class="sidebar-title">Kategorien</h2>
 <ul class="cat-list">
 {Array.from(categoryCounts.entries()).map(([cat, count]) => (
 <li>
@@ -98,7 +98,7 @@ autocomplete="off"
 <!-- 4. Beliebte Tags (Tag-Cloud) -->
 {popularTags.length > 0 && (
 <div class="sidebar-box">
-<h3 class="sidebar-title">Beliebte Tags</h3>
+<h3 class="sidebar-title">Beliebte Tags</h2>
 <div class="tag-cloud">
 {popularTags.map((t) => (
 <a href={`/tag/${slugify(t.label)}/`} class="cloud-tag" title={`${t.count} Artikel`}>
@@ -111,7 +111,7 @@ autocomplete="off"
 
 <!-- 5. RSS & Updates Box -->
 <div class="sidebar-box updates-box">
-<h3 class="sidebar-title">Updates & Feed</h3>
+<h3 class="sidebar-title">Updates & Feed</h2>
 <p class="updates-text">
 Keine neuen Guides zu Linux, Docker-Stacks & Local AI verpassen:
 </p>
