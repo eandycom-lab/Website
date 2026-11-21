@@ -128,7 +128,8 @@ href={new URL("rss.xml", Astro.site)}
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageUrl} />
 
-{websiteJsonLd && (<script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />)}`r`n{articleJsonLd && (
+{websiteJsonLd && (<script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />)}
+{articleJsonLd && (
 <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
 )}
 {breadcrumbJsonLd && (
