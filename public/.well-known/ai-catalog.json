@@ -1,0 +1,23 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://sysai.sh/",
+      "service-doc": [
+        {
+          "href": "https://sysai.sh/llms.txt",
+          "type": "text/plain"
+        }
+      ],
+      "describedby": [
+        {
+          "href": "https://sysai.sh/sitemap-index.xml",
+          "type": "application/xml"
+        },
+        {
+          "href": "https://sysai.sh/rss.xml",
+          "type": "application/rss+xml"
+        }
+      ]
+    }
+  ]
+}
