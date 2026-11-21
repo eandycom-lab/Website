@@ -7,6 +7,26 @@
   <title>SysAI Blog – Admin</title>
 </head>
 <body>
+<div id="cf-deploy-bar" style="background:#0f172a;color:#e2e8f0;font-family:system-ui,sans-serif;font-size:12px;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1e293b;">
+  <span id="cf-deploy-status">⏳ Prüfe Cloudflare Deploy-Status...</span>
+  <a href="https://sysai.sh/" target="_blank" style="color:#38bdf8;text-decoration:none;">Live-Blog öffnen ↗</a>
+</div>
+<script>
+(async function checkDeploy() {
+  const el = document.getElementById('cf-deploy-status');
+  try {
+    const r = await fetch('https://api.github.com/repos/eandycom-lab/Website/commits/main');
+    const c = await r.json();
+    const s = await fetch(c.url + '/statuses').then(res => res.json());
+    const cf = s.find(x => x.context && x.context.toLowerCase().includes('cloudflare')) || s[0];
+    const msg = (c.commit?.message || '').split('\n')[0];
+    if (!cf) { el.textContent = '✅ Letzter Commit: ' + msg; return; }
+    const icon = cf.state === 'success' ? '🟢 Live' : cf.state === 'pending' ? '🟡 Build läuft…' : '🔴 Fehler';
+    el.innerHTML = `<strong>${icon}</strong> &nbsp;(${cf.description || cf.state}) — <em>${msg}</em>`;
+  } catch (e) { el.textContent = 'ℹ️ Deploy-Status aktuell nicht abrufbar'; }
+  setTimeout(checkDeploy, 15000);
+})();
+</script>
   <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
 </body>
 </html>
