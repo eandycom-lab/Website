@@ -1,0 +1,16 @@
+# SysAI Blog
+
+> Dein Stack, deine Regeln: Unabhängige Praxis-Guides und Tutorials zu Linux-Servern, Docker, Self-Hosting, Home Assistant und lokaler KI mit Ollama und dem Model Context Protocol (MCP).
+
+## Hauptbereiche
+
+- [Startseite](https://sysai.sh/): Aktuelle Artikel und Übersicht über alle Schwerpunktthemen
+- [Alle Artikel](https://sysai.sh/blog/): Vollständiges Archiv aller technischen Anleitungen und Vergleiche
+- [Über das Projekt](https://sysai.sh/about/): Hintergrund, Tech-Stack und Autor Andreas Thieme
+- [Kontakt](https://sysai.sh/kontakt/): Direkte Kontaktmöglichkeit
+
+## Ausgewählte Guides
+
+- [Linux-Server Monitoring: Beszel, Netdata oder Prometheus?](https://sysai.sh/blog/linux-server-monitoring-beszel-netdata-prometheus/): Praxistest und Docker-Quick-Start für schlankes Server-Monitoring
+- [MCP im Homelab: Lokale KI mit Home Assistant & Linux](https://sysai.sh/blog/mcp-homelab-home-assistant-linux/): Integration des Model Context Protocol in lokale Smart-Home- und Linux-Setups
+- [SysAI Blog: Linux, Self-Hosting & lokale KI im Fokus](https://sysai.sh/blog/sysai-blog-architektur-stack/): Einblick in Architektur, Astro-Setup und Betrieb ohne Cloud-Zwang

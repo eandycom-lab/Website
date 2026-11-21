@@ -34,7 +34,7 @@ return img.replace("../../assets/", "/");
 {featured && (
 <a href={`/blog/${featured.id}/`} class="featured-card">
 <div class="featured-thumb">
-<img src={resolveImg(featured.data.heroImage)} alt={featured.data.title} title={featured.data.title} />
+<img src={resolveImg(featured.data.heroImage)} alt={featured.data.title} title={featured.data.title} fetchpriority="high" />
 <span class="badge">{featured.data.category || "Self-Hosting"}</span>
 </div>
 <div class="featured-body">
