@@ -65,10 +65,39 @@ Die Ersteinrichtung ist spürbar komplexer als bei Dockge oder Portainer, da Kom
 
 ---
 
-## Fazit: Welcher Docker-Manager passt zu deinem Stack?
+## Meine Empfehlung: Portainer CE
 
-* **Nimm Dockge**, wenn du deine Stacks bereits sauber als `compose.yaml`-Dateien auf dem Server pflegst und einfach eine schnelle, übersichtliche Oberfläche für Logs, `.env`-Dateien und Updates suchst – ohne die Kontrolle im Terminal abzugeben.
-* **Nimm Portainer CE**, wenn du eine bewährte Komplettlösung möchtest, mit der du neben Stacks auch Volumes, Netzwerke, Images und mehrere Hosts bequem im Browser verwaltest.
-* **Nimm Komodo**, wenn du mehrere Linux-Hosts betreibst und deine gesamte Container-Infrastruktur konsequent über Git-Repositories versionieren und automatisieren willst.
+Für die allermeisten Homelab- und Self-Hosting-Setups ist **Portainer CE** nach wie vor die beste Wahl. Während Dockge bewusst minimalistisch bleibt und Komodo seine Stärken erst bei mehreren Servern mit kompletten GitOps-Pipelines ausspielt, bietet Portainer im Alltag genau die Mischung aus Übersicht, Stabilität und Tiefe, die man wirklich braucht:
 
-Am Ende gilt auch hier: **Dein Stack, deine Regeln.** Egal welches UI du vorschaltest – solange deine `compose.yaml`-Dateien und persistenten Daten sauber strukturiert und gesichert sind, bleibt dein Setup jederzeit portabel.
+* **Alles an einem Ort:** Stacks, einzelne Container, Volumes, Netzwerke, Image-Updates und Live-Logs in einer Oberfläche.
+* **Schnelle Diagnose:** Direktes Terminal im Container per Browser-Klick, ohne erst per SSH auf den Host zu müssen.
+* **Zukunftssicher:** Falls später ein zweiter Server oder Mini-PC dazukommt, bindest du ihn einfach per Portainer Agent ein.
+
+---
+
+## Quick-Start: Portainer CE in 60 Sekunden installieren
+
+Mit diesem Einzeiler legst du auf deinem Linux-Server ein sauberes Projektverzeichnis unter `/opt/portainer` an, erstellst die `docker-compose.yml` und startest Portainer CE direkt:
+
+```bash
+sudo mkdir -p /opt/portainer && cd /opt/portainer && cat << 'YAML' | sudo tee docker-compose.yml > /dev/null
+services:
+  portainer:
+    image: portainer/portainer-ce:lts
+    container_name: portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data:/data
+    ports:
+      - "9443:9443"
+YAML
+sudo docker compose up -d
+```
+
+Danach erreichst du das Web-Interface direkt im Browser über `https://<SERVER-IP>:9443` (die selbstsignierte Zertifikatswarnung beim ersten Aufruf einmalig bestätigen) und legst deinen Admin-Account an.
+
+Am Ende gilt auch hier: **Dein Stack, deine Regeln.** Mit Portainer als zentraler Schaltzentrale behältst du deine Container im Griff, ohne dich im Alltag im Terminal zu verzetteln.
