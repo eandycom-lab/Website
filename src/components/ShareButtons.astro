@@ -25,12 +25,44 @@ const rd = "https://www.reddit.com/submit?url=" + u + "&title=" + t;
   const lb = document.getElementById("like-btn");
   const lc = document.getElementById("like-count");
   if (lb && lc) {
-    const k = "sysai_liked_" + (lb.getAttribute("data-slug") || location.pathname);
-    let ok = localStorage.getItem(k) === "1";
-    lc.textContent = ok ? "1" : "0";
-    lb.classList.toggle("liked", ok);
-    lb.addEventListener("click", () => { ok = !ok; localStorage.setItem(k, ok ? "1" : "0"); lc.textContent = ok ? "1" : "0"; lb.classList.toggle("liked", ok); });
+    const slug = location.pathname.replace(/^\/|\/$/g, "").replace(/\//g, "_") || "home";
+    const storageKey = "sysai_liked_" + slug;
+    let liked = localStorage.getItem(storageKey) === "1";
+    lb.classList.toggle("liked", liked);
+
+    fetch(`/api/helpful?slug=${encodeURIComponent(slug)}`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data && typeof data.count === "number") {
+          lc.textContent = String(data.count);
+        }
+      })
+      .catch(() => {});
+
+    lb.addEventListener("click", async () => {
+      liked = !liked;
+      localStorage.setItem(storageKey, liked ? "1" : "0");
+      lb.classList.toggle("liked", liked);
+
+      const currentDisplayed = parseInt(lc.textContent || "0", 10);
+      lc.textContent = String(Math.max(0, currentDisplayed + (liked ? 1 : -1)));
+
+      try {
+        const res = await fetch(`/api/helpful?slug=${encodeURIComponent(slug)}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: liked ? "like" : "unlike" }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.count === "number") {
+            lc.textContent = String(data.count);
+          }
+        }
+      } catch (e) {}
+    });
   }
+
   const cb = document.getElementById("copy-link-btn");
   const ct = document.getElementById("copy-link-text");
   cb?.addEventListener("click", async () => {

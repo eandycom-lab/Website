@@ -9,25 +9,33 @@
 <body>
 <div id="cf-deploy-bar" style="position:fixed;bottom:14px;right:16px;z-index:999999;background:#0f172a;color:#e2e8f0;font-family:system-ui,sans-serif;font-size:12px;padding:8px 14px;border-radius:8px;display:flex;gap:12px;align-items:center;border:1px solid #334155;box-shadow:0 4px 14px rgba(0,0,0,0.4);">
   <span id="cf-deploy-status">⏳ Prüfe Cloudflare Deploy-Status...</span>
-  <a href="https://sysai.sh/" target="_blank" style="color:#38bdf8;text-decoration:none;">Live-Blog öffnen ↗</a>
+  <a href="[https://sysai.sh/](https://sysai.sh/)" target="_blank" style="color:#38bdf8;text-decoration:none;">Live-Blog öffnen ↗</a>
 </div>
 <script>
 (async function checkDeploy() {
   const el = document.getElementById('cf-deploy-status');
   try {
-    const c = await fetch('https://api.github.com/repos/eandycom-lab/Website/commits/main').then(r => r.json());
+    const c = await fetch('[https://api.github.com/repos/eandycom-lab/Website/commits/main](https://api.github.com/repos/eandycom-lab/Website/commits/main)', { cache: 'no-store' }).then(r => r.json());
     const msg = (c.commit?.message || '').split('\n')[0];
-    const [cr, dep] = await Promise.all([
-      fetch(`https://api.github.com/repos/eandycom-lab/Website/commits/${c.sha}/check-runs`).then(r => r.json()).catch(() => ({})),
-      fetch(`https://api.github.com/repos/eandycom-lab/Website/deployments?sha=${c.sha}`).then(r => r.json()).catch(() => [])
+    const [stRes, crRes, depRes] = await Promise.all([
+      fetch(`[https://api.github.com/repos/eandycom-lab/Website/commits/$](https://api.github.com/repos/eandycom-lab/Website/commits/$){c.sha}/status`, { cache: 'no-store' }).then(r => r.json()).catch(() => ({})),
+      fetch(`[https://api.github.com/repos/eandycom-lab/Website/commits/$](https://api.github.com/repos/eandycom-lab/Website/commits/$){c.sha}/check-runs`, { cache: 'no-store' }).then(r => r.json()).catch(() => ({})),
+      fetch(`[https://api.github.com/repos/eandycom-lab/Website/deployments?sha=$](https://api.github.com/repos/eandycom-lab/Website/deployments?sha=$){c.sha}`, { cache: 'no-store' }).then(r => r.json()).catch(() => [])
     ]);
-    const run = (cr.check_runs || []).find(x => (x.name + (x.app?.slug || '')).toLowerCase().includes('cloudflare')) || (cr.check_runs || [])[0];
-    if (run) {
+
+    const cfStatus = (stRes.statuses || []).find(s => (s.context + s.description).toLowerCase().includes('cloudflare')) || (stRes.statuses || [])[0];
+    const run = (crRes.check_runs || []).find(x => (x.name + (x.app?.slug || '')).toLowerCase().includes('cloudflare')) || (crRes.check_runs || [])[0];
+
+    if (cfStatus) {
+      const state = cfStatus.state;
+      const icon = state === 'success' ? '🟢 Live' : state === 'pending' ? '🟡 Build läuft…' : '🔴 Fehler';
+      el.innerHTML = `<strong>${icon}</strong> &nbsp;(${cfStatus.description || state}) — <em>${msg}</em>`;
+    } else if (run) {
       const busy = run.status !== 'completed';
       const icon = busy ? '🟡 Build läuft…' : run.conclusion === 'success' ? '🟢 Live' : '🔴 Fehler';
       el.innerHTML = `<strong>${icon}</strong> &nbsp;(${run.status === 'completed' ? run.conclusion : run.status}) — <em>${msg}</em>`;
-    } else if (Array.isArray(dep) && dep.length > 0) {
-      const st = await fetch(dep[0].statuses_url).then(r => r.json()).catch(() => []);
+    } else if (Array.isArray(depRes) && depRes.length > 0) {
+      const st = await fetch(depRes[0].statuses_url, { cache: 'no-store' }).then(r => r.json()).catch(() => []);
       const state = st[0]?.state || 'pending';
       const icon = state === 'success' ? '🟢 Live' : (state === 'pending' || state === 'in_progress' || state === 'queued') ? '🟡 Build läuft…' : '🔴 Fehler';
       el.innerHTML = `<strong>${icon}</strong> &nbsp;(${st[0]?.description || state}) — <em>${msg}</em>`;
@@ -38,6 +46,6 @@
   setTimeout(checkDeploy, 10000);
 })();
 </script>
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+  <script src="[https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js](https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js)" type="module"></script>
 </body>
 </html>
