@@ -17,6 +17,11 @@ if [ ${#IMAGES[@]} -gt 0 ]; then
 fi
 shopt -u nullglob nocaseglob
 
+MSG="${1:-Update Blog $(date +'%Y-%m-%d %H:%M')}"
+
+# Deploy-Metadaten für Admin-Statusleiste schreiben
+python3 -c 'import json, datetime, sys; json.dump({"builtAt": datetime.datetime.now().strftime("%d.%m.%Y %H:%M"), "commit": sys.argv[1]}, open("public/deploy-info.json", "w"))' "$MSG"
+
 echo "-> 1. Prüfe Astro Build lokal..."
 npm run build
 
@@ -24,7 +29,6 @@ echo "-> 2. Prüfe auf lokale Änderungen..."
 if [ -z "$(git status --porcelain)" ]; then
     echo "Keine lokalen Änderungen zum Committen."
 else
-    MSG="${1:-Update Blog $(date +'%Y-%m-%d %H:%M')}"
     echo "-> Stage & Commit: $MSG"
     git add .
     git commit -m "$MSG"
