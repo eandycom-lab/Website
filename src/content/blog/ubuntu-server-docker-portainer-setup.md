@@ -1,7 +1,7 @@
 ---
 title: "Ubuntu Server, Docker & Portainer: Das perfekte Fundament für dein Homelab"
 description: "Schritt-für-Schritt-Guide: Ubuntu Server 24.04 LTS aufsetzen, SSH & UFW absichern (VPN-only-Betrieb), Docker Engine installieren und Portainer CE zur Container-Verwaltung einrichten."
-pubDate: 2026-11-22
+pubDate: 2026-11-22T16:00:00
 heroImage: "/images/ubuntu-server-docker-portainer-setup.webp"
 category: "Linux & OS"
 tags: ["Ubuntu", "Docker", "Portainer", "Homelab", "Self-Hosting", "Security"]
