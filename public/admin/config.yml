@@ -5,8 +5,8 @@ backend:
 
 media_folder: "public/images"
 public_folder: "/images"
-site_url: https://sysai.sh
-display_url: https://sysai.sh
+site_url: [https://sysai.sh](https://sysai.sh)
+display_url: [https://sysai.sh](https://sysai.sh)
 locale: "de"
 
 collections:
