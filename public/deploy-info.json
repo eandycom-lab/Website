@@ -1,1 +1,1 @@
-{"builtAt": "22.11.2026 15:03", "commit": "Fix unpkg and sysai URLs without markdown links"}
+{"builtAt": "22.11.2026 15:04", "commit": "Fix site_url and display_url in admin config.yml"}
