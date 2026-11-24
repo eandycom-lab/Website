@@ -29,9 +29,10 @@ Doch welches Tool hat 2026 im Linux-Umfeld die Nase vorn? Wir vergleichen die **
 
 **Restic** ist eine einzelne, statisch kompilierte Go-Binary ohne externe Abhängigkeiten. Das Tool zerlegt Dateien in variable Blöcke (Content-Defined Chunking), dedupliziert sie über alle Snapshots hinweg und verschlüsselt jedes Repository zwingend clientseitig.
 
-* **Stärken:** Extrem ausgereift, riesige Community, plattformübergreifend (Linux, BSD, macOS, Windows) und native Unterstützung für praktisch jedes Ziel – von der lokalen USB-Platte über SFTP/Hetzner Storage Box bis hin zu S3-Buckets und über 70 Backends via `rclone`. Snapshots lassen sich per `restic mount` direkt als Dateisystem einhängen.
-* **Schwächen:** Reines Kommandozeilen-Werkzeug. Wer Zeitpläne, Retention-Policies und Benachrichtigungen ohne eigene Systemd-Timer oder Bash-Skripte verwalten möchte, muss selbst Hand anlegen.
-* **Fazit:** Unter der Haube der zuverlässigste Motor auf dem Markt.
+* **Pro:** Extrem ausgereift, riesige Community, plattformübergreifend (Linux, BSD, macOS, Windows) und native Unterstützung für praktisch jedes Ziel – von der lokalen USB-Platte über SFTP/Hetzner Storage Box bis hin zu S3-Buckets und über 70 Backends via `rclone`. Snapshots lassen sich per `restic mount` direkt als Dateisystem einhängen.
+* **Contra:** Reines Kommandozeilen-Werkzeug. Wer Zeitpläne, Retention-Policies und Benachrichtigungen ohne eigene Systemd-Timer oder Bash-Skripte verwalten möchte, muss selbst Hand anlegen.
+
+**Fazit:** Unter der Haube der zuverlässigste Motor auf dem Markt – ideal, wenn du maximale Stabilität suchst und keine Angst vor der Kommandozeile hast.
 
 ---
 
@@ -39,39 +40,49 @@ Doch welches Tool hat 2026 im Linux-Umfeld die Nase vorn? Wir vergleichen die **
 
 Genau hier setzt **Backrest** an. Backrest ist kein eigenes Backup-Format, sondern eine extrem schlanke, moderne Web-Oberfläche (ebenfalls in Go geschrieben), die direkt auf der offiziellen Restic-Binary aufsetzt.
 
-* **Stärken:** Du bekommst alle Vorteile von Restic (kompatible Repositories, maximale Stabilität, kein Vendor-Lock-in) kombiniert mit einem aufgeräumten Browser-Dashboard. Zeitpläne (Cron), Aufbewahrungsregeln (z. B. 7 tägliche, 4 wöchentliche, 6 monatliche Snapshots), Integritätsprüfungen (`check`), Hooks vor/nach dem Backup (z. B. für Datenbank-Dumps) und Webhooks (Discord, Gotify, Ntfy, E-Mail) sind in Sekunden konfiguriert. Dateien lassen sich direkt im Browser durchsuchen und wiederherstellen.
-* **Schwächen:** Da Restic die Arbeit erledigt, erbt Backrest auch dessen Verhalten bei `prune`-Läufen (hoher RAM-Verbrauch bei riesigen Repositories mit Millionen kleiner Dateien).
-* **Fazit:** Der Sweetspot zwischen maximaler Sicherheit und minimalem Wartungsaufwand.
+* **Pro:** Alle Vorteile von Restic (kompatible Repositories, maximale Stabilität, kein Vendor-Lock-in) kombiniert mit einem aufgeräumten Browser-Dashboard. Zeitpläne (Cron), Aufbewahrungsregeln (z. B. 7 tägliche, 4 wöchentliche, 6 monatliche Snapshots), Integritätsprüfungen (`check`), Hooks vor/nach dem Backup und Webhooks (Discord, Gotify, Ntfy, E-Mail) sind in Sekunden konfiguriert. Dateien lassen sich direkt im Browser durchsuchen und wiederherstellen.
+* **Contra:** Da Restic die Arbeit erledigt, erbt Backrest auch dessen Verhalten bei `prune`-Läufen (hoher RAM-Verbrauch bei riesigen Repositories mit Millionen kleiner Dateien).
+
+**Fazit:** Der Sweetspot zwischen maximaler Sicherheit und minimalem Wartungsaufwand – mein klarer Favorit für Homelab- und Docker-Hosts.
 
 ---
 
 ## 3. BorgBackup: Maximaler Speichereffizienz-Champion
 
+<img src="/images/logos/borg.svg" alt="BorgBackup Logo" style="height: 44px; width: auto; margin-bottom: 0.75rem;" />
+
 **BorgBackup** (kurz *Borg*) ist seit Jahren der Favorit vieler Linux-Admins. Besonders in Kombination mit Zstandard-Kompression (`zstd`) und Chunk-basierter Deduplizierung holt Borg oft noch einmal spürbar mehr Speicherplatzersparnis heraus als die Konkurrenz.
 
-* **Stärken:** Hervorragende Kompressionsraten, extrem schnelle inkrementelle Läufe und ein echter **Append-Only-Modus** auf Serverseite (`borg serve --append-only`). Damit kann ein kompromittierter Client zwar neue Backups schreiben, bestehende Archive aber weder verändern noch löschen – ideal als Ransomware-Schutz.
-* **Schwächen:** Borg unterstützt nativ **nur lokale Pfade und SSH**. Wer direkt in einen S3-Bucket sichern will, braucht umständliche Workarounds. Zudem existiert kein offizielles Web-UI für Headless-Server (Vorta ist eine reine Desktop-App).
-* **Fazit:** Unschlagbar für reine Linux-Setups mit SSH-Zielspeicher (z. B. eigener Backup-Server oder Hetzner Storage Box), aber weniger flexibel bei Cloud-Zielen.
+* **Pro:** Hervorragende Kompressionsraten, extrem schnelle inkrementelle Läufe und ein echter **Append-Only-Modus** auf Serverseite (`borg serve --append-only`). Damit kann ein kompromittierter Client zwar neue Backups schreiben, bestehende Archive aber weder verändern noch löschen – ideal als Ransomware-Schutz.
+* **Contra:** Borg unterstützt nativ **nur lokale Pfade und SSH**. Wer direkt in einen S3-Bucket sichern will, braucht umständliche Workarounds. Zudem existiert kein offizielles Web-UI für Headless-Server (Vorta ist eine reine Desktop-App).
+
+**Fazit:** Unschlagbar für reine Linux-Setups mit SSH-Zielspeicher (z. B. eigener Backup-Server oder Hetzner Storage Box), aber weniger flexibel bei Cloud-Zielen.
 
 ---
 
 ## 4. Kopia: Moderne Architektur mit Server-Modus
 
+<img src="/images/logos/kopia.svg" alt="Kopia Logo" style="height: 44px; width: auto; margin-bottom: 0.75rem;" />
+
 **Kopia** tritt als moderner Herausforderer an und bringt sowohl ein CLI, eine Desktop-App als auch einen integrierten Web-Server samt Repository-Server-Modus mit.
 
-* **Stärken:** Sehr hohe Geschwindigkeit durch parallele Verarbeitung, flexible Auswahl bei Verschlüsselungs- und Kompressionsalgorithmen und die Möglichkeit, einen zentralen Kopia-Repository-Server zu betreiben, an den mehrere Clients ihre Backups schicken – ohne dass die Clients direkten Zugriff auf die zugrundeliegenden Cloud-Credentials benötigen.
-* **Schwächen:** Die Community und das Ökosystem rund um Recovery-Tools sind kleiner als bei Restic oder Borg. Das Web-UI wirkt stellenweise funktional, aber weniger poliert als Backrest.
-* **Fazit:** Starke Alternative, wenn du viele verschiedene Clients (Linux-Server plus Windows-/macOS-Rechner) über eine einheitliche Oberfläche sichern willst.
+* **Pro:** Sehr hohe Geschwindigkeit durch parallele Verarbeitung, flexible Auswahl bei Verschlüsselungs- und Kompressionsalgorithmen und die Möglichkeit, einen zentralen Kopia-Repository-Server zu betreiben, an den mehrere Clients ihre Backups schicken – ohne dass die Clients direkten Zugriff auf die zugrundeliegenden Cloud-Credentials benötigen.
+* **Contra:** Die Community und das Ökosystem rund um Recovery-Tools sind kleiner als bei Restic oder Borg. Das Web-UI wirkt stellenweise funktional, aber weniger poliert als Backrest.
+
+**Fazit:** Starke Alternative, wenn du viele verschiedene Clients (Linux-Server plus Windows-/macOS-Rechner) über eine einheitliche Oberfläche sichern willst.
 
 ---
 
 ## 5. UrBackup: Der Spezialist für lokale Client-Flotten
 
+<img src="/images/logos/urbackup.png" alt="UrBackup Logo" style="height: 44px; width: auto; margin-bottom: 0.75rem;" />
+
 **UrBackup** verfolgt einen klassischen Client/Server-Ansatz: Auf dem Backup-Server läuft die zentrale Instanz mit Web-Oberfläche, auf den zu sichernden Systemen ein kleiner Hintergrund-Agent.
 
-* **Stärken:** Deduplizierung über **alle Clients hinweg** (identische Systemdateien auf fünf Linux-VMs werden nur einmal gespeichert). Zudem beherrscht UrBackup neben Datei-Backups auch vollständige Image-Backups für Bare-Metal-Wiederherstellungen.
-* **Schwächen:** Stark auf lokale Netzwerke (LAN) und direkte Server-Festplatten ausgelegt; keine native S3-/Cloud-Integration und keine clientseitige Ende-zu-Ende-Verschlüsselung wie bei Restic oder Borg.
-* **Fazit:** Ideal für das Heimnetz mit mehreren PCs und VMs, aber nicht als modernes Offsite-Tool für einen einzelnen Linux-Host.
+* **Pro:** Deduplizierung über **alle Clients hinweg** (identische Systemdateien auf fünf Linux-VMs werden nur einmal gespeichert). Zudem beherrscht UrBackup neben Datei-Backups auch vollständige Image-Backups für Bare-Metal-Wiederherstellungen.
+* **Contra:** Stark auf lokale Netzwerke (LAN) und direkte Server-Festplatten ausgelegt; keine native S3-/Cloud-Integration und keine clientseitige Ende-zu-Ende-Verschlüsselung wie bei Restic oder Borg.
+
+**Fazit:** Ideal für das Heimnetz mit mehreren PCs und VMs, aber nicht als modernes Offsite-Tool für einen einzelnen Linux-Host.
 
 ---
 
