@@ -24,6 +24,17 @@ Genau hier spielt **Home Assistant** seine volle Stärke aus. Lokal auf eigener 
 
 ---
 
+## Vorbereitung: Eigene Entitäten finden & wo der Code hingehört
+
+Bevor du die YAML-Blöcke übernimmst, brauchst du zwei Dinge – sonst laufen die Sensoren und Automationen ins Leere:
+
+1. **Eigene Entitäts-IDs heraussuchen:** Die Namen in den Beispielen (wie `sensor.haus_netz_bezug_watt` oder `sensor.pufferspeicher_oben`) sind Platzhalter. Öffne in Home Assistant **Entwicklerwerkzeuge → Zustände** (oder **Einstellungen → Geräte & Dienste → Entitäten**), filtere nach deinem Stromzähler bzw. deiner Heizung und kopiere die exakten IDs (z. B. `sensor.poweropti_leistung` oder `sensor.modbus_puffer_oben`).
+2. **Die zwei richtigen Einbauorte kennen:**
+   * **Blöcke 1 & 2 (`sensor:`, `template:`, `modbus:`):** Diese gehören in deine `/config/configuration.yaml` (am besten bearbeitet über das Add-on **Studio Code Server** oder **File Editor**). Falls du bereits mit Packages arbeitest, kannst du sie alternativ in eine eigene Datei `/config/packages/energie.yaml` legen. Danach unter **Entwicklerwerkzeuge → YAML** auf *Konfiguration prüfen* klicken und neu laden.
+   * **Block 3 (Die Automation):** Dieser gehört **nicht** in die `configuration.yaml`. Öffne stattdessen **Einstellungen → Automationen & Szenen → + Automation erstellen → Neue Automation erstellen**, klicke oben rechts auf das **Drei-Punkte-Menü → Als YAML bearbeiten**, füge den Code ein und passe deine Entitäts-IDs an.
+
+---
+
 ## 1. Saubere kWh-Sensoren für das Energy-Dashboard
 
 Das Home Assistant Energy-Dashboard erwartet für Stromflüsse **akkumulierte Energiewerte in kWh** (`state_class: total_increasing`). Viele Zähler oder Modbus-Register liefern jedoch nur die aktuelle Momentanleistung in Watt (`W`).
