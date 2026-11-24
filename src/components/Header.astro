@@ -2,127 +2,152 @@
 import { SITE_TITLE } from '../consts';
 const pathname = new URL(Astro.request.url).pathname;
 const isActive = (path: string) =>
-path === '/' ? pathname === '/' : pathname.startsWith(path);
+	path === '/' ? pathname === '/' : pathname.startsWith(path);
 ---
 
 <header class="site-header">
-<nav class="nav-inner container">
-<a href="/" class="brand" aria-label={SITE_TITLE}>
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#sysai-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-<defs>
-<linearGradient id="sysai-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-<stop offset="0%" stop-color="#3b82f6" />
-<stop offset="100%" stop-color="#22d3ee" />
-</linearGradient>
-</defs>
-<rect x="2" y="3" width="20" height="5" rx="1.5" />
-<rect x="2" y="10" width="20" height="5" rx="1.5" />
-<rect x="2" y="17" width="20" height="4" rx="1.5" />
-<circle cx="6" cy="5.5" r="0.8" fill="#22d3ee" />
-<circle cx="6" cy="12.5" r="0.8" fill="#22d3ee" />
-</svg>
-<div class="brand-copy">
-<span class="brand-text"><strong>SysAI</strong> Blog</span>
-<span class="brand-tagline">Dein Stack. Deine Regeln.</span>
-</div>
-</a>
+	<nav class="nav-inner container">
+		<a href="/" class="brand" aria-label={SITE_TITLE}>
+			<svg class="brand-icon" width="40" height="40" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+				<defs>
+					<linearGradient id="sysai-rack-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+						<stop offset="0%" stop-color="#22d3ee" />
+						<stop offset="55%" stop-color="#0ea5e9" />
+						<stop offset="100%" stop-color="#2563eb" />
+					</linearGradient>
+				</defs>
+				<!-- Server Blade 1 -->
+				<rect x="4" y="4" width="28" height="7.5" rx="2.2" stroke="url(#sysai-rack-grad)" stroke-width="2.1" />
+				<circle cx="9.2" cy="7.75" r="1.4" fill="#22d3ee" />
+				<line x1="18.5" y1="7.75" x2="27.5" y2="7.75" stroke="#22d3ee" stroke-width="1.9" stroke-linecap="round" />
+				<!-- Server Blade 2 -->
+				<rect x="4" y="14.25" width="28" height="7.5" rx="2.2" stroke="url(#sysai-rack-grad)" stroke-width="2.1" />
+				<circle cx="9.2" cy="18" r="1.4" fill="#38bdf8" />
+				<line x1="18.5" y1="18" x2="27.5" y2="18" stroke="#38bdf8" stroke-width="1.9" stroke-linecap="round" />
+				<!-- Server Blade 3 -->
+				<rect x="4" y="24.5" width="28" height="7.5" rx="2.2" stroke="url(#sysai-rack-grad)" stroke-width="2.1" />
+				<line x1="18.5" y1="28.25" x2="27.5" y2="28.25" stroke="#3b82f6" stroke-width="1.9" stroke-linecap="round" />
+				<!-- Rack Rails -->
+				<line x1="8" y1="11.5" x2="8" y2="14.25" stroke="#0284c7" stroke-width="1.6" />
+				<line x1="28" y1="11.5" x2="28" y2="14.25" stroke="#0284c7" stroke-width="1.6" />
+				<line x1="8" y1="21.75" x2="8" y2="24.5" stroke="#1d4ed8" stroke-width="1.6" />
+				<line x1="28" y1="21.75" x2="28" y2="24.5" stroke="#1d4ed8" stroke-width="1.6" />
+			</svg>
+			<div class="brand-copy">
+				<span class="brand-text"><strong>SysAI</strong> <span class="brand-accent">Blog</span></span>
+				<span class="brand-tagline">Dein Stack. Deine Regeln.</span>
+			</div>
+		</a>
 
-<div class="nav-links">
-<a href="/" class={isActive('/') ? 'active' : ''}>Home</a>
-<a href="/blog" class={isActive('/blog') ? 'active' : ''}>Artikel</a>
-<a href="/about" class={isActive('/about') ? 'active' : ''}>Über</a>
-<a href="/kontakt" class={isActive('/kontakt') ? 'active' : ''}>Kontakt</a>
-</div>
-</nav>
+		<div class="nav-links">
+			<a href="/" class={isActive('/') ? 'active' : ''}>Home</a>
+			<a href="/blog" class={isActive('/blog') ? 'active' : ''}>Artikel</a>
+			<a href="/about" class={isActive('/about') ? 'active' : ''}>Über</a>
+			<a href="/kontakt" class={isActive('/kontakt') ? 'active' : ''}>Kontakt</a>
+		</div>
+	</nav>
 </header>
 
 <style>
-.site-header {
-position: sticky;
-top: 0;
-z-index: 40;
-background: rgba(11, 15, 25, 0.88);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-border-bottom: 1px solid var(--border);
-}
-.nav-inner {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 1.5rem;
-min-height: 68px;
-padding-top: 0.65rem;
-padding-bottom: 0.65rem;
-}
-.brand {
-display: inline-flex;
-align-items: center;
-gap: 0.7rem;
-text-decoration: none;
-color: var(--text-main);
-flex-shrink: 0;
-}
-.brand-copy {
-display: flex;
-flex-direction: column;
-line-height: 1.15;
-}
-.brand-text {
-font-size: 1.15rem;
-letter-spacing: -0.01em;
-font-weight: 400;
-color: var(--text-muted);
-}
-.brand-text strong {
-font-weight: 800;
-color: #ffffff;
-}
-.brand-tagline {
-font-size: 0.72rem;
-font-weight: 500;
-letter-spacing: 0.03em;
-color: #94a3b8;
-margin-top: 0.15rem;
-}
-.nav-links {
-display: flex;
-align-items: center;
-gap: 1.35rem;
-}
-.nav-links a {
-color: var(--text-muted);
-text-decoration: none;
-font-size: 0.94rem;
-font-weight: 500;
-padding: 0.25rem 0;
-border-bottom: 2px solid transparent;
-transition: color 0.15s ease, border-color 0.15s ease;
-white-space: nowrap;
-}
-.nav-links a:hover,
-.nav-links a.active {
-color: var(--text-main);
-border-bottom-color: var(--accent);
-}
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 40;
+		background: rgba(11, 15, 25, 0.9);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border-bottom: 1px solid var(--border);
+	}
+	.nav-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		min-height: 74px;
+		padding-top: 0.7rem;
+		padding-bottom: 0.7rem;
+	}
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.85rem;
+		text-decoration: none;
+		color: var(--text-main);
+		flex-shrink: 0;
+	}
+	.brand-icon {
+		filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.45));
+		transition: filter 0.2s ease, transform 0.2s ease;
+	}
+	.brand:hover .brand-icon {
+		filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.7));
+		transform: translateY(-1px);
+	}
+	.brand-copy {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.12;
+	}
+	.brand-text {
+		font-size: 1.38rem;
+		letter-spacing: -0.02em;
+		font-weight: 700;
+		color: #ffffff;
+	}
+	.brand-text strong {
+		font-weight: 800;
+		color: #ffffff;
+	}
+	.brand-accent {
+		font-weight: 700;
+		color: #22d3ee;
+		text-shadow: 0 0 14px rgba(34, 211, 238, 0.45);
+	}
+	.brand-tagline {
+		font-size: 0.76rem;
+		font-weight: 500;
+		letter-spacing: 0.02em;
+		color: #94a3b8;
+		margin-top: 0.2rem;
+	}
+	.nav-links {
+		display: flex;
+		align-items: center;
+		gap: 1.35rem;
+	}
+	.nav-links a {
+		color: var(--text-muted);
+		text-decoration: none;
+		font-size: 0.94rem;
+		font-weight: 500;
+		padding: 0.25rem 0;
+		border-bottom: 2px solid transparent;
+		transition: color 0.15s ease, border-color 0.15s ease;
+		white-space: nowrap;
+	}
+	.nav-links a:hover,
+	.nav-links a.active {
+		color: var(--text-main);
+		border-bottom-color: var(--accent);
+	}
 
-@media (max-width: 600px) {
-.nav-inner {
-flex-direction: column;
-align-items: flex-start;
-gap: 0.65rem;
-padding-top: 0.75rem;
-padding-bottom: 0.75rem;
-}
-.nav-links {
-width: 100%;
-justify-content: space-between;
-gap: 0.75rem;
-padding-top: 0.45rem;
-border-top: 1px solid rgba(51, 65, 85, 0.55);
-}
-.nav-links a {
-font-size: 0.9rem;
-}
-}
+	@media (max-width: 600px) {
+		.nav-inner {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.65rem;
+			padding-top: 0.75rem;
+			padding-bottom: 0.75rem;
+		}
+		.nav-links {
+			width: 100%;
+			justify-content: space-between;
+			gap: 0.75rem;
+			padding-top: 0.45rem;
+			border-top: 1px solid rgba(51, 65, 85, 0.55);
+		}
+		.nav-links a {
+			font-size: 0.9rem;
+		}
+	}
 </style>
