@@ -1,65 +1,63 @@
 ---
-title: "PV, Wärmepumpe & Pufferspeicher im Home Assistant Energy-Dashboard: Praxis-Setup mit Modbus & Automationen"
-description: "So machst du Home Assistant zur lokalen Energiezentrale: PV-Ertrag, Wärmepumpe per Modbus TCP, Pufferspeicher-Sensorik und schlüsselfertige YAML-Automationen für maximalen Eigenverbrauch."
+title: "PV, Wärmepumpe & Pufferspeicher in Home Assistant: Schritt-für-Schritt zur eigenen Energiezentrale"
+description: "Verständliche Anleitung für Einsteiger und Fortgeschrittene: So verknüpfst du Solaranlage, Stromzähler und Wärmepumpe in Home Assistant – ohne Vorwissen, komplett Schritt für Schritt."
 pubDate: 2026-11-24T20:20:00
 heroImage: "/images/pv-waermepumpe-home-assistant-energy-dashboard.webp"
 category: "Home Automation"
-tags: ["Home Assistant", "Photovoltaik", "Wärmepumpe", "Modbus", "Energy Dashboard", "YAML", "Smart Home"]
+tags: ["Home Assistant", "Photovoltaik", "Wärmepumpe", "Energy Dashboard", "Anleitung", "Smart Home"]
 ---
 
-Wer eine Photovoltaikanlage und eine Wärmepumpe betreibt, merkt schnell: Die herstellereigenen Cloud-Apps zeigen zwar hübsche Einzelgrafiken, reden aber kaum miteinander. Der Wechselrichter weiß nicht, wann der Pufferspeicher aufgeheizt werden muss, und die Wärmepumpe kennt den aktuellen PV-Überschuss nicht.
+Wer eine Photovoltaikanlage und eine Wärmepumpe besitzt, kennt das Problem: Die App des Wechselrichters zeigt, wie viel Strom vom Dach kommt, und die App der Heizung zeigt die Wassertemperatur – aber beide Systeme reden nicht miteinander. Wertvoller Solarstrom wandert für wenige Cent ins öffentliche Netz, während abends teuer Strom für die Heizung zugekauft wird.
 
-Genau hier spielt **Home Assistant** seine volle Stärke aus. Lokal auf eigener Hardware betrieben, verknüpft es Stromzähler, Wechselrichter, Wärmepumpe und Wetterprognose in Echtzeit – ganz ohne Cloud-Zwang oder laufende Abo-Kosten.
-
----
-
-## Die 4 Bausteine der lokalen Energiezentrale
-
-| Baustein | Typische Datenquelle | Relevante Messwerte | Nutzen im Energy-Dashboard |
-| :--- | :--- | :--- | :--- |
-| **Netz- & Hauszähler** | IR-Lesekopf (poweropti, Tibber Pulse, Tasmota) | Netzbezug (W / kWh), Einspeisung (W / kWh) | Exakte Bilanz aus Bezug, Einspeisung & Hausverbrauch |
-| **PV-Anlage & Speicher** | Wechselrichter-API / Modbus TCP | Erzeugung (W / kWh), String-Leistung, SoC (%) | Berechnung des echten Direktverbrauchs |
-| **Wärmepumpe & Puffer** | **Modbus TCP** oder SG-Ready-Relais | Vorlauf/Rücklauf, Puffertemperatur, Kompressor-Start | Thermische Speicherung bei PV-Überschuss |
-| **Wetter & Solar-Forecast** | Forecast.Solar / lokale Wetterstation | Erwartete kWh heute/morgen, Außentemperatur | Vorausschauende Heiz- & Speicherplanung |
+Mit **Home Assistant** baust du dir eine lokale Schaltzentrale, die beide Welten verbindet – komplett ohne Cloud-Zwang und laufende Kosten. In dieser Anleitung gehen wir **wirklich Schritt für Schritt** vor: vom ersten Klick im Menü bis zur fertigen Automation, die deinen Pufferspeicher bei Sonnenschein automatisch auflädt.
 
 ---
 
-## Vorbereitung: Eigene Entitäten finden & wo der Code hingehört
+## Was du vorab brauchst (und was wir gleich einrichten)
 
-Bevor du die YAML-Blöcke übernimmst, brauchst du zwei Dinge – sonst laufen die Sensoren und Automationen ins Leere:
-
-1. **Eigene Entitäts-IDs heraussuchen:** Die Namen in den Beispielen (wie `sensor.haus_netz_bezug_watt` oder `sensor.pufferspeicher_oben`) sind Platzhalter. Öffne in Home Assistant **Entwicklerwerkzeuge → Zustände** (oder **Einstellungen → Geräte & Dienste → Entitäten**), filtere nach deinem Stromzähler bzw. deiner Heizung und kopiere die exakten IDs (z. B. `sensor.poweropti_leistung` oder `sensor.modbus_puffer_oben`).
-2. **Die zwei richtigen Einbauorte kennen:**
-   * **Blöcke 1 & 2 (`sensor:`, `template:`, `modbus:`):** Diese gehören in deine `/config/configuration.yaml` (am besten bearbeitet über das Add-on **Studio Code Server** oder **File Editor**). Falls du bereits mit Packages arbeitest, kannst du sie alternativ in eine eigene Datei `/config/packages/energie.yaml` legen. Danach unter **Entwicklerwerkzeuge → YAML** auf *Konfiguration prüfen* klicken und neu laden.
-   * **Block 3 (Die Automation):** Dieser gehört **nicht** in die `configuration.yaml`. Öffne stattdessen **Einstellungen → Automationen & Szenen → + Automation erstellen → Neue Automation erstellen**, klicke oben rechts auf das **Drei-Punkte-Menü → Als YAML bearbeiten**, füge den Code ein und passe deine Entitäts-IDs an.
+Damit Home Assistant deine Energieflüsse steuern kann, muss es drei Dinge kennen:
+1. **Deinen Stromzähler** (wie viel Strom gerade aus dem Netz bezogen oder eingespeist wird – z. B. über einen Lesekopf wie *poweropti*, *Tibber Pulse* oder *Tasmota*).
+2. **Deine PV-Erzeugung** (über die Integration deines Wechselrichters, z. B. Fronius, SMA, Huawei, Growatt oder Sungrow).
+3. **Deine Heizung bzw. Wärmepumpe** (entweder bereits in Home Assistant eingebunden oder über eine lokale Netzwerkschnittstelle wie *Modbus TCP*).
 
 ---
 
-## 1. Saubere kWh-Sensoren für das Energy-Dashboard
+## Schritt 1: Einen Datei-Editor in Home Assistant installieren
 
-Das Home Assistant Energy-Dashboard erwartet für Stromflüsse **akkumulierte Energiewerte in kWh** (`state_class: total_increasing`). Viele Zähler oder Modbus-Register liefern jedoch nur die aktuelle Momentanleistung in Watt (`W`).
+Für manche Erweiterungen müssen wir gleich ein paar Zeilen Text in die zentrale Konfigurationsdatei von Home Assistant (`configuration.yaml`) einfügen. Falls du noch keinen Editor installiert hast, erledigst du das in einer Minute direkt über die Oberfläche:
 
-Falls dein Smart Meter oder Zwischenzähler nur Watt-Werte liefert, wandelst du diese über die integrierte **Riemann-Summen-Integration** (seit Home Assistant 2026.11 direkt im Energy-Dashboard-Dialog oder per YAML) sauber in kWh um. Zusätzlich lohnt sich ein Template-Sensor für den **echten aktuellen PV-Überschuss**:
+1. Öffne Home Assistant im Browser und klicke unten links auf **Einstellungen**.
+2. Wähle **Add-ons** und klicke unten rechts auf den blauen Button **Add-on-Store**.
+3. Suche oben nach **File editor**, klicke ihn an und wähle **Installieren**.
+4. Aktiviere nach der Installation den Schalter **In Seitenleiste anzeigen** und klicke auf **Starten**.
+
+Links im Hauptmenü erscheint jetzt der Punkt **File editor**. Darüber kannst du jederzeit deine Konfigurationsdateien öffnen und bearbeiten.
+
+---
+
+## Schritt 2: Deine eigenen Sensor-Namen („Entitäten“) herausfinden
+
+In Home Assistant hat jeder Messwert einen eigenen technischen Namen – eine sogenannte **Entitäts-ID** (zum Beispiel `sensor.stromzaehler_einspeisung`). Da diese Namen bei jedem Haushalt etwas anders heißen, musst du dir deine eigenen Namen einmal kurz heraussuchen:
+
+1. Klicke in der linken Seitenleiste auf **Entwicklerwerkzeuge** (das Hammer-Symbol) und wähle oben den Reiter **Zustände**.
+2. Tippe in das Suchfeld **„Entitäten filtern“** Begriffe wie `power`, `watt`, `einspeisung`, `bezug` oder den Namen deines Wechselrichters ein.
+3. In der linken Spalte stehen nun die exakten Namen (z. B. `sensor.tasmota_lk13be_power_curr`), in der mittleren Spalte der aktuelle Messwert in Watt (`W`).
+4. **Notiere dir drei Namen** für die nächsten Schritte:
+   * Den Sensor für deinen **aktuellen Netzbezug in Watt**
+   * Den Sensor für deine **aktuelle Netzeinspeisung in Watt** *(Hinweis: Manche Zähler nutzen nur einen einzigen Sensor – positive Werte bedeuten dann Netzbezug, negative Werte Einspeisung. Darauf gehen wir gleich ein.)*
+   * Den Sensor für die **Temperatur deines Pufferspeichers** (falls vorhanden)
+
+---
+
+## Schritt 3: Den aktuellen PV-Überschuss berechnen lassen
+
+Damit Home Assistant weiß, wie viel „kostenloser“ Strom gerade übrig ist, legen wir einen eigenen Hilfs-Sensor an. Er rechnet einfach: *Aktuelle Einspeisung minus aktueller Netzbezug = verfügbarer Überschuss in Watt*.
+
+1. Öffne links im Menü den **File editor**.
+2. Klicke oben links auf das Ordner-Symbol und öffne die Datei **`configuration.yaml`**.
+3. Scrolle ganz ans Ende der Datei und füge folgenden Block ein – **ersetze dabei die beiden Platzhalter-Namen in den Anführungszeichen durch deine eigenen Sensor-Namen aus Schritt 2**:
 
 ```yaml
-# configuration.yaml (oder ausgelagert unter packages/energy.yaml)
-sensor:
-  - platform: integration
-    source: sensor.haus_netz_bezug_watt
-    name: "Haus Netzbezug kWh"
-    unique_id: haus_netz_bezug_kwh
-    unit_prefix: k
-    round: 3
-    method: left
-
-  - platform: integration
-    source: sensor.haus_netz_einspeisung_watt
-    name: "Haus Netzeinspeisung kWh"
-    unique_id: haus_netz_einspeisung_kwh
-    unit_prefix: k
-    round: 3
-    method: left
-
 template:
   - sensor:
       - name: "Aktueller PV Überschuss"
@@ -68,21 +66,27 @@ template:
         device_class: power
         state_class: measurement
         state: >
-          {% set einspeisung = states('sensor.haus_netz_einspeisung_watt') | float(0) %}
-          {% set bezug = states('sensor.haus_netz_bezug_watt') | float(0) %}
+          {% set einspeisung = states('sensor.DEIN_EINSPEISE_SENSOR') | float(0) %}
+          {% set bezug = states('sensor.DEIN_BEZUGS_SENSOR') | float(0) %}
           {{ (einspeisung - bezug) | round(0) }}
 ```
 
-*(Wichtig: Bei stark schwankenden Leistungswerten durch Wolkenzug oder Taktung liefert `method: left` deutlich genauere kWh-Werte als die Standard-Trapezregel, weil Leistungsspitzen nicht künstlich über Minuten hinweg interpoliert werden.)*
+*(Tipp: Falls dein Stromzähler nur einen einzigen Gesamt-Leistungssensor hat, der bei Überschuss ins Minus geht – z. B. `-2400` W –, nutze stattdessen einfach diese Zeile: `{{ (states('sensor.DEIN_GESAMT_SENSOR') | float(0) * -1) | round(0) }}`.)*
+
+4. Klicke oben rechts im File editor auf das **rote Disketten-Symbol** zum Speichern.
+5. Prüfe deine Eingabe: Gehe zu **Entwicklerwerkzeuge → YAML**, klicke auf **Konfiguration prüfen** (es sollte ein grünes *„Konfiguration will not prevent Home Assistant from starting“* erscheinen) und klicke anschließend unter *YAML-Konfiguration neu laden* auf **Template-Entitäten**.
+
+*Erfolgskontrolle:* Unter **Entwicklerwerkzeuge → Zustände** findest du ab sofort den neuen Sensor `sensor.aktueller_pv_ueberschuss`, der dir live in Watt anzeigt, wie viel Strom gerade übrig ist.
 
 ---
 
-## 2. Wärmepumpe & Pufferspeicher per Modbus TCP anbinden
+## Schritt 4: Wärmepumpe & Pufferspeicher einbinden
 
-Statt über träge Hersteller-Clouds zuzugreifen, liest du moderne Wärmepumpen und Heizungsregler am zuverlässigsten direkt im lokalen Netz über **Modbus TCP** (Port `502`) aus. Damit hast du Sekunden-genaue Werte für Vorlauf, Rücklauf, Pufferspeicher-Schichtung und Betriebsstatus – und kannst gezielt Sollwerte anheben, sobald die Sonne scheint.
+Wenn deine Wärmepumpe bereits über eine offizielle Integration in Home Assistant eingebunden ist (z. B. über *Settings → Geräte & Dienste*), hast du deine Temperatur- und Sollwert-Regler schon direkt parat und kannst diesen Schritt überspringen.
+
+Viele moderne Wärmepumpen und Heizungsregler lassen sich alternativ **ohne Hersteller-Cloud direkt im Heimnetz über Modbus TCP** auslesen. Dafür benötigst du lediglich die **IP-Adresse deiner Heizung** im Router (z. B. `192.168.178.116`) und die Register-Tabelle aus dem Handbuch des Herstellers. Der Eintrag in der `configuration.yaml` sieht dann so aus:
 
 ```yaml
-# Modbus-Anbindung der Heizungs-/Wärmepumpen-Steuerung
 modbus:
   - name: waermepumpe
     type: tcp
@@ -91,26 +95,6 @@ modbus:
     delay: 1
     timeout: 5
     sensors:
-      - name: "WP Vorlauftemperatur"
-        unique_id: wp_vorlauftemperatur
-        address: 100
-        input_type: input
-        unit_of_measurement: "°C"
-        device_class: temperature
-        scale: 0.1
-        precision: 1
-        scan_interval: 30
-
-      - name: "WP Rücklauftemperatur"
-        unique_id: wp_ruecklauftemperatur
-        address: 101
-        input_type: input
-        unit_of_measurement: "°C"
-        device_class: temperature
-        scale: 0.1
-        precision: 1
-        scan_interval: 30
-
       - name: "Pufferspeicher Oben"
         unique_id: pufferspeicher_oben
         address: 105
@@ -120,25 +104,29 @@ modbus:
         scale: 0.1
         precision: 1
         scan_interval: 30
-
-      - name: "WP Betriebsstatus"
-        unique_id: wp_betriebsstatus
-        address: 110
-        input_type: input
-        scan_interval: 15
 ```
 
-*(Hinweis: Die exakten Register-Adressen (`address`) und Skalierungen (`0.1` für Zehntelgrad) entnimmst du der Modbus-Registerliste deines jeweiligen Herstellers – z. B. Stiebel Eltron, Viessmann, Vaillant, Wolf oder IDM.)*
+Nach dem Speichern und einem kurzen Neustart (**Entwicklerwerkzeuge → YAML → Neu starten**) taucht `sensor.pufferspeicher_oben` als ganz normaler Temperatursensor in Home Assistant auf.
 
 ---
 
-## 3. Praxis-Automation: Pufferspeicher bei PV-Überschuss gezielt überhöhen
+## Schritt 5: Die Automation – Pufferspeicher bei Sonnenschein aufladen
 
-Ein großer thermischer Pufferspeicher (z. B. 2.000 bis 3.000 Liter) wirkt im Winter und in der Übergangszeit wie ein **günstiger Wärmespeicher für Solarstrom**. Statt PV-Überschuss für wenige Cent einzuspeisen und abends teuren Netzstrom für die Heizung zuzukaufen, hebt Home Assistant bei anhaltendem Überschuss die Zieltemperatur an – inklusive **Hysterese und Mindestlaufzeit**, damit der Kompressor nicht taktet:
+Jetzt verknüpfen wir den PV-Überschuss mit deiner Heizung. Die Logik dahinter ist bewusst simpel und schont den Kompressor deiner Wärmepumpe:
+
+* **Wenn** mindestens **10 Minuten am Stück** mehr als **2.200 Watt** Überschuss ins Netz fließen **und** der Pufferspeicher noch unter **54 °C** liegt → hebe die Zieltemperatur auf **52 °C** an.
+* **Wenn** der Überschuss mindestens **15 Minuten am Stück** unter **400 Watt** fällt → senke die Zieltemperatur wieder auf den Normalwert von **45 °C** ab.
+
+### So fügst du die Automation ein (ohne in Dateien zu schreiben):
+
+1. Gehe in Home Assistant zu **Einstellungen → Automationen & Szenen**.
+2. Klicke unten rechts auf **+ Automation erstellen** und wähle **Neue Automation erstellen**.
+3. Klicke ganz oben rechts auf das **Drei-Punkte-Menü (⋮)** und wähle **Als YAML bearbeiten**.
+4. Lösche den kurzen Standardtext im Fenster und füge stattdessen diese Vorlage ein:
 
 ```yaml
 alias: "Energie: PV-Überschuss in Pufferspeicher laden"
-description: "Hebt den Heizungs-/Pufferspeicher-Sollwert bei stabiler Einspeisung an und schützt vor Takten."
+description: "Hebt den Sollwert bei stabilem PV-Überschuss an und schützt vor häufigem Takten."
 mode: single
 
 trigger:
@@ -157,7 +145,6 @@ trigger:
     id: pv_niedrig
 
 condition:
-  # Nur aktiv, wenn der Puffer noch nicht voll durchgeladen ist
   - condition: numeric_state
     entity_id: sensor.pufferspeicher_oben
     below: 54
@@ -170,13 +157,9 @@ action:
         sequence:
           - service: climate.set_temperature
             target:
-              entity_id: climate.pufferspeicher_sollwert
+              entity_id: climate.DEIN_HEIZUNGS_REGLER
             data:
               temperature: 52
-          - service: notify.mobile_app_iphone
-            data:
-              title: "PV-Überschuss aktiv"
-              message: "Pufferspeicher-Sollwert auf 52 °C angehoben ({{ states('sensor.aktueller_pv_ueberschuss') }} W Überschuss)."
 
       - conditions:
           - condition: trigger
@@ -184,19 +167,26 @@ action:
         sequence:
           - service: climate.set_temperature
             target:
-              entity_id: climate.pufferspeicher_sollwert
+              entity_id: climate.DEIN_HEIZUNGS_REGLER
             data:
               temperature: 45
 ```
 
-### Drei wichtige Praxis-Regeln gegen Kompressor-Verschleiß
-
-1. **Verzögerung (`for: minutes: 10`) erzwingen:** Eine einzelne Wolkenlücke darf die Wärmepumpe niemals einschalten. Erst wenn über mindestens 10 bis 15 Minuten stabiler Überschuss anliegt, lohnt sich der Start.
-2. **Mindestlaufzeit beim Abschalten einplanen:** Fällt die PV-Leistung ab, läuft die Wärmepumpe noch mindestens 15 Minuten weiter (`for: minutes: 15`), bevor der Sollwert wieder abgesenkt wird – das verhindert kurzes Takten.
-3. **Saisonale Grenzen setzen:** Im Hochsommer (wenn ohnehin nur Warmwasser benötigt wird) sollte die Heizkreis-Überhöhung deaktiviert bleiben, damit die Räume nicht unnötig aufheizen.
+5. Klicke oben rechts wieder auf das **Drei-Punkte-Menü (⋮) → Im visuellen Editor bearbeiten**. Jetzt siehst du die gesamte Regel als übersichtliche Bausteine und kannst im Dropdown-Menü bequem deinen eigenen Heizungs- bzw. Warmwasserregler auswählen.
+6. Klicke unten rechts auf **Speichern**.
 
 ---
 
-## Fazit: Lokale Kontrolle statt Hersteller-Silos
+## Drei wichtige Praxis-Tipps für den Alltag
 
-Mit einer sauberen Trennung aus **kWh-Bilanzierung im Energy-Dashboard**, **lokaler Modbus-Telemetrie** und **trägen Hysterese-Automationen** holst du deutlich mehr Eigenverbrauch aus deiner PV-Anlage heraus – ganz ohne teure Cloud-Energiemanager. Und weil alle Daten lokal auf deinem Home-Assistant-Server bleiben, funktioniert die Steuerung auch dann zuverlässig, wenn das Internet einmal ausfällt.
+| Punkt | Empfohlener Wert | Warum das wichtig ist |
+| :--- | :--- | :--- |
+| **Einschalt-Verzögerung** | Mindestens `10 Minuten` | Verhindert, dass eine einzelne Wolkenlücke die Wärmepumpe kurz anwirft und sofort wieder abwürgt. |
+| **Ausschalt-Verzögerung** | Mindestens `15 Minuten` | Sorgt für ruhige, lange Laufzeiten und schont den Kompressor vor Verschleiß. |
+| **Sommer-Pause** | Mai bis September | Im Hochsommer solltest du die Automation über den Schalter in Home Assistant deaktivieren, damit die Heizung nicht unnötig anspringt. |
+
+---
+
+## Fazit
+
+Du musst kein Programmierer sein, um deine Solaranlage und deine Wärmepumpe intelligent miteinander zu verknüpfen. Mit dem **File editor**, drei notierten **Entitäts-Namen** und einer einzigen sauberen **Automation** nutzt du deinen eigenen Solarstrom genau dann, wenn er anfällt – lokal, transparent und ohne monatliche Cloud-Gebühren.
