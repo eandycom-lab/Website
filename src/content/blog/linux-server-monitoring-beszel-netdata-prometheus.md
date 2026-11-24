@@ -63,11 +63,23 @@ Die Kombination aus **Prometheus** (Zeitreihendatenbank), **Node Exporter / cAdv
 
 ## Quick-Start: Beszel in 5 Minuten per Docker installieren
 
-Beszel besteht aus zwei Komponenten: dem **Hub** (auf deinem Hauptserver) und dem **Agenten** (auf jedem zu überwachenden Linux-Host – inklusive dem Hauptserver selbst).
+Beszel besteht aus zwei schlanken Programmen, die im Hintergrund als Docker-Container laufen:
+* **Beszel Hub:** Die zentrale Weboberfläche, in der du alle Messwerte im Browser anschaust und Warnmeldungen einrichtest.
+* **Beszel Agent:** Ein winziger Datensammler, der auf jedem Linux-Rechner läuft, den du überwachen möchtest (auch auf demselben Server, auf dem schon der Hub liegt).
 
-### Schritt 1: Beszel Hub starten
+### Vorbereitung: Server-IP herausfinden & Einbauort wählen
 
-Lege auf deinem Hauptserver ein Verzeichnis an (z. B. `/opt/beszel`) und starte den Hub über `docker-compose.yml` (oder als **Stack in Portainer**):
+Bevor du startest, brauchst du die lokale IP-Adresse deines Linux-Servers (z. B. `192.168.178.50`). Falls du sie nicht auswendig kennst, melde dich per SSH am Server an und gib `hostname -I` ein – die erste angezeigte Zahl ist deine IP.
+
+Die folgenden YAML-Vorlagen kannst du auf zwei Arten starten:
+* **Bequem per Browser in Portainer:** Öffne Portainer → **Stacks → + Add stack**, vergib einen Namen (z. B. `beszel`), füge den Text in das große Editor-Feld ein und klicke unten auf **Deploy the stack**.
+* **Direkt im Terminal:** Lege einen Ordner an (z. B. `mkdir -p /opt/beszel && cd /opt/beszel`), speichere den Text in einer Datei namens `docker-compose.yml` und starte ihn mit `docker compose up -d`.
+
+---
+
+### Schritt 1: Den Beszel Hub (die Weboberfläche) starten
+
+Starte zuerst den zentralen Hub auf deinem Hauptserver mit dieser Vorlage:
 
 ```yaml
 services:
@@ -81,15 +93,19 @@ services:
       - ./beszel_data:/beszel_data
 ```
 
-Starte den Stack mit `docker compose up -d` und öffne `http://<SERVER-IP>:8090` im Browser. Lege dort beim ersten Aufruf deinen Admin-Account an.
+*Erfolgskontrolle:* Öffne deinen Browser und rufe `http://DEINE-SERVER-IP:8090` auf (ersetze `DEINE-SERVER-IP` durch deine echte IP). Es erscheint die Willkommensseite von Beszel, auf der du beim ersten Besuch deine E-Mail-Adresse und ein Admin-Passwort festlegst.
 
-### Schritt 2: Ersten Server (Agent) verbinden
+---
+
+### Schritt 2: Deinen ersten Server (Agent) verbinden
+
+Damit im Dashboard Zahlen erscheinen, verknüpfst du jetzt deinen ersten Linux-Server mit dem Hub:
 
 1. Klicke im Beszel-Dashboard oben rechts auf **System hinzufügen** (*Add System*).
-2. Vergib einen **Namen** (z. B. `docker-host-01`), trage die **IP-Adresse oder den Hostnamen** des Servers ein und belasse den Port auf **`45876`**.
-3. Kopiere den angezeigten **Public Key** (oder direkt das fertige Docker-Compose-Snippet aus dem Dialog).
+2. Trage einen beliebigen **Namen** ein (z. B. `Mein-Server`), darunter die **IP-Adresse** des zu überwachenden Servers (läuft der Agent auf demselben Rechner wie der Hub, trage `127.0.0.1` ein) und belasse den Port auf **`45876`**.
+3. Klicke auf **Öffentlichen Schlüssel kopieren** (*Copy Public Key*) – dieser Schlüssel sorgt dafür, dass nur dein Hub die Daten abrufen darf.
 
-Starte anschließend auf dem Zielserver den Agenten:
+Starte nun auf dem zu überwachenden Server den **Agenten** (wieder über Portainer *Stacks* oder als `docker-compose.yml`) und füge deinen kopierten Schlüssel zwischen den Anführungszeichen hinter `KEY:` ein:
 
 ```yaml
 services:
@@ -102,9 +118,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       PORT: 45876
-      KEY: "ssh-ed25519 DEIN_KOPIERTER_PUBLIC_KEY"
+      KEY: "ssh-ed25519 HIER_DEINEN_KOPIERTEN_SCHLUESSEL_EINFUEGEN"
 ```
 
-*(Hinweis: Wenn der Agent auf demselben Host wie der Hub läuft, kannst du beide Services auch direkt in einer gemeinsamen `docker-compose.yml` kombinieren und als Hostnamen `127.0.0.1` eintragen.)*
-
-Nach wenigen Sekunden springt der Status im Hub auf **Grün** – und CPU-, RAM-, Netzwerk- sowie alle laufenden Docker-Container-Metriken werden live aufgezeichnet.
+*Erfolgskontrolle:* Wechsle zurück in deinen Browser-Tab mit Beszel. Nach etwa 10 Sekunden springt der Statuspunkt neben deinem Server von Grau auf **Grün** – und CPU-Auslastung, Arbeitsspeicher, Festplatten-Belegung sowie alle laufenden Docker-Container erscheinen live im Dashboard.

@@ -102,16 +102,24 @@ Für den typischen Linux-Server oder Docker-Host (wie wir ihn im Artikel [Ubuntu
 
 ---
 
-## Praxis-Skript: Testsieger Backrest per Docker Compose installieren
+## Praxis-Anleitung: Testsieger Backrest Schritt für Schritt einrichten
 
-Mit diesem Skript richtest du **Backrest** unter `/opt/stacks/backrest` ein. Es mountet deine Docker-Stacks (`/opt/stacks`) und System-Konfigurationen (`/etc`) schreibgeschützt (`:ro`) in den Container, sodass du sofort dein erstes lokales Backup (z. B. auf eine gemountete USB-Festplatte unter `/mnt/backup`) oder ein Offsite-Backup per SFTP/S3 anlegen kannst.
+Damit du Backrest ohne Umwege auf deinem Linux-Server in Betrieb nehmen kannst, gehen wir den Aufbau in drei kurzen Schritten durch – vom Anpassen deines Speicherziels bis zum ersten automatischen Backup-Plan im Browser.
+
+### Schritt 1: Speicherziel festlegen & Container starten
+
+Überlege dir zuerst, **wohin** deine Backups gesichert werden sollen:
+* **Auf eine externe USB-Festplatte oder ein NAS:** Hänge das Laufwerk auf deinem Linux-Server ein (z. B. unter `/mnt/backup`) und entferne unten in der Vorlage das `#`-Zeichen vor `- /mnt/backup:/repos`.
+* **In die Cloud oder auf eine Hetzner Storage Box (SFTP / S3):** Dann brauchst du keinen lokalen Mount-Pfad – du trägst die Zugangsdaten gleich direkt bequem in der Weboberfläche ein.
+
+Melde dich per SSH auf deinem Server an und starte Backrest mit diesen Befehlen (alternativ kannst du den `services:`-Block auch direkt in **Portainer unter Stacks → + Add stack** einfügen):
 
 ```bash
-# Verzeichnisse für Backrest anlegen
+# 1. Ordner für Backrest anlegen
 sudo mkdir -p /opt/stacks/backrest/{data,config,cache}
 sudo chown -R $USER:$USER /opt/stacks/backrest
 
-# docker-compose.yml erstellen
+# 2. Konfigurationsdatei erstellen
 cat << 'STACK' > /opt/stacks/backrest/docker-compose.yml
 services:
   backrest:
@@ -127,10 +135,10 @@ services:
       - /opt/stacks/backrest/data:/data
       - /opt/stacks/backrest/config:/config
       - /opt/stacks/backrest/cache:/cache
-      # Zu sichernde Host-Verzeichnisse (Read-Only!)
+      # Zu sichernde Ordner auf deinem Server (Read-Only = geschützt vor Änderungen!)
       - /opt/stacks:/host/stacks:ro
       - /etc:/host/etc:ro
-      # Optional: Lokales Backup-Ziel (z. B. externe USB-Platte oder NAS-Mount)
+      # Falls du auf eine lokale Platte / NAS sicherst, entferne das # in der nächsten Zeile:
       # - /mnt/backup:/repos
     environment:
       - BACKREST_DATA=/data
@@ -139,9 +147,27 @@ services:
       - TZ=Europe/Berlin
 STACK
 
-# Container starten
+# 3. Container starten und Server-IP anzeigen
 cd /opt/stacks/backrest && docker compose up -d
-echo "=== Backrest läuft unter http://$(hostname -I | awk '{print $1}'):9898 ==="
+echo "=== Backrest erreichst du jetzt im Browser unter: http://$(hostname -I | awk '{print $1}'):9898 ==="
 ```
 
-Nach dem Start erreichst du Backrest im Browser über Port `9898` (im LAN oder via VPN), legst dort deinen Admin-Login fest, fügst unter **Repos** dein lokales Ziel (`/repos`) oder deinen SFTP-/S3-Speicher hinzu und erstellst deinen ersten **Plan** für `/host/stacks` und `/host/etc`.
+---
+
+### Schritt 2: Speicherort („Repo“) im Browser anlegen
+
+1. Öffne im Browser `http://DEINE-SERVER-IP:9898` und vergib beim ersten Aufruf einen Benutzernamen und ein Passwort für die Weboberfläche.
+2. Klicke oben auf **Add Repo** (Speicherort hinzufügen):
+   * **Name:** z. B. `lokales-backup` oder `hetzner-storagebox`
+   * **Repository URI:** Für deine lokale USB-Platte trägst du `/repos` ein; für eine Hetzner Storage Box z. B. `sftp:u123456@u123456.your-storagebox.de:/home/backup`
+   * **Password:** Vergib ein **starkes Verschlüsselungs-Passwort** und speichere es unbedingt in deinem Passwort-Manager (z. B. Vaultwarden) – ohne dieses Passwort lassen sich Backups im Notfall nicht entschlüsseln.
+3. Klicke auf **Test Configuration** und anschließend auf **Submit**.
+
+---
+
+### Schritt 3: Automatischen Zeitplan („Plan“) erstellen
+
+1. Klicke im Menü auf **Add Plan** und wähle dein gerade erstelltes Repo aus.
+2. Unter **Paths** trägst du die Ordner ein, die Backrest im Container sieht: `/host/stacks` (deine Docker-Dienste) und `/host/etc` (deine System-Konfigurationen).
+3. Wähle unter **Schedule** einen Zeitplan (z. B. *Daily* um 03:00 Uhr nachts) und lege unter **Retention Policy** fest, wie viele Stände aufgehoben werden sollen (empfohlen: *7 tägliche, 4 wöchentliche, 6 monatliche Snapshots*).
+4. Speichere den Plan und klicke einmal auf **Backup Now**, um deine erste Sicherung sofort anzustoßen.
