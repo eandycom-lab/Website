@@ -17,41 +17,47 @@ Klassische Enterprise-Systeme wie Zabbix oder Checkmk sind im Homelab oder auf k
 | :--- | :--- | :--- | :--- |
 | **RAM-Verbrauch (Agent)** | **~15–25 MB** | ~150–300 MB | ~40–80 MB (+ ~250 MB Stack) |
 | **Setup-Zeit** | **Unter 5 Minuten** | ca. 5 Minuten | 30–60 Minuten |
-| **Docker-Container-Stats** | Integriert (CPU, RAM, Netz) | Sehr detailliert | Über cAdvisor / Exporter |
-| **Multi-Server-Übersicht** | **Zentraler Hub inkl. Alerts** | Netdata Cloud oder Parent/Child | Zentraler Prometheus-Server |
-| **S.M.A.R.T. & Temperaturen** | Ja (ab v0.9+) | Ja | Über Node-Exporter-Skripte |
+| **Docker-Stats & S.M.A.R.T.** | ✅ Integriert | ✅ Sehr detailliert | ⚠️ Über Exporter |
 | **Ideal für …** | **Schlanke Homelabs & 2–10 Nodes** | Echtzeit-Fehlersuche & Deep-Dive | Große Setups & eigene Dashboards |
 
 ---
 
 ## 1. Beszel – Der schlanke Preis-Leistungs-Sieger
 
+<img src="/images/logos/beszel.svg" alt="Beszel Logo" style="height: 44px; width: auto; margin-bottom: 0.75rem;" />
+
 **Beszel** verfolgt einen radikal einfachen Ansatz: Ein zentraler **Hub** (Web-UI + SQLite-Datenbank) sammelt über einen extrem leichtgewichtigen **Agenten** die Metriken beliebig vieler Linux-Server ein – abgesichert über SSH-Keys, ohne dass auf den Zielsystemen offene HTTP-Ports ins Netzwerk freigegeben werden müssen.
 
-* **Stärken:** Minimaler Ressourcenverbrauch, sofort einsatzbereite Übersichten für CPU, RAM, Disk-I/O, Docker-Container und S.M.A.R.T.-Werte sowie integrierte Benachrichtigungen (E-Mail, Discord, Telegram, Gotify, ntfy).
-* **Schwächen:** Keine frei zusammenklickbaren Custom-Panels wie in Grafana; Fokus liegt bewusst auf System- und Container-Metriken.
+* **Pro:** Minimaler Ressourcenverbrauch (~15–25 MB RAM), sofort einsatzbereite Übersichten für CPU, RAM, Disk-I/O, Docker-Container und S.M.A.R.T.-Werte sowie integrierte Benachrichtigungen (E-Mail, Discord, Telegram, Gotify, ntfy).
+* **Contra:** Keine frei zusammenklickbaren Custom-Panels wie in Grafana; der Fokus liegt bewusst auf System- und Container-Metriken.
 
-## 2. Netdata – Maximaler Tiefgang in Echtzeit
-
-**Netdata** liefert direkt nach dem Start hunderte Metriken im Sekundentakt – vom Kernel-Interrupt über Festplatten-Latenzen bis zu einzelnen Systemd-Services.
-
-* **Stärken:** Zero-Config-Erkennung fast aller Dienste, extrem hilfreich bei akuten Performance-Engpässen („Warum ist der Server gerade träge?“).
-* **Schwächen:** Deutlich höherer RAM- und CPU-Bedarf auf kleinen Mini-PCs; für Multi-Server-Ansichten oft auf Netdata Cloud angewiesen.
-
-## 3. Prometheus + Grafana – Der maximale Baukasten
-
-Die Kombination aus **Prometheus** (Zeitreihendatenbank), **Node Exporter / cAdvisor** und **Grafana** ist der Industriestandard – ideal, wenn neben Linux-Servern auch Router oder Smart-Home-Systeme in einem Dashboard zusammenlaufen sollen.
-
-* **Stärken:** Unbegrenzte Anpassbarkeit, riesige Auswahl an Community-Dashboards, lange Datenhistorie.
-* **Schwächen:** Höherer Wartungsaufwand (`prometheus.yml`, Scrape-Targets, Exporter) und spürbar mehr Speicherbedarf.
+**Fazit:** Für 90 % aller Homelabs und Multi-Node-Setups der klare Testsieger – in unter 5 Minuten produktiv und extrem sparsam.
 
 ---
 
-## Fazit: Welches Tool passt zu welchem Setup?
+## 2. Netdata – Maximaler Tiefgang in Echtzeit
 
-* **Für 90 % aller Homelabs und Multi-Node-Setups ist Beszel die beste Wahl:** Kaum Ressourcenverbrauch, Docker- und S.M.A.R.T.-Überwachung inklusive und in wenigen Minuten produktiv.
-* **Netdata** lohnt sich als gezieltes Diagnose-Werkzeug auf stark belasteten Maschinen.
-* **Prometheus + Grafana** spielt seine Stärke erst bei komplexen, systemübergreifenden Dashboards aus.
+<img src="/images/logos/netdata.svg" alt="Netdata Logo" style="height: 44px; width: auto; margin-bottom: 0.75rem;" />
+
+**Netdata** liefert direkt nach dem Start hunderte Metriken im Sekundentakt – vom Kernel-Interrupt über Festplatten-Latenzen bis zu einzelnen Systemd-Services.
+
+* **Pro:** Zero-Config-Erkennung fast aller Dienste und extreme Granularität bei akuten Performance-Engpässen („Warum ist der Server gerade träge?“).
+* **Contra:** Deutlich höherer RAM- und CPU-Bedarf auf kleinen Mini-PCs; für Multi-Server-Ansichten oft auf Netdata Cloud angewiesen.
+
+**Fazit:** Das perfekte Diagnose-Werkzeug für gezielte Live-Fehlersuche auf stark belasteten Maschinen, für Dauer-Monitoring kleiner Nodes aber oft zu schwergewichtig.
+
+---
+
+## 3. Prometheus + Grafana – Der maximale Baukasten
+
+<img src="/images/logos/prometheus.svg" alt="Prometheus Logo" style="height: 44px; width: auto; margin-bottom: 0.75rem;" />
+
+Die Kombination aus **Prometheus** (Zeitreihendatenbank), **Node Exporter / cAdvisor** und **Grafana** ist der Industriestandard – ideal, wenn neben Linux-Servern auch Router oder Smart-Home-Systeme in einem Dashboard zusammenlaufen sollen.
+
+* **Pro:** Unbegrenzte Anpassbarkeit, riesige Auswahl an Community-Dashboards und beliebig lange Datenhistorie.
+* **Contra:** Höherer Wartungsaufwand (`prometheus.yml`, Scrape-Targets, Exporter) und spürbar mehr Speicher- sowie Einarbeitungsbedarf.
+
+**Fazit:** Spielt seine Stärke erst bei komplexen, systemübergreifenden Dashboards aus, in denen viele verschiedene Datenquellen zusammenlaufen.
 
 ---
 
