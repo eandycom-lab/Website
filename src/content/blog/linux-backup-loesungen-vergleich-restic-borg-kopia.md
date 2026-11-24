@@ -38,6 +38,8 @@ Doch welches Tool hat 2026 im Linux-Umfeld die Nase vorn? Wir vergleichen die **
 
 ## 2. Backrest: Restic endlich mit modernem Web-UI
 
+<img src="/images/logos/backrest.svg" alt="Backrest Logo" style="height: 44px; width: auto; margin-bottom: 0.75rem;" />
+
 Genau hier setzt **Backrest** an. Backrest ist kein eigenes Backup-Format, sondern eine extrem schlanke, moderne Web-Oberfläche (ebenfalls in Go geschrieben), die direkt auf der offiziellen Restic-Binary aufsetzt.
 
 * **Pro:** Alle Vorteile von Restic (kompatible Repositories, maximale Stabilität, kein Vendor-Lock-in) kombiniert mit einem aufgeräumten Browser-Dashboard. Zeitpläne (Cron), Aufbewahrungsregeln (z. B. 7 tägliche, 4 wöchentliche, 6 monatliche Snapshots), Integritätsprüfungen (`check`), Hooks vor/nach dem Backup und Webhooks (Discord, Gotify, Ntfy, E-Mail) sind in Sekunden konfiguriert. Dateien lassen sich direkt im Browser durchsuchen und wiederherstellen.
