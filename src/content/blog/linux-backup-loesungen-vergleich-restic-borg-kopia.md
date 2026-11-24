@@ -27,6 +27,8 @@ Doch welches Tool hat 2026 im Linux-Umfeld die Nase vorn? Wir vergleichen die **
 
 ## 1. Restic: Der unverwüstliche Industriestandard
 
+<img src="/images/logos/restic.svg" alt="Restic Logo" style="height: 44px; width: auto; margin-bottom: 0.75rem;" />
+
 **Restic** ist eine einzelne, statisch kompilierte Go-Binary ohne externe Abhängigkeiten. Das Tool zerlegt Dateien in variable Blöcke (Content-Defined Chunking), dedupliziert sie über alle Snapshots hinweg und verschlüsselt jedes Repository zwingend clientseitig.
 
 * **Pro:** Extrem ausgereift, riesige Community, plattformübergreifend (Linux, BSD, macOS, Windows) und native Unterstützung für praktisch jedes Ziel – von der lokalen USB-Platte über SFTP/Hetzner Storage Box bis hin zu S3-Buckets und über 70 Backends via `rclone`. Snapshots lassen sich per `restic mount` direkt als Dateisystem einhängen.
