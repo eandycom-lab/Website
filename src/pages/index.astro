@@ -8,75 +8,135 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog")).sort(
-(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
 const featured = posts[0];
-const gridPosts = posts.slice(1);
+const gridPosts = posts.slice(1, 5);
+const remainingPosts = posts.slice(5);
+const totalPages = remainingPosts.length > 0 ? 1 + Math.ceil(remainingPosts.length / 6) : 1;
 
 const resolveImg = (img?: string) => {
-if (!img) return "/blog-placeholder-1.jpg";
-return img.replace("../../assets/", "/");
+	if (!img) return "/blog-placeholder-1.jpg";
+	return img.replace("../../assets/", "/");
 };
 ---
 
 <!doctype html>
 <html lang="de">
-<head>
-<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-</head>
-<body>
-<Header />
-<main class="container mag-layout">
-<section>
-<h1 class="section-header">Aktuelle Beiträge</h1>
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="container mag-layout">
+			<section>
+				<h1 class="section-header">Aktuelle Beiträge</h1>
 
-{featured && (
-<a href={`/blog/${featured.id}/`} class="featured-card">
-<div class="featured-thumb">
-<img src={resolveImg(featured.data.heroImage)} alt={featured.data.title} title={featured.data.title} fetchpriority="high" />
-<span class="badge">{featured.data.category || "Self-Hosting"}</span>
-</div>
-<div class="featured-body">
-<div class="meta-date">
-<FormattedDate date={featured.data.pubDate} />
-</div>
-<h2 class="featured-title">{featured.data.title}</h2>
-<p class="card-desc">{featured.data.description}</p>
-</div>
-</a>
-)}
+				{featured && (
+					<a href={`/blog/${featured.id}/`} class="featured-card">
+						<div class="featured-thumb">
+							<img src={resolveImg(featured.data.heroImage)} alt={featured.data.title} title={featured.data.title} fetchpriority="high" />
+							<span class="badge">{featured.data.category || "Self-Hosting"}</span>
+						</div>
+						<div class="featured-body">
+							<div class="meta-date">
+								<FormattedDate date={featured.data.pubDate} />
+							</div>
+							<h2 class="featured-title">{featured.data.title}</h2>
+							<p class="card-desc">{featured.data.description}</p>
+						</div>
+					</a>
+				)}
 
-<div class="post-grid">
-{gridPosts.map((post) => (
-<a href={`/blog/${post.id}/`} class="post-card">
-<div class="card-thumb">
-<img src={resolveImg(post.data.heroImage)} alt={post.data.title} title={post.data.title} loading="lazy" />
-<span class="badge">{post.data.category || "Tech"}</span>
-</div>
-<div class="card-body">
-<div class="meta-date">
-<FormattedDate date={post.data.pubDate} />
-</div>
-<h2 class="card-title">{post.data.title}</h2>
-<p class="card-desc">{post.data.description}</p>
-</div>
-</a>
-))}
-</div>
-        <div class="article-box" style="margin-top: 2rem; padding: 1.5rem;">
-          <h2 class="section-header" style="margin-top: 0;">Digitale Souveränität im eigenen Homelab</h2>
-          <p style="color: var(--text-muted); margin-bottom: 0.75rem;">
-            Auf <strong>SysAI Blog</strong> findest du praxiserprobte Schritt-für-Schritt-Anleitungen für deinen eigenen Server-Stack – von schlankem Linux-Monitoring mit Beszel über Docker-Compose-Setups bis hin zur lokalen KI-Integration per <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer">Model Context Protocol (MCP)</a> und <a href="https://ollama.com/" target="_blank" rel="noopener noreferrer">Ollama</a>.
-          </p>
-          <p style="color: var(--text-muted); margin: 0;">
-            Alle Projekte und Konfigurationsbeispiele sind auf Stabilität, Datenschutz und volle Kontrolle ohne Cloud-Zwang ausgelegt – betrieben mit <a href="https://astro.build/" target="_blank" rel="noopener noreferrer">Astro</a> und offen dokumentiert auf <a href="https://github.com/eandycom-lab" target="_blank" rel="noopener noreferrer">GitHub</a>.
-          </p>
-        </div>
-      </section>
+				<div class="post-grid">
+					{gridPosts.map((post) => (
+						<a href={`/blog/${post.id}/`} class="post-card">
+							<div class="card-thumb">
+								<img src={resolveImg(post.data.heroImage)} alt={post.data.title} title={post.data.title} loading="lazy" />
+								<span class="badge">{post.data.category || "Tech"}</span>
+							</div>
+							<div class="card-body">
+								<div class="meta-date">
+									<FormattedDate date={post.data.pubDate} />
+								</div>
+								<h2 class="card-title">{post.data.title}</h2>
+								<p class="card-desc">{post.data.description}</p>
+							</div>
+						</a>
+					))}
+				</div>
 
-<Sidebar />
-</main>
-<Footer />
-</body>
+				{totalPages > 1 && (
+					<nav class="pagination-bar" aria-label="Seitennavigation">
+						<span class="page-btn disabled">← Neuere Beiträge</span>
+						<span class="page-info">Seite 1 von {totalPages}</span>
+						<a href="/seite/2/" class="page-btn">Ältere Beiträge →</a>
+					</nav>
+				)}
+
+				<div class="article-box" style="margin-top: 2rem; padding: 1.5rem;">
+					<h2 class="section-header" style="margin-top: 0;">Digitale Souveränität im eigenen Homelab</h2>
+					<p style="color: var(--text-muted); margin-bottom: 0.75rem;">
+						Auf <strong>SysAI Blog</strong> findest du praxiserprobte Schritt-für-Schritt-Anleitungen für deinen eigenen Server-Stack – von schlankem Linux-Monitoring mit Beszel über Docker-Compose-Setups bis hin zur lokalen KI-Integration per <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer">Model Context Protocol (MCP)</a> und <a href="https://ollama.com/" target="_blank" rel="noopener noreferrer">Ollama</a>.
+					</p>
+					<p style="color: var(--text-muted); margin: 0;">
+						Alle Projekte und Konfigurationsbeispiele sind auf Stabilität, Datenschutz und volle Kontrolle ohne Cloud-Zwang ausgelegt – betrieben mit <a href="https://astro.build/" target="_blank" rel="noopener noreferrer">Astro</a> und offen dokumentiert auf <a href="https://github.com/eandycom-lab" target="_blank" rel="noopener noreferrer">GitHub</a>.
+					</p>
+				</div>
+			</section>
+
+			<Sidebar />
+		</main>
+		<Footer />
+	</body>
 </html>
+
+<style>
+	.pagination-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 2rem;
+		padding: 0.9rem 1.2rem;
+		background: var(--bg-card, #111827);
+		border: 1px solid var(--border, #1e293b);
+		border-radius: 12px;
+	}
+	.page-info {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--text-muted, #94a3b8);
+	}
+	.page-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.5rem 0.95rem;
+		border-radius: 8px;
+		font-size: 0.9rem;
+		font-weight: 600;
+		text-decoration: none;
+		color: #22d3ee;
+		background: rgba(34, 211, 238, 0.08);
+		border: 1px solid rgba(34, 211, 238, 0.3);
+		transition: all 0.15s ease;
+	}
+	.page-btn:hover {
+		background: rgba(34, 211, 238, 0.16);
+		border-color: #22d3ee;
+	}
+	.page-btn.disabled {
+		opacity: 0.35;
+		pointer-events: none;
+		color: var(--text-muted, #94a3b8);
+		background: transparent;
+		border-color: var(--border, #1e293b);
+	}
+	@media (max-width: 540px) {
+		.pagination-bar {
+			flex-direction: column;
+			text-align: center;
+		}
+	}
+</style>

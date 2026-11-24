@@ -1,0 +1,134 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+	const posts = (await getCollection("blog")).sort(
+		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+	);
+	const olderPosts = posts.slice(5);
+	const pageSize = 6;
+	const totalExtraPages = Math.ceil(olderPosts.length / pageSize);
+	return Array.from({ length: totalExtraPages }, (_, i) => {
+		const pageNum = i + 2;
+		const start = i * pageSize;
+		return {
+			params: { seite: String(pageNum) },
+			props: {
+				posts: olderPosts.slice(start, start + pageSize),
+				pageNum,
+				totalPages: totalExtraPages + 1,
+			},
+		};
+	});
+}
+
+const { posts, pageNum, totalPages } = Astro.props;
+const prevHref = pageNum === 2 ? "/" : `/seite/${pageNum - 1}/`;
+const nextHref = pageNum < totalPages ? `/seite/${pageNum + 1}/` : null;
+
+const resolveImg = (img?: string) => {
+	if (!img) return "/blog-placeholder-1.jpg";
+	return img.replace("../../assets/", "/");
+};
+---
+
+<!doctype html>
+<html lang="de">
+	<head>
+		<BaseHead title={`${SITE_TITLE} – Seite ${pageNum}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="container mag-layout">
+			<section>
+				<h1 class="section-header">Weitere Beiträge (Seite {pageNum})</h1>
+
+				<div class="post-grid">
+					{posts.map((post) => (
+						<a href={`/blog/${post.id}/`} class="post-card">
+							<div class="card-thumb">
+								<img src={resolveImg(post.data.heroImage)} alt={post.data.title} title={post.data.title} loading="lazy" />
+								<span class="badge">{post.data.category || "Tech"}</span>
+							</div>
+							<div class="card-body">
+								<div class="meta-date">
+									<FormattedDate date={post.data.pubDate} />
+								</div>
+								<h2 class="card-title">{post.data.title}</h2>
+								<p class="card-desc">{post.data.description}</p>
+							</div>
+						</a>
+					))}
+				</div>
+
+				<nav class="pagination-bar" aria-label="Seitennavigation">
+					<a href={prevHref} class="page-btn">← Neuere Beiträge</a>
+					<span class="page-info">Seite {pageNum} von {totalPages}</span>
+					{nextHref ? (
+						<a href={nextHref} class="page-btn">Ältere Beiträge →</a>
+					) : (
+						<span class="page-btn disabled">Ältere Beiträge →</span>
+					)}
+				</nav>
+			</section>
+
+			<Sidebar />
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.pagination-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 2rem;
+		padding: 0.9rem 1.2rem;
+		background: var(--bg-card, #111827);
+		border: 1px solid var(--border, #1e293b);
+		border-radius: 12px;
+	}
+	.page-info {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--text-muted, #94a3b8);
+	}
+	.page-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.5rem 0.95rem;
+		border-radius: 8px;
+		font-size: 0.9rem;
+		font-weight: 600;
+		text-decoration: none;
+		color: #22d3ee;
+		background: rgba(34, 211, 238, 0.08);
+		border: 1px solid rgba(34, 211, 238, 0.3);
+		transition: all 0.15s ease;
+	}
+	.page-btn:hover {
+		background: rgba(34, 211, 238, 0.16);
+		border-color: #22d3ee;
+	}
+	.page-btn.disabled {
+		opacity: 0.35;
+		pointer-events: none;
+		color: var(--text-muted, #94a3b8);
+		background: transparent;
+		border-color: var(--border, #1e293b);
+	}
+	@media (max-width: 540px) {
+		.pagination-bar {
+			flex-direction: column;
+			text-align: center;
+		}
+	}
+</style>
