@@ -15,13 +15,13 @@ Doch welches Tool hat 2026 im Linux-Umfeld die Nase vorn? Wir vergleichen die **
 
 ## Die 5 Kandidaten im Überblick
 
-| Tool | Architektur | Web-UI | Deduplizierung & Verschlüsselung | Cloud / S3 nativ | Ideal für |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Restic** | Single-Binary (CLI) | Nein (nur CLI) | Ja (Block-basiert, AES-256) | Ja (S3, B2, SFTP, Rclone) | Automatisierte Skripte & Offsite-Backups |
-| **Backrest** | Web-UI-Wrapper für Restic | **Ja** (schlank, Go) | Ja (100 % Restic-Engine) | Ja (via Restic / Rclone) | **Homelab-Allrounder mit Web-Oberfläche** |
-| **BorgBackup** | CLI (Python/C) | Nein (Desktop: Vorta) | Ja (extrem effizient, Zstd) | Nein (nur lokal / SSH) | Reine Linux-zu-Linux / Storage-Box-Setups |
-| **Kopia** | CLI + Server + GUI | **Ja** (Web & Desktop) | Ja (sehr schnell, viele Algorithmen) | Ja (S3, B2, WebDAV, SFTP) | Gemischte Umgebungen (Linux, Win, macOS) |
-| **UrBackup** | Client/Server-Modell | **Ja** (klassisch) | Ja (Datei- & Image-Level) | Nein (lokale Server-Disks) | Zentrale Sicherung vieler Clients im LAN |
+| Tool | Web-UI | Cloud / S3 nativ | Ideal für |
+| :--- | :--- | :--- | :--- |
+| **Restic** | ❌ Nur CLI | ✅ S3, B2, SFTP, Rclone | Automatisierte Skripte & Offsite-Backups |
+| **Backrest** | ✅ Modern (Go) | ✅ Via Restic / Rclone | **Homelab-Allrounder mit Web-Oberfläche** |
+| **BorgBackup** | ❌ Nur CLI (Desktop: Vorta) | ❌ Nur Lokal / SSH | Reine Linux-zu-Linux / Storage-Box-Setups |
+| **Kopia** | ✅ Web & Desktop | ✅ S3, B2, WebDAV, SFTP | Gemischte Umgebungen (Linux, Win, macOS) |
+| **UrBackup** | ✅ Klassisch | ❌ Nur lokaler Server | Zentrale Sicherung vieler Clients im LAN |
 
 ---
 
