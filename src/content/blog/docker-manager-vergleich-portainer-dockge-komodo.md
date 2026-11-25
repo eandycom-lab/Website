@@ -79,7 +79,7 @@ Für die allermeisten Homelab- und Self-Hosting-Setups ist **Portainer CE** nach
 
 Mit diesem Einzeiler legst du auf deinem Linux-Server ein sauberes Projektverzeichnis unter `/opt/portainer` an, erstellst die `docker-compose.yml` und startest Portainer CE direkt:
 
-~~bash
+```bash
 sudo mkdir -p /opt/portainer && cd /opt/portainer && cat << 'YAML' | sudo tee docker-compose.yml > /dev/null
 services:
   portainer:
@@ -96,7 +96,7 @@ services:
       - "9443:9443"
 YAML
 sudo docker compose up -d
-~~
+```
 
 Danach erreichst du das Web-Interface direkt im Browser über **`https://<SERVER-IP>:9443`** (wichtig: Portainer erzwingt hier `https://`, die selbstsignierte Zertifikatswarnung beim ersten Aufruf einmalig bestätigen) und legst deinen Admin-Account an. *(Praxis-Tipp: Aus Sicherheitsgründen sperrt Portainer die Ersteinrichtung, wenn der Container nach dem Start länger als 5 Minuten ungenutzt offensteht – in diesem Fall hilft ein kurzes `sudo docker restart portainer`.)*
 
