@@ -1,27 +1,25 @@
 ---
 title: "Mein Homelab-Setup im 19-Zoll-Schrank: Hardware, Rollenverteilung und VPN-Sicherheit"
-description: "Wie baut man ein stromsparendes, ausfallsicheres Homelab auf? Ein Blick hinter die Kulissen: Drei leise Mini-PCs im 19-Zoll-Netzwerkschrank, klare Dienstetrennung, USB-Storage mit Offline-Backup und abgesicherter Zugriff per WireGuard-VPN und Pi-hole."
+description: "Drei leise Mini-PCs im 19-Zoll-Netzwerkschrank statt einer All-in-One-Kiste: Wie du mit klaren Rollen, USB-Storage plus Offline-Backup und WireGuard-VPN über die FRITZ!Box 5690 ein ausfallsicheres Homelab aufbaust."
 pubDate: 2026-11-25T21:30:00
 heroImage: "/images/homelab-architektur-19-zoll-netzwerkschrank-sicherheit.webp"
 category: "Self-Hosting"
 tags: ["Homelab", "Netzwerk", "WireGuard", "Pi-hole", "Docker", "Home Assistant", "Architektur"]
 ---
 
-Ein gutes Homelab muss weder laut noch stromhungrig sein – und schon gar nicht aus teurer Enterprise-Serverhardware bestehen. Viel wichtiger als rohe Rechenleistung ist eine **saubere Architektur**: Welcher Dienst läuft auf welcher Maschine, wie sind Daten gegen Ausfälle gesichert und wie bleibt das Heimnetz von außen geschützt?
+Wer sein komplettes Homelab auf einem einzigen Server bündelt, zahlt bei jeder Wartung denselben Preis: Ein Kernel-Update oder ein hängender Docker-Stack legt gleichzeitig das Smart Home, die interne Namensauflösung und den Passwort-Manager lahm.
 
-In diesem Artikel zeige ich dir den kompletten Aufbau meines eigenen Homelabs in einem kompakten **19-Zoll-Netzwerkschrank** – inklusive der Hardware-Auswahl, der Aufgabenverteilung auf drei spezialisierte Mini-PCs und dem Sicherheitskonzept ganz ohne offene Ports im Router.
+In meinem kompakten **19-Zoll-Netzwerkschrank** laufen deshalb **drei spezialisierte, extrem sparsame Mini-PCs** mit klar getrennten Aufgaben – kombiniert mit einer FRITZ!Box 5690 direkt am Glasfaseranschluss und null offenen Ports ins Internet.
 
 ---
 
 ## Das Grundprinzip: Drei spezialisierte Nodes statt einer All-in-One-Kiste
 
-Viele Einsteiger starten mit einem einzigen Server, auf dem alles gleichzeitig läuft. Das funktioniert am Anfang gut, hat im Alltag aber einen Haken: Wenn du am Linux-Kernel schraubst, Docker-Stacks neu startest oder experimentierst, fällt im ganzen Haus gleichzeitig das Smart Home, die Namensauflösung und der Passwort-Manager aus.
-
-Deshalb teilt mein Setup die Aufgaben konsequent auf **drei getrennte, extrem sparsame Rechner** im 19-Zoll-Schrank auf:
+Jeder Rechner im Rack übernimmt genau die Rolle, für die seine Hardware gebaut ist: Basis-Infrastruktur, Smart Home oder rechenintensive Apps.
 
 | Baustein / Node | Hardware & Ausstattung | Betriebssystem & Rolle | Laufende Dienste |
 | :--- | :--- | :--- | :--- |
-| **Internet & Router** | **FRITZ!Box 5690** (direkt am Glasfaseranschluss, kein separates Modem) | FRITZ!OS – zentrales Gateway & **WireGuard-VPN-Server** | Glasfaser-Einwahl, Firewall (keine Portfreigaben), VPN-Endpunkt |
+| **Internet & Router** | **FRITZ!Box 5690** (direkt am Glasfaseranschluss, ohne separates Modem) | FRITZ!OS – zentrales Gateway & **WireGuard-VPN-Server** | Glasfaser-Einwahl, Firewall (keine Portfreigaben), VPN-Endpunkt |
 | **Netzwerk-Backbone** | **TP-Link TL-SG1024DE** (24-Port Gigabit Smart Switch) | Lokale Gigabit-Vernetzung im 19"-Rack | Verbindet Router, alle drei Server-Nodes und Hausverkabelung |
 | **Node 1: Core & Gateway** | **Dell Wyse 5070** (Intel J4105, 8 GB RAM, 256 GB SSD) | Schlankes Linux + Docker & Portainer | **Pi-hole** (DNS-Filter), **Vaultwarden** (Passwörter), **Nginx Proxy Manager** |
 | **Node 2: Smart Home** | **Dell Wyse 5070** (Intel J4105, 20 GB RAM, 256 GB SSD) | **Home Assistant OS (Bare-Metal)** | Zentrale Haussteuerung (Wärmepumpe, PV-Anlage, Zigbee/Thread, Wetterstation) |
@@ -33,33 +31,37 @@ Deshalb teilt mein Setup die Aufgaben konsequent auf **drei getrennte, extrem sp
 ## Die drei Rechner im Detail: Warum diese Aufteilung?
 
 ### 1. Node 1 (Dell Wyse 5070, 8 GB RAM): Die stille Basis-Infrastruktur
-Gebrauchte **Dell Wyse 5070 Thin Clients** sind für ein Homelab echte Geheimtipps: Sie sind lüfterlos, komplett lautlos und begnügen sich im Leerlauf mit rund 4 bis 6 Watt. Auf dem ersten Wyse laufen genau die Dienste, die im Netzwerk **immer** erreichbar sein müssen – selbst wenn der große App-Server gerade gewartet wird:
-* **Pi-hole:** Filtert Werbung und Tracker netzwerkweit für alle Geräte im Haus – und übernimmt gleichzeitig die interne DNS-Auflösung für lokale Dienste.
-* **Vaultwarden:** Der selbst gehostete Passwort-Manager für die gesamte Familie.
-* **Nginx Proxy Manager (NPM):** Sorgt für saubere lokale HTTPS-Zertifikate und sprechende interne Adressen statt kryptischer IP-Nummern und Ports.
+Gebrauchte **Dell Wyse 5070 Thin Clients** sind lüfterlos, komplett lautlos und ziehen im Leerlauf rund 4 bis 6 Watt. Auf dem ersten Wyse laufen genau die Dienste, die im Heimnetz **immer** erreichbar bleiben müssen – selbst wenn der große App-Server neu startet:
+* **Pi-hole:** Filtert Werbung und Tracker netzwerkweit und übernimmt die interne DNS-Auflösung für lokale Dienste.
+* **Vaultwarden:** Selbst gehosteter Passwort-Manager für die gesamte Familie.
+* **Nginx Proxy Manager (NPM):** Liefert lokale HTTPS-Zertifikate und sprechende interne Domains statt IP-Adressen und Portnummern.
 
 ### 2. Node 2 (Dell Wyse 5070, 20 GB RAM): Dediziertes Home Assistant OS
-Der zweite Wyse 5070 ist ausschließlich für das Smart Home reserviert und läuft **Bare-Metal mit Home Assistant OS**. Durch die physische Trennung von den übrigen Docker-Containern laufen Lichtschalter, Heizungs- und Wärmepumpen-Regelung sowie Alarme selbst dann weiter, wenn auf einem der anderen Rechner Updates eingespielt werden. Dank aufgerüstetem Arbeitsspeicher hat das System reichlich Reserven für Datenbank, Add-ons und Kamerastreams.
+Der zweite Wyse 5070 steuert ausschließlich das Haus und läuft **Bare-Metal mit Home Assistant OS**. Lichtschalter, Heizungs- und Wärmepumpen-Regelung sowie Alarme arbeiten dadurch unabhängig von Docker-Updates auf den übrigen Maschinen. Der aufgerüstete Arbeitsspeicher hält genug Reserven für Datenbank, Add-ons und Kamerastreams bereit.
 
 ### 3. Node 3 (SOYO M4 Mini, Intel N150, 12 GB DDR5): Das Arbeitstier für Daten & Medien
-Wo mehr CPU-Leistung gefragt ist – etwa bei der Texterkennung in **Paperless-ngx**, der Bilderkennung in **Immich** und **PhotoPrism**, bei **Nextcloud** oder beim Streaming über **Jellyfin** –, kommt der moderne **Intel N150 Mini-PC** zum Einsatz. Verwaltet werden beide Linux-Nodes einheitlich über **Portainer** (für die Container-Stacks) und **Monitorix** (für schnelle System- und Last-Graphen).
+Rechenintensive Aufgaben – Texterkennung in **Paperless-ngx**, Bilderkennung in **Immich** und **PhotoPrism**, **Nextcloud** oder Streaming über **Jellyfin** – laufen auf dem modernen **Intel N150 Mini-PC**. Verwaltet werden beide Linux-Nodes einheitlich über **Portainer** (Container-Stacks) und **Monitorix** (System- und Last-Graphen).
 
 ---
 
 ## Speicher & Backup: 12 TB Storage + 10 TB Backup-Trennung
 
-Große Medienbibliotheken, Fotos und Dokumentenarchive brauchen viel Platz, ohne teure NVMe-SSDs vollzuschreiben. Deshalb hängen am App-Node per USB 3.0 zwei externe **WD Elements Festplatten** mit klar getrennten Rollen:
+Große Medienbibliotheken, Fotos und Dokumentenarchive belegen viel Platz, ohne interne SSDs vollzuschreiben. Am App-Node hängen deshalb per USB 3.0 zwei externe **WD Elements Festplatten** mit getrennten Aufgaben:
+
+![Storage- und Backup-Konzept mit 12 TB Produktivspeicher und 10 TB Backup-Festplatte](/images/homelab-architektur-19-zoll-netzwerkschrank-sicherheit-2.webp)
 
 1. **Produktiv-Storage (12 TB):** Liegt dauerhaft bereit und speichert Filme, Serien, Fotoarchive sowie lokale Container-Sicherungen.
-2. **Dedizierte Backup-Platte (10 TB):** Wird gezielt für Sicherungsläufe zugeschaltet – so bleiben die Backups im Alltag physisch vom Produktivspeicher getrennt und sind vor versehentlichem Löschen oder Überspielen geschützt.
+2. **Dedizierte Backup-Platte (10 TB):** Wird gezielt für Sicherungsläufe zugeschaltet – so bleiben Backups im Alltag physisch vom Produktivspeicher getrennt und sind vor versehentlichem Löschen oder Überspielen geschützt.
 
 ---
 
 ## Netzwerk & Security: Kein offener Port, alles durch VPN und Pi-hole
 
-Ein zentraler Grundsatz meines Setups lautet: **Kein einziger Dienst aus dem Homelab ist direkt aus dem Internet erreichbar.** Im Router gibt es keinerlei Portweiterleitungen auf den Reverse Proxy oder einzelne Container.
+Kein einziger Dienst aus dem Homelab ist direkt aus dem Internet erreichbar. Im Router existieren keinerlei Portweiterleitungen auf den Reverse Proxy oder einzelne Container.
 
-  * **Glasfaser direkt an der FRITZ!Box 5690:** Der Glasfaseranschluss geht ohne vorgeschaltetes externes Modem direkt in die FRITZ!Box 5690. Sie bildet die einzige Grenze zum Internet.
+![Zugriffs- und Sicherheitsarchitektur über WireGuard-VPN, FRITZ!Box 5690 und Pi-hole](/images/homelab-architektur-19-zoll-netzwerkschrank-sicherheit-3.webp)
+
+  * **Glasfaser direkt an der FRITZ!Box 5690:** Der Glasfaseranschluss geht ohne vorgeschaltetes Modem direkt in die FRITZ!Box 5690. Sie bildet die einzige Grenze zum Internet.
   * **Zugriff von unterwegs per WireGuard-VPN:** Smartphones und Laptops verbinden sich unterwegs per **WireGuard** direkt mit der FRITZ!Box 5690. Auf Reisen übernimmt das ein kompakter **GL.iNet Reiserouter**, der den Tunnel automatisch für alle verbundenen Geräte im Hotel-WLAN aufbaut.
   * **Voller Pi-hole-Schutz auch mobil:** Weil der WireGuard-Tunnel den DNS-Verkehr der mobilen Geräte direkt an **Pi-hole** auf Node 1 weiterleitet, greifen Werbeblocker und interne DNS-Namen unterwegs exakt genauso wie zu Hause im WLAN.
 
@@ -69,11 +71,11 @@ Ein zentraler Grundsatz meines Setups lautet: **Kein einziger Dienst aus dem Hom
 
   * **Vorteile:**
     * **Hohe Ausfallsicherheit:** Wartungsarbeiten am App-Server beeinträchtigen weder Internet, DNS noch das Smart Home.
-    * **Extrem geringer Stromverbrauch:** Alle drei Mini-PCs zusammen verbrauchen im Normalbetrieb oft weniger als ein einziger älterer Tower-Server.
-    * **Maximale Sicherheit:** Ohne offene Ports im Router gibt es keine Angriffsfläche für automatisierte Bots aus dem Internet.
-    * **Günstig & modular erweiterbar:** Jede Komponente lässt sich einzeln aufrüsten oder ersetzen, ohne das Gesamtsystem neu aufzusetzen.
+    * **Geringer Stromverbrauch:** Alle drei Mini-PCs zusammen verbrauchen im Normalbetrieb weniger als ein einziger älterer Tower-Server.
+    * **Minimale Angriffsfläche:** Ohne offene Ports im Router laufen automatisierte Angriffe aus dem Internet ins Leere.
+    * **Modular erweiterbar:** Jede Node lässt sich einzeln aufrüsten oder ersetzen, ohne das Gesamtsystem neu aufzusetzen.
   * **Nachteile:**
-    * **Mehr Verwaltungsaufwand am Anfang:** Drei Systeme bedeuten auch drei Betriebssysteme, die aktuell gehalten und überwacht werden müssen.
+    * **Mehr Pflegeaufwand:** Drei Rechner bedeuten drei Betriebssysteme, die aktuell gehalten und überwacht werden müssen.
     * **Mehr Verkabelung im Schrank:** Drei Netzteile und Patchkabel erfordern sauberes Kabelmanagement im 19-Zoll-Rack.
 
-**Fazit:** Die Kombination aus zwei gebrauchten, lautlosen Thin Clients für die kritische Basis und einem modernen N150-Mini-PC für datenintensive Apps trifft im Homelab den perfekten Sweetspot aus Preis, Stromverbrauch und Ausfallsicherheit. Wer einmal erlebt hat, wie entspannt Updates laufen, wenn Smart Home und DNS auf eigener Hardware getrennt sind, will nicht mehr zur All-in-One-Lösung zurück.
+**Fazit:** Zwei gebrauchte, lautlose Thin Clients für die kritische Basis plus ein moderner N150-Mini-PC für datenintensive Apps treffen im Homelab den besten Kompromiss aus Kosten, Stromverbrauch und Ausfallsicherheit. Sobald Smart Home und DNS auf eigener Hardware getrennt laufen, verlieren Updates auf dem App-Server ihren Schrecken.
