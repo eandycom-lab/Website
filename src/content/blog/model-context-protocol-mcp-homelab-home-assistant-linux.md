@@ -1,6 +1,6 @@
 ---
-title: "MCP im Homelab: Lokale KI mit Home Assistant & Linux"
-description: "Mit dem Model Context Protocol (MCP) verbindest du lokale LLMs wie Ollama sicher mit Home Assistant und Linux – so führt deine KI echte Aktionen aus."
+title: "MCP im Homelab: Lokale KI sicher mit Home Assistant & Linux verbinden"
+description: "Mit dem Model Context Protocol (MCP) greifen lokale LLMs wie Ollama oder Claude Desktop kontrolliert auf Home Assistant und Linux zu – inkl. Schritt-für-Schritt-Setup, Variablen-Guide und Sicherheitsregeln."
 pubDate: "2026-11-17"
 heroImage: "/images/mcp-homelab-home-assistant-linux.webp"
 category: "Local AI"
@@ -13,95 +13,112 @@ tags:
   - Docker
 ---
 
-Beisher war lokale oder cloudbasierte ki im Homelab meist ein reiner Text-Berater: Du fragst etwas, kopierst eine Fehlermeldung in den Chat und tippst die Lösung danach von Hand ab. Auf deine echten Geräte zu Hause – etwa ob das Garagentor noch offen steht, wie viel Strom deine Solaranlage gerade liefert oder wie voll die Festplatte auf dem Server ist – hatte die KI keinen direkten Zugriff.
+Ohne direkte Schnittstelle bleibt ein Sprachmodell im Homelab ein reiner Text-Berater: Du fragst nach einer Lösung, kopierst Logzeilen in den Chat und tippst jeden Befehl von Hand ab. Auf echte Zustände zu Hause – ob ein Fenster noch offen steht, wie viel Leistung die PV-Anlage liefert oder welcher Docker-Container gerade den Arbeitsspeicher füllt – hat das Modell keinen Zugriff.
 
-Genau das ändert das **Model Context Protocol (MCP)**. Stell dir MCP wie einen **einheitlichen USB-C-Stecker zwischen KI und deinen Systemen** vor: Statt für jedes Programm eigene Bastel-Skripte zu schreiben, sprechen moderne ki-Oberflächen (wie *Claude Desktop*, *Open WebUI*, *Cursor* oder lokale Modelle über *Ollama*) über denselben offenen Standard direkt mit Home Assistant und deinem Linux-Server – und zwar nach deinen Regeln und Berechtigungen.
+Das **Model Context Protocol (MCP)** schließt genau diese Lücke als offener Standard. Wie ein einheitlicher USB-C-Stecker verbindet MCP moderne KI-Oberflächen (*Open WebUI* mit *Ollama*, *Claude Desktop* oder *Cursor*) direkt mit **Home Assistant** und **Linux-Servern** – ohne eigene Bastel-Skripte und exakt innerhalb der von dir freigegebenen Rechte.
+
+![MCP-Architektur im Homelab: Verbindung zwischen Claude Desktop, Open WebUI/Ollama, Home Assistant und Linux-Servern](/images/model-context-protocol-mcp-homelab-home-assistant-linux-2.webp)
 
 ---
 
-## Was dir MCP im Alltag konkret bringt
+## Was dir MCP im Homelab-Alltag konkret abnimmt
 
-| Einsatzbereich | Was du die KI einfach fragen kannst | Was im Hintergrund passiert |
+| Einsatzbereich | Typische Frage im Chat | Was im Hintergrund passiert |
 | :--- | :--- | :--- |
-| **Smart Home (Home Assistant)** | * Welche Fenster sind noch offen und wie warm ist es im Wohnzimmer?»* | Die KI lest deine echten Sensor-Zustände aus Home Assistant aus. |
-| **Steuerung & Automationen** | *»Schalte im Büro das Licht aus und prüfe, ob die Wärmepumpe gerade läuft.»* | Die KI nutzt nur die von dir freigegebenen Home-Assistant-Aktionen. |
-| **Linux-Server & Docker** | * Warum braucht der Container XY gerade so viel RAM> Zeig mir die letzten Log-Zeilen.»* | Ein lokaler MCP-Server führt lesende Diagnose-Befehle aus und fasst sie zusammen. |
+| **Smart Home (Status & Energie)** | *„Welche Fenster sind noch offen und wie hoch ist der aktuelle PV-Überschuss?“* | Die KI liest ausschließlich die von dir freigegebenen Sensor-Zustände aus Home Assistant aus. |
+| **Steuerung & Routinen** | *„Schalte im Arbeitszimmer das Licht aus und prüfe, ob die Wärmepumpe läuft.“* | Die KI ruft definierte Home-Assistant-Aktionen auf – kritische Geräte bleiben unsichtbar. |
+| **Linux-Server & Docker** | *„Warum braucht mein Nextcloud-Container gerade so viel RAM? Zeig die letzten 20 Logzeilen.“* | Ein lokaler MCP-Server führt lesende Diagnose-Abfragen aus und fasst die Ursache zusammen. |
+
+> **Praxis-Tipp vor dem Start:** Du brauchst für den Einstieg **keinen** separaten Linux-MCP-Container. Home Assistant bringt seinen eigenen MCP-Server direkt ab Werk mit – in unter 10 Minuten steht deine erste funktionierende Verbindung.
 
 ---
 
-## Schritt 1: MCP-Server in Home Assistant aktivieren
+## Deine lokalen Variablen im Überblick (bitte anpassen!)
 
-Seit den aktuellen Home-Assistant-Versionen ist der MCP-Server direkt integriert – du musst nichts auf der Kommandozeile installieren, sondern alles bequem über das Menü einschalten:
+Damit die folgende Anleitung auf jedem Heimnetz funktioniert, nutzen wir drei Platzhalter, die du durch die Werte deiner eigenen Umgebung ersetzt:
+
+* **`DEINE-HA-IP`:** Die lokale IP-Adresse deines Home-Assistant-Servers im Heimnetz (z. B. `192.168.178.50`) oder dein lokaler Hostname (z. B. `homeassistant.local`).
+* **`DEIN-HA-PORT`:** Standardmäßig **`8123`**. Falls du Home Assistant über einen Reverse Proxy mit HTTPS ansprichst, nutzt du stattdessen `https://ha.deine-lokale-domain.tld` ohne Portnummer.
+* **`DEIN_LANGLEBIGES_TOKEN`:** Dein persönlicher API-Schlüssel aus Home Assistant (erstellst du gleich in Schritt 2).
+
+---
+
+## Schritt 1: Integrierten MCP-Server in Home Assistant aktivieren
+
+Home Assistant stellt die MCP-Schnittstelle direkt über seine Weboberfläche bereit – auf der Kommandozeile musst du nichts installieren:
 
 1. Öffne Home Assistant im Browser und gehe unten links auf **Einstellungen → Geräte & Dienste**.
-2. Klicke unten rechts auf den blauen Button **+ Integration hinzufügen**.
-3. Suche nach **Model Context Protocol Server** und wähle die Integration aus.
-4. Bestätige die Einrichtung. Home Assistant stellt ab sofort unter der Adresse `http://DEINE-HA-IP:8123/mcp_server/sse` eine lokale Schnittstelle bereit.
+2. Klicke unten rechts auf **+ Integration hinzufügen** und suche nach **Model Context Protocol Server**.
+3. Bestätige die Einrichtung. Ab sofort läuft der lokale Endpunkt unter:
+   `http://DEINE-HA-IP:8123/mcp_server/sse`
 
-### Wichtig: Welche Geräte darf die KI sehen?
-Damit die KI nicht versehentlich das falsche Gerät schaltet, entscheidest du selbst, welche Entitäten sichtbar sind:
+### Pflichtschritt für Einsteiger: Sichtbare Geräte eingrenzen (*Expose*)
+Standardmäßig soll die KI nicht deinen gesamten Haushalt sehen. Lege deshalb sofort fest, welche Entitäten freigegeben sind:
 1. Gehe zu **Einstellungen → Sprachassistenten → Verfügbar machen** (*Expose*).
-2. Aktiviere dort gezielt nur die Lampen, Sensoren, Heizkörper oder Schalter, die dein KI-Assistent kennen darf. Alles andere bleibt unsichtbar.
+2. Aktiviere dort gezielt nur unkritische Lampen, Raumtemperaturen, Stromzähler oder Fensterkontakte.
+3. **Wichtig:** Lasse Türschlösser, Garagentore, Alarmanlagen und Hauptschalter für Server-Steckdosen konsequent deaktiviert.
+
+> **Zwischen-Fazit (Schritt 1):** Dein Home-Assistant-MCP-Server läuft jetzt lokal im Heimnetz und zeigt nach außen nur genau die Sensoren und Schalter, die du unter *Verfügbar machen* explizit freigeschaltet hast.
 
 ---
 
-## Schritt 2: Einen Zugangsschlüssel (Token) in Home Assistant erstellen
+## Schritt 2: Zugangsschlüssel (Langlebiges Zugriffstoken) erstellen
 
-Damit sich dein KI-Programm sicher bei Home Assistant anmelden darf, braucht es einen persönlichen Zugangsschlüssel – ein sogenanntes **Langlebiges Zugriffstoken**:
+Damit sich dein KI-Client sicher gegenüber Home Assistant ausweisen kann, benötigt er ein persönliches Token:
 
-1. Klicke in Home Assistant ganz unten links auf **deinen Benutzernamen** (dein Profil).
-2. Wechsle oben auf den Reiter **Sicherheit**.
-3. Scrolle ganz nach unten zum Bereich **Langlebige Zugriffstoken** und klicke auf **Token erstellen**.
-4. Vergib einen Namen (z. B. `MCP KI-Assistent`) und kopiere die angezeigte lange Zeichenkette sofort in deine Zwischenablage – sie wird aus Sicherheitsgründen nur ein einziges Mal angezeigt.
+1. Klicke in Home Assistant ganz unten links auf **deinen Benutzernamen** (Profil).
+2. Wechsle oben auf den Reiter **Sicherheit** und scrolle ganz nach unten zu **Langlebige Zugriffstoken**.
+3. Klicke auf **Token erstellen**, vergib einen eindeutigen Namen (z. B. `MCP KI-Assistent`) und kopiere die angezeigte Zeichenkette sofort in deine Zwischenablage.
+
+> **Stolperfalle:** Home Assistant zeigt diesen Schlüssel aus Sicherheitsgründen **nur ein einziges Mal** an. Wenn du das Fenster schließt, ohne ihn zu kopieren, musst du das Token löschen und ein neues anlegen.
 
 ---
 
-## Schritt 3: Den KI-Client mit Home Assistant verbinden
+## Schritt 3: KI-Client verbinden (Open WebUI oder Claude Desktop)
 
-Jetzt sagst du deinem KI-Programm, unter welcher Adresse Home Assistant erreichbar ist und welchen Schlüssel es verwenden darf. Je nachdem, welches Programm du nutzt, fügst du die Konfiguration an einer dieser beiden Stellen ein:
+### Variante A: In Open WebUI (für lokale Modelle mit Ollama)
+1. Öffne **Open WebUI** im Browser und navigiere zu **Admin-Bereich → Einstellungen → Externe Tools** (je nach Version *Tools / MCP*).
+2. Klicke auf **+ Verbindung hinzufügen** und wähle als Typ **MCP (SSE)**.
+3. Trage als Server-URL `http://DEINE-HA-IP:8123/mcp_server/sse` ein und hinterlege dein kopiertes Token im Feld **Bearer Token / API Key**.
+4. Nach dem Speichern erscheint unter deinem Chat-Eingabefeld ein **Werkzeug-/Stecker-Symbol**, mit dem du Home Assistant pro Chat aktivieren kannst.
 
-### Variante A: In Open WebUI (für lokale KI mit Ollama)
-1. Öffne **Open WebUI** im Browser und klicke unten links auf dein **Profilbild → Admin-Bereich → Einstellungen → Tools** (bzw. *Externe Tools / MCP*9.
-2. Klicke auf **+ Verbindung hinzufügen** und wähle as Typ **MCP (SSE)**.
-3. Trage als URL `http://DEINE-HA-IP:8123/mcp_server/sse` ein und füge dein kopiertes **Zugriffstoken** aus Schritt 2 in das Feld *Bearer Token / API Key* ein.
-4. Speichere die Einstellung – beim mächsten Chat erscheint unter dem Eingabefeld ein kleines Werkzeug-Symbol, über das du Home Assistant zuschalten kannst.
+> **Tipp für lokale LLMs in Ollama:** Nutze für MCP-Werkzeugaufrufe Modelle mit sauberem *Tool-Calling*-Support (z. B. `qwen2.5` ab 7B/14B oder `llama3.1` / `mistral-nemo`). Sehr kleine Modelle unter 4B erfinden oft falsche Parameter oder ignorieren verfügbare Tools.
 
 ### Variante B: In Claude Desktop (Windows / macOS / Linux)
-1. Öffne Claude Desktop und klicke oben links im Menü auf **Datei → Einztellungen → Entwickler → Konfiguration bearbeiten** (*Edit Config*).
-2. Dadurch öffnet sich automatisch der Ordner mit der Datei `claude_desktop_config.json`. Öffne sie mit einem Texteditor.
-3. Füge diesen Block ein und ersetze `DEINE-HA-IP` sowie `DEIN_LANGLEBIGES_TOKEN`:
+1. Öffne in Claude Desktop das Menü **Datei → Einstellungen → Entwickler → Konfiguration bearbeiten** (*Edit Config*).
+2. Öffne die Datei `claude_desktop_config.json` in einem Texteditor und trage diesen Block ein (passe `DEINE-HA-IP` und `DEIN_LANGLEBIGES_TOKEN` an):
 
-```json
-{
-  "mcpServers": {
-    "home-assistant": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "http://DEINE-HA-IP:8123/mcp_server/sse",
-        "--header",
-        "Authorization: Bearer DEIN_LANGLEBIGES_TOKEN"
-      ]
+    {
+      "mcpServers": {
+        "home-assistant": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote",
+            "http://DEINE-HA-IP:8123/mcp_server/sse",
+            "--header",
+            "Authorization: Bearer DEIN_LANGLEBIGES_TOKEN"
+          ]
+        }
+      }
     }
-  }
-}
-```
 
-4. Speichere die Datei und starte Claude Desktop einmal komplett neu (auch unten rechts aus der Taskleiste beenden). Danach erscheint im Chat-Fenster das **Stecker-/Werkzeug-Symbol** mit deinen Home-Assistant-Befehlen.
+3. Speichere die Datei und starte Claude Desktop **komplett** neu (unter Windows auch unten rechts im Infobereich beenden). Danach listet das Stecker-Symbol deine Home-Assistant-Werkzeuge auf.
 
 ---
 
-## Schritt 4: Sicherheit im Homelab – drei goldene Regeln
+## Schritt 4: Sicherheit & Linux-Erweiterung – drei goldene Regeln
 
-Weil MCP der KI echte Werkzeuge an die Hand gibt, solltest du drei einfache Schutzmaßnahmen einhalten:
+Sobald eine KI nicht nur Text erzeugt, sondern echte Schnittstellen aufruft, gelten im Homelab drei klare Leitplanken:
 
-1. **Niemals direkt ins Internet öffnen:** Betreibe deinen Home-Assistant-MCP-Endpunkt ausschließlich im lokalen Heimnetz oder über deinen eigenen VPN-Tunnel (z. B. WireGuard auf der FRITZ!Box) – niemals per ungeschützter Portfreigabe.
-2. **Minimal-Prinzip bei Geräten:** Gib unter *Verfügbar machen* nur Sensoren und unkritische Schalter frei. Türschlössel, Garagentore oder Alarmanlagen gehören nicht in einen KI-Chat.
-3. **Lesen vor Schreiben:** Wenn du zusätzlich einen Linux-Server per MCP anbindest, starte immer mit reinen Lese-Rechten (Logs prüfen, Speicherplatz abfragen, Container-Status lesen), bevor du der KI erlaubst, Dienste neu zu starten.
+![MCP-Sicherheits- und Berechtigungsmodell im Homelab: Freigegebene Sensoren vs. gesperrte kritische Geräte und Ports](/images/model-context-protocol-mcp-homelab-home-assistant-linux-3.webp)
+
+1. **Keine Portfreigaben im Router:** Der Endpunkt `/mcp_server/sse` gehört ausschließlich ins lokale Heimnetz oder hinter deinen eigenen VPN-Tunnel (z. B. WireGuard auf der FRITZ!Box) – niemals ungeschützt ins Internet.
+2. **Minimal-Prinzip bei Entitäten:** Gib unter *Verfügbar machen* wirklich nur das frei, was du im Alltag per Chat abfragen oder schalten möchtest.
+3. **Lesen vor Schreiben auf Linux-Servern:** Wenn du im nächsten Schritt zusätzlich einen Linux- oder Docker-MCP-Server ergänzt, starte immer mit reinen Lese-Rechten (`docker ps`, `docker logs`, `df -h`), bevor du schreibende Aktionen wie Neustarts freigibst.
 
 ---
 
-## Fazit
+## Gesamtfazit
 
-Mit dem **Model Context Protocol** wird aus einem allgemeinen Chatbot ein echter Assistent, der dein Zuhause und deinen Server kennt. Dank der integrierten Home-Assistant-Schnittstelle brauchst du dafür keine komplizierten Bastellösungen mehr: Integration aktivieren, Token erstellen, in deinem KI-Client eintragen – und schon arbeitet deine KI mit deinen echten Daten statt mit Vermutungen.
+Mit dem **Model Context Protocol** wird dein Sprachmodell vom passiven Textgenerator zum echten Werkzeug im Homelab – ohne Cloud-Zwang und ohne unübersichtliche Einzel-Skripte. Durch den integrierten MCP-Server in Home Assistant und die gezielte Freigabe über *Verfügbar machen* behältst du jederzeit die volle Kontrolle darüber, welche Sensoren deine KI lesen und welche Schalter sie bedienen darf.
