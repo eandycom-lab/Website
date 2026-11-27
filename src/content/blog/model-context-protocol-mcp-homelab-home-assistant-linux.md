@@ -1,9 +1,10 @@
 ---
-title: "MCP im Homelab: Lokale KI sicher mit Home Assistant & Linux verbinden"
-description: "Mit dem Model Context Protocol (MCP) greifen lokale LLMs wie Ollama oder Claude Desktop kontrolliert auf Home Assistant und Linux zu – inkl. Schritt-für-Schritt-Setup, Variablen-Guide und Sicherheitsregeln."
-pubDate: "2026-11-17"
-heroImage: "/images/mcp-homelab-home-assistant-linux.webp"
-category: "Local AI"
+title: 'MCP im Homelab: Lokale KI sicher mit Home Assistant & Linux verbinden'
+description: Mit dem Model Context Protocol (MCP) greifen lokale LLMs wie Ollama oder Claude Desktop kontrolliert auf Home Assistant und Linux zu – inkl. Schritt-für-Schritt-Setup, Variablen-Guide und Sicherheitsregeln.
+pubDate: 2026-11-17
+updatedDate: ''
+heroImage: ''
+category: Local AI
 tags:
   - MCP
   - Local AI
