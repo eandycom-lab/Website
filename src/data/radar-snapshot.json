@@ -1,7 +1,738 @@
 {
-  "generatedAt": "2026-11-28T18:09:02.515Z",
+  "generatedAt": "2026-11-28T18:34:20.853Z",
   "isPreviewSample": false,
   "items": [
+    {
+      "id": "ollama-3",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.19",
+      "publishedAt": "2026-11-26T17:52:02Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.19",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.19: Verbesserte Leistung und kompakte Historien",
+      "summaryDe": "Die Version v0.40.19 von Ollama bringt Leistungsverbesserungen durch schnellere Kurzgeschichten und kompakte Engram-Historien. Zudem wurde der llama-server aktualisiert.",
+      "changes": [
+        "Schnellere Kurzgeschichten, Entwurfsvorschläge und Konversations-Snapshots durch inkling2.",
+        "Kompakte Engram-Historien durch mlxrunner.",
+        "Aktualisierung des llama-Servers."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "What's Changed",
+          "quote": "* inkling2: faster short histories, draft proposals and conv snapshots by @dhiltgen in https://github.com/ollama/ollama/pull/19881"
+        },
+        {
+          "field": "What's Changed",
+          "quote": "* mlxrunner: compact Engram history buffers by @pdevine in https://github.com/ollama/ollama/pull/19913"
+        },
+        {
+          "field": "What's Changed",
+          "quote": "* bump llama-server by @pdevine in https://github.com/ollama/ollama/pull/19917"
+        }
+      ]
+    },
+    {
+      "id": "open-webui-73",
+      "appId": "open-webui",
+      "appSlug": "open-webui",
+      "appName": "Open WebUI",
+      "domainCategory": "Local AI",
+      "version": "v0.13.5",
+      "publishedAt": "2026-11-25T09:37:55Z",
+      "sourceUrl": "https://github.com/open-webui/open-webui/releases/tag/v0.13.5",
+      "revision": 1,
+      "titleDe": "Open WebUI v0.13.5: Einführung von Arbeitsbereichen und verbesserte Chat-Funktionen",
+      "summaryDe": "Die Version v0.13.5 von Open WebUI bringt neue Funktionen wie Arbeitsbereiche für Projekte, die es Nutzern ermöglichen, Tests und Chats gleichzeitig zu nutzen. Zudem wurden die Leistung von langen Chats und die automatische Modellauswahl verbessert.",
+      "changes": [
+        "Einführung von Arbeitsbereichen, die es ermöglichen, Tests und Chats nebeneinander zu nutzen.",
+        "Projektanweisungen können in speziellen Dateien hinterlegt werden, die der Assistent bei neuen Chats berücksichtigt.",
+        "Die Leistung von langen Chats wurde erheblich verbessert, mit schnelleren Antwortzeiten und reduzierten Datenbankoperationen.",
+        "Automatische Modellauswahl für unterschiedliche Anfragen basierend auf Textmustern.",
+        "Erweiterte Funktionen zur Zitierung von Quellen und zur Bearbeitung von Aufgaben durch Codierungsagenten."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "ollama-8",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.18",
+      "publishedAt": "2026-11-24T04:18:13Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.18",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.18: Verbesserungen bei Metal und Architekturunterstützung",
+      "summaryDe": "Die Version v0.40.18 von Ollama bringt mehrere Verbesserungen, darunter eine schnellere Metal-Dekodierung und optimierte Tensor-Hilfsfunktionen. Zudem wurde die Unterstützung für Jetpack5 entfernt.",
+      "changes": [
+        "Fusionsmixing von Inkling-Rückständen auf Metal implementiert.",
+        "Tensor-Hilfsfunktionen und Modelleinrichtung über verschiedene Architekturen geteilt.",
+        "Version von llama.cpp auf b12651 aktualisiert und Unterstützung für Jetpack5 entfernt.",
+        "Schnellere Metal-Dekodierung, Vorbefüllung und Entwurfsrunden in inkling2."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "confirmed",
+      "eventTypes": [
+        "feature",
+        "breaking_changes"
+      ],
+      "evidence": [
+        {
+          "field": "changes",
+          "quote": "mlx: fuse Inkling residual mixing on Metal by @dhiltgen in https://github.com/ollama/ollama/pull/19808"
+        },
+        {
+          "field": "changes",
+          "quote": "mlxrunner: share tensor helpers and model setup across architectures by @jaingaurav in https://github.com/ollama/ollama/pull/19805"
+        },
+        {
+          "field": "changes",
+          "quote": "llama.cpp: version bump b12651 + remove jetpack5 support by @pdevine in https://github.com/ollama/ollama/pull/19865"
+        },
+        {
+          "field": "changes",
+          "quote": "inkling2: faster Metal decode, prefill and draft rounds by @dhiltgen in https://github.com/ollama/ollama/pull/19843"
+        }
+      ]
+    },
+    {
+      "id": "home-assistant-5",
+      "appId": "home-assistant",
+      "appSlug": "home-assistant",
+      "appName": "Home Assistant Core",
+      "domainCategory": "Home Automation",
+      "version": "2026.11.3",
+      "publishedAt": "2026-11-23T20:48:39Z",
+      "sourceUrl": "https://github.com/home-assistant/core/releases/tag/2026.11.3",
+      "revision": 1,
+      "titleDe": "Home Assistant Core 2026.11.3: Verbesserungen und Fehlerbehebungen",
+      "summaryDe": "Die Version 2026.11.3 von Home Assistant Core bringt zahlreiche Verbesserungen und Fehlerbehebungen mit sich, darunter Anpassungen für die Nintendo Parental Controls und die Vodafone Station. Zudem wurden mehrere Abhängigkeiten aktualisiert und verschiedene Integrationen optimiert.",
+      "changes": [
+        "Fehlerbehebung beim 'add_bonus_time' Selector in den Nintendo Parental Controls.",
+        "Re-Login für die Vodafone Station bei abgelaufener Sitzung.",
+        "Aktualisierung der Abhängigkeiten wie aioamazondevices und earn-e-p1.",
+        "Behebung von Problemen mit der Tasmota-Entdeckung nach dem Entfernen eines Geräts.",
+        "Optimierung der FRITZ!Box-Tools und Behebung von Problemen mit den Profilumschaltungen."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "feature"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "restic-65",
+      "appId": "restic",
+      "appSlug": "restic",
+      "appName": "Restic",
+      "domainCategory": "Backup",
+      "version": "v0.20.0",
+      "publishedAt": "2026-11-19T12:11:52Z",
+      "sourceUrl": "https://github.com/restic/restic/releases/tag/v0.20.0",
+      "revision": 1,
+      "titleDe": "Restic v0.20.0: Verbesserte Wiederherstellung und Fehlerbehebungen",
+      "summaryDe": "Die Version 0.20.0 von Restic bringt wichtige Sicherheitsverbesserungen und Fehlerbehebungen mit sich, insbesondere bei der Wiederherstellung von Dateien. Zudem wurden neue Funktionen wie JSON-Unterstützung für den `prune`-Befehl und Optionen zur Handhabung von AWS S3-Dual-Stack-Endpunkten hinzugefügt.",
+      "changes": [
+        "Behebung von Sicherheitsproblemen bei der Wiederherstellung von Dateibesitzern und doppelten Knoten-Namen.",
+        "Verbesserte Fehlerbehandlung bei beschädigten oder unvollständigen Konfigurationsdateien.",
+        "Neue Funktionen zur Unterstützung von JSON-Ausgaben und zur Handhabung von Multi-Bucket-Anwendungsschlüsseln im B2-Backend."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "security",
+          "quote": "Fix ownership when `restore --ownership-by-name` cannot resolve names"
+        },
+        {
+          "field": "security",
+          "quote": "Reject duplicate or out-of-order node names during `restore`"
+        },
+        {
+          "field": "enhancement",
+          "quote": "Add JSON support to `prune` command"
+        }
+      ]
+    },
+    {
+      "id": "immich-1",
+      "appId": "immich",
+      "appSlug": "immich",
+      "appName": "Immich",
+      "domainCategory": "Fotos",
+      "version": "v3.4.2",
+      "publishedAt": "2026-11-18T20:14:51Z",
+      "sourceUrl": "https://github.com/immich-app/immich/releases/tag/v3.4.2",
+      "revision": 1,
+      "titleDe": "Immich v3.4.2: Fehlerbehebungen und neue FUTO Backups-Version",
+      "summaryDe": "Die Version v3.4.2 von Immich bringt mehrere Fehlerbehebungen sowie eine neue Version von FUTO Backups mit sich. Diese Aktualisierung verbessert die Benutzererfahrung und behebt spezifische Probleme im Web-Interface.",
+      "changes": [
+        "Verhindert doppelte Combobox-Schlüssel bei unbekannten Kameramarken.",
+        "Versteckt die Play/Pause-Schaltfläche der Diashow ohne Autoplay.",
+        "Korrigiert die Ausrichtung des Dateinamens im Detailbereich.",
+        "Hasht externe Styles für CSP.",
+        "Behebt Probleme beim Herunterladen von Integritätsberichten.",
+        "Stellt sicher, dass der Prometheus-Exporter korrekt hört.",
+        "Entfernt range=pc bei VAAPI."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Some more bug fixes and a new FUTO Backups version in this one!"
+        },
+        {
+          "field": "release_notes",
+          "quote": "## What's Changed"
+        }
+      ]
+    },
+    {
+      "id": "paperless-ngx-2",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.5.1",
+      "publishedAt": "2026-11-18T05:22:01Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.5.1",
+      "revision": 1,
+      "titleDe": "Paperless-ngx 3.5.1: Verbesserungen und Fehlerbehebungen",
+      "summaryDe": "Die Version 3.5.1 von Paperless-ngx bringt Anpassungen an der Chat-Timing für Streaming sowie mehrere Fehlerbehebungen. Diese Updates verbessern die Benutzererfahrung und die Funktionalität der Anwendung.",
+      "changes": [
+        "Anpassung der Chat-Timing für Streaming.",
+        "Behebung eines Fehlers, bei dem set_actor nicht verwendet wurde, wenn das Audit-Log in Aufgaben deaktiviert war.",
+        "Behebung eines Fehlers beim Streamen von AI-Chat-Antworten unter ASGI.",
+        "Behebung eines Problems, bei dem die Auswahl bei der Massenbearbeitung nach der Warteschlangenoperation nicht beibehalten wurde."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "changes",
+          "quote": "Tweak: adjust chat timing for streaming @shamoon ([#14805](https://github.com/paperless-ngx/paperless-ngx/pull/14805))"
+        },
+        {
+          "field": "bug fixes",
+          "quote": "Fix: stream AI chat answers under ASGI @stumpylog ([#14803](https://github.com/paperless-ngx/paperless-ngx/pull/14803))"
+        },
+        {
+          "field": "bug fixes",
+          "quote": "Tweak/fix: retain bulk edit selection after queuing operation @shamoon ([#14797](https://github.com/paperless-ngx/paperless-ngx/pull/14797))"
+        }
+      ]
+    },
+    {
+      "id": "uptime-kuma-4",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.12",
+      "publishedAt": "2026-11-17T15:26:08Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.12",
+      "revision": 1,
+      "titleDe": "Uptime Kuma 2.5.12 mit Sicherheitsfixes",
+      "summaryDe": "Die Version 2.5.12 von Uptime Kuma bringt wichtige Sicherheitsfixes mit sich. Insbesondere wurde eine gefährliche Bibliothek in einer Sandbox isoliert und die Abhängigkeiten wurden aktualisiert.",
+      "changes": [
+        "Sandboxisierung einer gefährlichen Bibliothek",
+        "Aktualisierung der Abhängigkeiten"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security"
+      ],
+      "evidence": [
+        {
+          "field": "quote",
+          "quote": "#8187 fix: sandbox a dangerous library"
+        },
+        {
+          "field": "quote",
+          "quote": "#8167 chore: Update dependencies"
+        }
+      ]
+    },
+    {
+      "id": "open-webui-74",
+      "appId": "open-webui",
+      "appSlug": "open-webui",
+      "appName": "Open WebUI",
+      "domainCategory": "Local AI",
+      "version": "v0.13.4",
+      "publishedAt": "2026-11-17T14:46:26Z",
+      "sourceUrl": "https://github.com/open-webui/open-webui/releases/tag/v0.13.4",
+      "revision": 1,
+      "titleDe": "Open WebUI v0.13.4: Einführung von Tether und neuen Funktionen",
+      "summaryDe": "Die Version v0.13.4 von Open WebUI bringt bedeutende Neuerungen wie die Integration von Tether, das es Nutzern ermöglicht, ihre eigenen Computer in die Anwendung einzubinden. Zudem wurden Funktionen wie Sandbox-Umgebungen für Agenten, lokale MCP-Server und verbesserte Chat-Interaktionen eingeführt.",
+      "changes": [
+        "Integration von Tether zur Nutzung eigener Computer als Teil von Open WebUI.",
+        "Sandboxed Agents, die den Zugriff auf Dateien auf dem Computer einschränken.",
+        "Unterstützung für lokale MCP-Server über Tether.",
+        "Erstellung von Sandbox-Computern für jeden Nutzer mit spezifischen Ressourcen.",
+        "Erweiterte Funktionen für Coding Agents im Chat.",
+        "Tabs für Notizen, Kanäle und Chats zur besseren Navigation.",
+        "Interaktive Visualisierungen und Videoerzeugung durch Modelle.",
+        "Verbesserte Git-Integration und Automatisierungen in Ordnern."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "paperless-ngx-7",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.5.0",
+      "publishedAt": "2026-11-17T03:36:20Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.5.0",
+      "revision": 1,
+      "titleDe": "Paperless-ngx v3.5.0: Verbesserte Dokumentenverwaltung und neue Funktionen",
+      "summaryDe": "Die Version 3.5.0 von Paperless-ngx bringt zahlreiche Verbesserungen und neue Funktionen, darunter die Möglichkeit, Dokumentennotizen im Markdown-Format darzustellen und manuelle Workflows auszulösen. Zudem wurden viele Performance-Optimierungen und Fehlerbehebungen implementiert.",
+      "changes": [
+        "Bulk-Operationen wurden auf asynchrone Verarbeitung umgestellt.",
+        "Dokumentennotizen können jetzt im Markdown-Format gerendert werden.",
+        "Manuelle Auslösung von Workflows wurde hinzugefügt.",
+        "Fehlerbehebungen für die Benutzeroberfläche und die Verarbeitung von Dokumenten.",
+        "Optimierungen bei der Verwendung von Datenbankabfragen und der Performance."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Note that some users may need to adjust their [`PAPERLESS_ALLOWED_HOSTS` setting]"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Feature: manual workflow trigger"
+        }
+      ]
+    },
+    {
+      "id": "home-assistant-10",
+      "appId": "home-assistant",
+      "appSlug": "home-assistant",
+      "appName": "Home Assistant Core",
+      "domainCategory": "Home Automation",
+      "version": "2026.11.2",
+      "publishedAt": "2026-11-16T20:03:59Z",
+      "sourceUrl": "https://github.com/home-assistant/core/releases/tag/2026.11.2",
+      "revision": 1,
+      "titleDe": "Home Assistant Core 2026.11.2: Abhängigkeiten aktualisiert und Fehlerbehebungen",
+      "summaryDe": "Die Version 2026.11.2 von Home Assistant Core bringt mehrere Aktualisierungen von Abhängigkeiten sowie zahlreiche Fehlerbehebungen mit sich. Zu den behobenen Problemen gehören unter anderem die Unterstützung für UniFi-Optionen und die Migration von Hue für Zigbee-Geräte.",
+      "changes": [
+        "Aktualisierung von midea-local auf v15.1.0",
+        "Behebung des Problems mit UniFi-Optionen für nicht geladene Einträge",
+        "Aktualisierung von indi_allsky auf aioindiallsky 0.1.8",
+        "Behebung von Problemen bei der Migration von Hue für mehrkanalige Zigbee-Geräte",
+        "Reduzierung des Solar-Log-Passworts in den Diagnosen"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "feature"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "beszel-61",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.21.2",
+      "publishedAt": "2026-11-12T18:44:44Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.21.2",
+      "revision": 1,
+      "titleDe": "Beszel v0.21.2: Verbesserungen bei Benachrichtigungen und Systemverwaltung",
+      "summaryDe": "Die Version v0.21.2 von Beszel bringt zahlreiche Verbesserungen, darunter ein neues Aktionsmenü für Benachrichtigungseinstellungen und erweiterte GPU-Metriken. Zudem wurden mehrere Fehlerbehebungen und Optimierungen vorgenommen, um die Systemstabilität zu erhöhen.",
+      "changes": [
+        "Neues Aktionsmenü mit Benachrichtigungseinstellungen auf der Systemdetailseite hinzugefügt.",
+        "FAN_SENSORS zur Ein- oder Ausschluss von Lüftersensoren hinzugefügt.",
+        "Gestylte HTML-Benachrichtigungs-E-Mails hinzugefügt.",
+        "Warnungen für fehlende automatische Anmeldebenutzer und vertrauenswürdige Proxy-Konfigurationen hinzugefügt.",
+        "Die Anzahl der Anmeldeversuche auf 10 pro Minute pro Adresse begrenzt.",
+        "Verschiedene Fehlerbehebungen zur Verbesserung der Systemstabilität und Benutzerfreundlichkeit."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "nextcloud-47",
+      "appId": "nextcloud",
+      "appSlug": "nextcloud",
+      "appName": "Nextcloud Server",
+      "domainCategory": "Cloud & Sync",
+      "version": "v33.0.11",
+      "publishedAt": "2026-11-12T17:21:37Z",
+      "sourceUrl": "https://github.com/nextcloud/server/releases/tag/v33.0.11",
+      "revision": 1,
+      "titleDe": "Nextcloud Server v33.0.11 veröffentlicht",
+      "summaryDe": "Die Version v33.0.11 von Nextcloud Server wurde veröffentlicht. Diese Version enthält verschiedene Verbesserungen und Fehlerbehebungen.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "nextcloud-46",
+      "appId": "nextcloud",
+      "appSlug": "nextcloud",
+      "appName": "Nextcloud Server",
+      "domainCategory": "Cloud & Sync",
+      "version": "v34.0.6",
+      "publishedAt": "2026-11-12T17:11:33Z",
+      "sourceUrl": "https://github.com/nextcloud/server/releases/tag/v34.0.6",
+      "revision": 1,
+      "titleDe": "Nextcloud Server v34.0.6 veröffentlicht",
+      "summaryDe": "Die Version v34.0.6 von Nextcloud Server wurde veröffentlicht. Diese Version enthält verschiedene Verbesserungen und Fehlerbehebungen.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "nextcloud-45",
+      "appId": "nextcloud",
+      "appSlug": "nextcloud",
+      "appName": "Nextcloud Server",
+      "domainCategory": "Cloud & Sync",
+      "version": "v35.0.3",
+      "publishedAt": "2026-11-12T13:14:08Z",
+      "sourceUrl": "https://github.com/nextcloud/server/releases/tag/v35.0.3",
+      "revision": 1,
+      "titleDe": "Nextcloud Server v35.0.3 veröffentlicht",
+      "summaryDe": "Die Version v35.0.3 von Nextcloud Server wurde veröffentlicht. Details zu den Änderungen und Neuerungen sind in den Release-Notizen verfügbar.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "uptime-kuma-9",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.11",
+      "publishedAt": "2026-11-12T09:20:06Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.11",
+      "revision": 1,
+      "titleDe": "Uptime Kuma 2.5.11 mit Sicherheitsfixes",
+      "summaryDe": "Die Version 2.5.11 von Uptime Kuma bringt wichtige Sicherheitsupdates mit sich. Insbesondere wurde eine Remote Code Execution (RCE) Schwachstelle behoben, die durch eine Regression eines upstream-Pakets verursacht wurde.",
+      "changes": [
+        "Aktualisierung der Abhängigkeiten",
+        "Behebung einer RCE-Sicherheitsanfälligkeit für Administratoren"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "#8094 chore: Update dependencies"
+        },
+        {
+          "field": "release_notes",
+          "quote": "GHSA-437w-j82f-9vjh fix: [Admin Only] RCE via an upstream package's regression (Details will be revealed after 7 days)"
+        }
+      ]
+    },
+    {
+      "id": "uptime-kuma-14",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.10",
+      "publishedAt": "2026-11-12T03:53:19Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.10",
+      "revision": 1,
+      "titleDe": "Uptime Kuma 2.5.10: Sicherheits- und Bugfix-Updates",
+      "summaryDe": "Die Version 2.5.10 von Uptime Kuma bringt wichtige Bugfixes und Sicherheitsupdates mit sich. Insbesondere wurde ein Problem beim Zurücksetzen von Passwörtern für die eingebettete MariaDB behoben und Node.js auf eine sichere Version aktualisiert.",
+      "changes": [
+        "Bugfix für das Zurücksetzen von Passwörtern in der eingebetteten MariaDB.",
+        "Sicherheitsupdate: Node.js auf Version 22.23.5 aktualisiert."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "Bug Fixes",
+          "quote": "#8138 fix: reset password for embedded MariaDB"
+        },
+        {
+          "field": "Security Fixes",
+          "quote": "[Docker] Update Node.js to 22.23.5 - Upstream high severity issues could possibly affect Uptime Kuma"
+        }
+      ]
+    },
+    {
+      "id": "pihole-57",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.6",
+      "publishedAt": "2026-11-11T19:20:58Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.6",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.6: Sicherheitsupdates und Verbesserungen",
+      "summaryDe": "Die Version 6.6 von Pi-hole bringt wichtige Sicherheitsupdates und Verbesserungen in der Benutzerverwaltung. Insbesondere wurde die Handhabung von Symlinks und die Protokollierung von sensiblen Daten überarbeitet.",
+      "changes": [
+        "Wechsel von root zu Benutzer 'pihole' mit 'setpriv', wodurch 'sudo' nicht mehr erforderlich ist.",
+        "Der Installer schreibt nun als 'pihole' in die Dateien anstelle von root.",
+        "Die Debug-Protokolle enthalten keine Passwort-Hashes mehr.",
+        "Verbesserte SQL-Sicherheit durch Escaping von 'files.gravity'.",
+        "Fehlerbehebungen bei verschiedenen Befehlen und Protokollierungsproblemen."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "Security",
+          "quote": "This release fixes the following security advisories (credit to the reporters named):"
+        }
+      ]
+    },
+    {
+      "id": "immich-6",
+      "appId": "immich",
+      "appSlug": "immich",
+      "appName": "Immich",
+      "domainCategory": "Fotos",
+      "version": "v3.4.1",
+      "publishedAt": "2026-11-11T18:27:16Z",
+      "sourceUrl": "https://github.com/immich-app/immich/releases/tag/v3.4.1",
+      "revision": 1,
+      "titleDe": "Immich v3.4.1: Leistungsverbesserungen und Fehlerbehebungen",
+      "summaryDe": "Das Patch-Release v3.4.1 behebt verschiedene Fehler und verbessert die Leistung von freigegebenen Links. Zudem wurden einige kleinere Anpassungen und Fehlerbehebungen vorgenommen.",
+      "changes": [
+        "Leistungsverbesserung bei der Abfrage von freigegebenen Links.",
+        "Behebung von Fehlern bei der Zuordnung von Dateiformaten und der Anzeige von Dateinamen.",
+        "Anpassungen an der Benutzeroberfläche, einschließlich der Ausrichtung von Dateinamen im Informationspanel."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This patch release fixes various bugs. Notably, it also fixes the performance issues with shared links."
+        },
+        {
+          "field": "release_notes",
+          "quote": "## What's Changed"
+        }
+      ]
+    },
+    {
+      "id": "ollama-13",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.17",
+      "publishedAt": "2026-11-10T22:25:00Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.17",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.17 mit Inkling 2 Mini und verbesserten Funktionen",
+      "summaryDe": "Die Version v0.40.17 von Ollama führt das Modell Inkling 2 Mini ein, das auf Apple Silicon optimiert ist. Zudem wurden zahlreiche Verbesserungen und Fehlerbehebungen implementiert, die die Benutzererfahrung auf verschiedenen Plattformen verbessern.",
+      "changes": [
+        "Unterstützung für das deferred tool loading bei Claude Code hinzugefügt.",
+        "Ollama auf Apple Silicon kann nun mehrere Anfragen gleichzeitig bearbeiten.",
+        "Verbesserte Optionen für das Denken bei `ollama launch opencode`.",
+        "Aktualisierung der Modellliste bei `ollama launch pi` nach der Anmeldung.",
+        "Neue Abfrage bei `ollama launch chatgpt --restore` vor dem Wechsel des aktiven Profils.",
+        "Hilfe wird angezeigt, wenn `ollama` ohne Argumente in einer nicht-interaktiven Shell ausgeführt wird.",
+        "Verbesserte Handhabung von Multiline-Blocks mit Ctrl+C oder Ctrl+G.",
+        "Änderungen der Kontextverschiebung laden das Modell nicht neu.",
+        "Vulkan verwendet nun mmap für integrierte GPUs zur Behebung von Speicherfehlern.",
+        "Teilweise ausgelagerte Modelle auf Windows iGPUs können nun den KV-Cache erfolgreich zuweisen.",
+        "Tool-Definitionen behalten JSON-Schema-Schlüsselwörter bei, die nicht modelliert werden.",
+        "Deaktivierung des Denkens wird nun dem niedrigsten unterstützten Denklevel des Modells zugeordnet."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Ollama on Apple silicon now serves multiple requests at once."
+        }
+      ]
+    },
+    {
+      "id": "immich-11",
+      "appId": "immich",
+      "appSlug": "immich",
+      "appName": "Immich",
+      "domainCategory": "Fotos",
+      "version": "v3.4.0",
+      "publishedAt": "2026-11-10T18:31:01Z",
+      "sourceUrl": "https://github.com/immich-app/immich/releases/tag/v3.4.0",
+      "revision": 1,
+      "titleDe": "Immich v3.4.0: Verbesserte Workflows und JPEG XL Unterstützung",
+      "summaryDe": "Die Version v3.4.0 von Immich bringt bedeutende Verbesserungen in den Workflows, unterstützt JPEG XL und ermöglicht das Tagging auf mobilen Geräten. Zudem wurden zahlreiche Sicherheitsfixes und Leistungsverbesserungen implementiert.",
+      "changes": [
+        "Änderungen bei der Anzeige von Hersteller- und Modellnamen von Kameras.",
+        "Zwei neue Übereinstimmungstypen für den EXIF-Metadatenfilter: 'missing' und 'present'.",
+        "Neuer Trigger zur Ausführung eines Workflows nach Abschluss der OCR-Verarbeitung.",
+        "Einführung von JPEG XL als unterstütztes Format.",
+        "Verbesserungen der mobilen Benutzeroberfläche, einschließlich der Möglichkeit, Tags hinzuzufügen."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "security",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This release adds workflow improvements, JPEG XL support, tags on mobile (finally?!), a plethora of security fixes and other improvements and bug fixes."
+        },
+        {
+          "field": "release_notes",
+          "quote": "Thanks to @bo0tzz for a whole batch of security fixes and improvements, including a CSP change which now no longer ships with `unsafe-inline`."
+        }
+      ]
+    },
+    {
+      "id": "home-assistant-15",
+      "appId": "home-assistant",
+      "appSlug": "home-assistant",
+      "appName": "Home Assistant Core",
+      "domainCategory": "Home Automation",
+      "version": "2026.11.1",
+      "publishedAt": "2026-11-09T18:52:28Z",
+      "sourceUrl": "https://github.com/home-assistant/core/releases/tag/2026.11.1",
+      "revision": 1,
+      "titleDe": "Home Assistant Core 2026.11.1: Abhängigkeiten aktualisiert und Fehlerbehebungen",
+      "summaryDe": "Die Version 2026.11.1 von Home Assistant Core bringt zahlreiche Aktualisierungen von Abhängigkeiten sowie wichtige Fehlerbehebungen mit sich. Unter anderem wurde das Problem behoben, dass HomeKit-Kamera-Bewegungsereignisse nicht an HomeKit weitergeleitet wurden.",
+      "changes": [
+        "Aktualisierung von aiounifi auf v98.",
+        "Behebung des Problems, dass HomeKit-Kamera-Bewegungsereignisse nicht an HomeKit weitergeleitet wurden.",
+        "Hinzufügen neuer Entitäten zu wiederhergestellten schlafenden Shelly RPC-Geräten beim Aufwachen.",
+        "Aktualisierung von mehreren Abhängigkeiten wie broadlink-async, opower und pyvesync.",
+        "Markierung von SimpliSafe-Sensoren als nicht verfügbar, wenn sie offline gemeldet werden."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "- Bump aiounifi to v98 ([@bhamiltoncx] - [#190145]) ([unifi docs]) (dependency)"
+        },
+        {
+          "field": "release_notes",
+          "quote": "- Fix HomeKit camera motion events never reaching HomeKit ([@RaHehl] - [#190440]) ([homekit docs])"
+        },
+        {
+          "field": "release_notes",
+          "quote": "- Add new entities to restored sleeping Shelly RPC devices on wake ([@thecode] - [#190447]) ([shelly docs])"
+        }
+      ]
+    },
     {
       "id": "ollama-29",
       "appId": "ollama",
@@ -30,6 +761,69 @@
         "feature"
       ],
       "evidence": []
+    },
+    {
+      "id": "open-webui-75",
+      "appId": "open-webui",
+      "appSlug": "open-webui",
+      "appName": "Open WebUI",
+      "domainCategory": "Local AI",
+      "version": "v0.13.3",
+      "publishedAt": "2026-11-08T23:48:24Z",
+      "sourceUrl": "https://github.com/open-webui/open-webui/releases/tag/v0.13.3",
+      "revision": 1,
+      "titleDe": "Open WebUI v0.13.3: Neue Automatisierungsfunktionen und Fehlerbehebungen",
+      "summaryDe": "Die Version v0.13.3 von Open WebUI bringt neue Funktionen zur Automatisierung mit Agenten sowie Verbesserungen bei der Handhabung von Terminals und Ordnern. Zudem wurden zahlreiche Fehler behoben, die die Benutzererfahrung optimieren.",
+      "changes": [
+        "Automatisierungseditor ermöglicht die Auswahl eines Terminals und Arbeitsordners für Agenten.",
+        "Änderung des Terminals und Ordners während eines Chats möglich.",
+        "Fehlende Übersetzungen für brasilianisches Portugiesisch hinzugefügt.",
+        "Wechsel zwischen Terminals aktualisiert die angezeigten Dateien korrekt.",
+        "Verbesserte Handhabung von Agenten in nicht unterstützten Modellen.",
+        "Clipboard-Funktionen über ungesichertes HTTP verbessert."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "open-webui-76",
+      "appId": "open-webui",
+      "appSlug": "open-webui",
+      "appName": "Open WebUI",
+      "domainCategory": "Local AI",
+      "version": "v0.13.2",
+      "publishedAt": "2026-11-08T11:53:42Z",
+      "sourceUrl": "https://github.com/open-webui/open-webui/releases/tag/v0.13.2",
+      "revision": 1,
+      "titleDe": "Open WebUI v0.13.2: Fehlerbehebungen für HTTP und Berechtigungen",
+      "summaryDe": "Die Version v0.13.2 von Open WebUI behebt mehrere Fehler im Zusammenhang mit der Nutzung über HTTP. Insbesondere wurden Probleme mit Chats und Kommentaren behoben, die zuvor zu Fehlermeldungen führten.",
+      "changes": [
+        "Chats über ungesichertes HTTP laden jetzt korrekt, ohne Fehlermeldungen.",
+        "Erstellung, Beantwortung und Bearbeitung von Kommentaren sowie Markdown-Dateien funktionieren nun fehlerfrei über HTTP.",
+        "Der Schalter für die Erlaubnis von Side Chats ist jetzt auch sichtbar, wenn der temporäre Chat deaktiviert ist."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "Fixed",
+          "quote": "Opening Open WebUI over plain HTTP at a LAN or Docker address now loads new and existing chats instead of staying on a spinner with \"crypto.randomUUID is not a function\"."
+        },
+        {
+          "field": "Fixed",
+          "quote": "Creating, replying to and editing comments, and editing Markdown files containing rendered blocks such as Mermaid diagrams or callouts, no longer fail with the same UUID error."
+        }
+      ]
     },
     {
       "id": "home-assistant-43",
@@ -106,6 +900,42 @@
       "evidence": []
     },
     {
+      "id": "paperless-ngx-12",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.4.2",
+      "publishedAt": "2026-11-03T21:57:15Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.4.2",
+      "revision": 1,
+      "titleDe": "Paperless-ngx v3.4.2: Fehlerbehebungen und Abhängigkeitsaktualisierungen",
+      "summaryDe": "Die Version 3.4.2 von Paperless-ngx bringt zahlreiche Fehlerbehebungen und Aktualisierungen von Abhängigkeiten mit sich. Die Änderungen verbessern die Benutzeroberfläche und die Funktionalität der Anwendung.",
+      "changes": [
+        "Behebung der Anzeigeprobleme des mobilen Speichern-Buttons.",
+        "Verhinderung des Verlusts des Speichernamens beim Schließen.",
+        "Verbesserungen der mobilen Benutzererfahrung in den Dokumentdetails.",
+        "Aktualisierung der Abhängigkeit filelock auf Version 4.2.6.",
+        "Sicherstellung der Importaufgaben in Celery-Workern."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Fix: mobile save button display obsessing @shamoon"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Fix: prevent loss of save view name on save + close @shamoon"
+        }
+      ]
+    },
+    {
       "id": "ollama-31",
       "appId": "ollama",
       "appSlug": "ollama",
@@ -133,6 +963,40 @@
         "bugfix"
       ],
       "evidence": []
+    },
+    {
+      "id": "vaultwarden-49",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.37.5",
+      "publishedAt": "2026-11-01T22:16:50Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.5",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.37.5: Sicherheitsupdates und neue Funktionen",
+      "summaryDe": "Die Version 1.37.5 von Vaultwarden enthält wichtige Sicherheitsfixes und Verbesserungen. Es wird dringend empfohlen, auf diese Version zu aktualisieren, um von den neuesten Sicherheitsmaßnahmen zu profitieren.",
+      "changes": [
+        "Sicherheitsfixes für Website-Icons und Notfallzugriff implementiert.",
+        "Web Vault auf Version 2026.10.1 aktualisiert.",
+        "Validierung der Duo- und SSO-Purge-Zeitpläne beim Start hinzugefügt.",
+        "Fehlerbehebungen für 2FA bei SSO-Anmeldungen auf iOS und Android.",
+        "Unterstützung für neue Passwort-Payloads bei Notfallzugriff und Kontowiederherstellung hinzugefügt."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "security",
+          "quote": "This release contains security fixes for the following advisories."
+        }
+      ]
     },
     {
       "id": "uptime-kuma-36",
@@ -266,6 +1130,39 @@
       "evidence": []
     },
     {
+      "id": "jellyfin-53",
+      "appId": "jellyfin",
+      "appSlug": "jellyfin",
+      "appName": "Jellyfin",
+      "domainCategory": "Medien",
+      "version": "v12.4",
+      "publishedAt": "2026-10-26T21:30:17Z",
+      "sourceUrl": "https://github.com/jellyfin/jellyfin/releases/tag/v12.4",
+      "revision": 1,
+      "titleDe": "Jellyfin 12.4: Bugfixes und .NET-Update",
+      "summaryDe": "Die Version 12.4 von Jellyfin bringt mehrere Bugfixes zur Verbesserung der Benutzererfahrung. Zudem erfolgt ein Update auf .NET 10.0.14.",
+      "changes": [
+        "Behebung mehrerer Fehler zur Verbesserung der Benutzererfahrung",
+        "Update auf .NET 10.0.14"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This minor release brings several bugfixes to improve your Jellyfin experience."
+        },
+        {
+          "field": "release_notes",
+          "quote": "Update to .net 10.0.14"
+        }
+      ]
+    },
+    {
       "id": "uptime-kuma-37",
       "appId": "uptime-kuma",
       "appSlug": "uptime-kuma",
@@ -386,6 +1283,44 @@
       "evidence": []
     },
     {
+      "id": "jellyfin-54",
+      "appId": "jellyfin",
+      "appSlug": "jellyfin",
+      "appName": "Jellyfin",
+      "domainCategory": "Medien",
+      "version": "v12.3",
+      "publishedAt": "2026-10-23T00:30:06Z",
+      "sourceUrl": "https://github.com/jellyfin/jellyfin/releases/tag/v12.3",
+      "revision": 1,
+      "titleDe": "Jellyfin Server 12.3: Bugfixes und Verbesserungen",
+      "summaryDe": "Die Version 12.3 von Jellyfin bringt mehrere Bugfixes, die die Benutzererfahrung verbessern sollen. Nutzer werden aufgefordert, vor dem Upgrade ein vollständiges Backup durchzuführen.",
+      "changes": [
+        "Unterdrückung unnötiger Warnungen.",
+        "Speicherung von Bewertungen oder Gewinnen, die keine endlichen Zahlen sind, wurde entfernt.",
+        "Behebung eines Problems mit unausgeglichenen Klammern im Bildextraktionsfilter.",
+        "Aktualisierung von Microsoft.",
+        "Behandlung eines Jahres, das um eins abweicht, als Unentschieden in der TMDb-Ergebnisrangliste.",
+        "Behebung eines Absturzes, wenn ein Untertitel-Zeichensatz keine .NET-Codierung hat.",
+        "Behebung eines Absturzes beim Proben von Streams ohne Bildgröße."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This minor release brings several bugfixes to improve your Jellyfin experience."
+        },
+        {
+          "field": "release_notes",
+          "quote": "As always, please ensure you take a full backup before upgrading!"
+        }
+      ]
+    },
+    {
       "id": "paperless-ngx-24",
       "appId": "paperless-ngx",
       "appSlug": "paperless-ngx",
@@ -408,6 +1343,44 @@
         "feature"
       ],
       "evidence": []
+    },
+    {
+      "id": "beszel-62",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.21.1",
+      "publishedAt": "2026-10-22T17:24:08Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.21.1",
+      "revision": 1,
+      "titleDe": "Beszel v0.21.1: Neue Felder für Speicherdaten und verbesserte Überwachungsfunktionen",
+      "summaryDe": "Die Version v0.21.1 von Beszel bringt bedeutende Änderungen für Entwickler und Integrationsautoren, einschließlich neuer Speicherfeldtypen und einer verbesserten Überwachung. Zudem wurden zahlreiche Fehlerbehebungen und Verbesserungen in der Benutzeroberfläche implementiert.",
+      "changes": [
+        "Agent.Start benötigt jetzt ein context.Context für die Verwendung als Go-Paket.",
+        "Alte Speicherfelder wurden zugunsten neuer Felder mit Rohwerten abgelehnt.",
+        "TLS-Zertifikat-Ablaufwarnungen für Netzwerkmonitore hinzugefügt.",
+        "Option zur Ignorierung von TLS-Fehlern für HTTPS-Monitore hinzugefügt.",
+        "Verbesserte Zugänglichkeit und Übersetzungen in Brasilianisches Portugiesisch und Katalanisch."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "confirmed",
+      "eventTypes": [
+        "feature",
+        "breaking_changes",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "context.Context",
+          "quote": "For developers using the agent as a Go package, `Agent.Start` now requires a `context.Context`."
+        },
+        {
+          "field": "deprecated fields",
+          "quote": "For authors of integrations, existing memory fields other than memory percentage are deprecated in favor of new fields which provide raw byte values."
+        }
+      ]
     },
     {
       "id": "immich-17",
@@ -490,6 +1463,44 @@
       "evidence": []
     },
     {
+      "id": "pihole-58",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.5",
+      "publishedAt": "2026-10-17T11:28:24Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.5",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.5: Sicherheitsupdates und Verbesserungen",
+      "summaryDe": "Die Version 6.5 von Pi-hole bringt mehrere wichtige Sicherheitsupdates sowie Verbesserungen in der Fehlerbehandlung und der Datenbankleistung. Zudem wurden einige veraltete Befehle entfernt und die Handhabung von Protokollen optimiert.",
+      "changes": [
+        "Behebung von Sicherheitsanfälligkeiten, darunter die Ausführung von Befehlen über eine manipulierte PID und das Schreiben von Konfigurationsdateien mit Root-Rechten.",
+        "Optimierung der Fehlerbehandlung in der Gravity-Funktion.",
+        "Entfernung des veralteten Befehls 'arpflush' zugunsten von 'networkflush'.",
+        "Verbesserung des Datenbankschemas für bessere Leistung.",
+        "Änderung der Handhabung lokaler Adlisten, um sie als der Benutzer zu lesen, dessen Zugriff überprüft wurde."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "security",
+          "quote": "This release fixes the following security advisories (credit to the reporters named):"
+        },
+        {
+          "field": "changes",
+          "quote": "Improve gravity error handling."
+        }
+      ]
+    },
+    {
       "id": "paperless-ngx-26",
       "appId": "paperless-ngx",
       "appSlug": "paperless-ngx",
@@ -513,6 +1524,69 @@
       "breakingChangesStatus": "unknown",
       "eventTypes": [
         "bugfix"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "nextcloud-78",
+      "appId": "nextcloud",
+      "appSlug": "nextcloud",
+      "appName": "Nextcloud Server",
+      "domainCategory": "Cloud & Sync",
+      "version": "v33.0.10",
+      "publishedAt": "2026-10-15T08:37:28Z",
+      "sourceUrl": "https://github.com/nextcloud/server/releases/tag/v33.0.10",
+      "revision": 1,
+      "titleDe": "Nextcloud Server v33.0.10 veröffentlicht",
+      "summaryDe": "Die Version v33.0.10 von Nextcloud Server wurde veröffentlicht. Diese Version enthält verschiedene Verbesserungen und Fehlerbehebungen.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "nextcloud-77",
+      "appId": "nextcloud",
+      "appSlug": "nextcloud",
+      "appName": "Nextcloud Server",
+      "domainCategory": "Cloud & Sync",
+      "version": "v34.0.5",
+      "publishedAt": "2026-10-15T08:27:09Z",
+      "sourceUrl": "https://github.com/nextcloud/server/releases/tag/v34.0.5",
+      "revision": 1,
+      "titleDe": "Nextcloud Server v34.0.5 veröffentlicht",
+      "summaryDe": "Die Version v34.0.5 von Nextcloud Server wurde veröffentlicht. Details zu den Änderungen sind in den Release-Notizen verfügbar.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "nextcloud-48",
+      "appId": "nextcloud",
+      "appSlug": "nextcloud",
+      "appName": "Nextcloud Server",
+      "domainCategory": "Cloud & Sync",
+      "version": "v35.0.2",
+      "publishedAt": "2026-10-15T08:10:30Z",
+      "sourceUrl": "https://github.com/nextcloud/server/releases/tag/v35.0.2",
+      "revision": 1,
+      "titleDe": "Nextcloud Server v35.0.2 veröffentlicht",
+      "summaryDe": "Die Version v35.0.2 von Nextcloud Server wurde veröffentlicht. Diese Version enthält verschiedene Verbesserungen und Fehlerbehebungen.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
       ],
       "evidence": []
     },
@@ -682,6 +1756,154 @@
       "evidence": []
     },
     {
+      "id": "vaultwarden-50",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.37.4",
+      "publishedAt": "2026-10-05T23:40:54Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.4",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.37.4: Wichtige Sicherheitsupdates und API-Änderungen",
+      "summaryDe": "Die Version 1.37.4 von Vaultwarden enthält mehrere sicherheitsrelevante Fixes, die dringend empfohlen werden. Zudem wurden einige API-Endpunkte entfernt und Anpassungen an den Reverse-Proxy-Einstellungen vorgenommen.",
+      "changes": [
+        "Sicherheitsfixes für mehrere Schwachstellen, darunter Organisationseinladungen und Zwei-Faktor-Authentifizierung.",
+        "Entfernung veralteter API-Endpunkte und Anpassungen an den Reverse-Proxy-Einstellungen.",
+        "Einführung eines neuen E-Mail-Templates für die Wiederherstellung mit einem Zwei-Schritt-Code."
+      ],
+      "upgradeNotes": [
+        "Bei der Verwendung von Reverse Proxies muss die IP_HEADER_TRUSTED_PROXIES entsprechend angepasst werden.",
+        "Die CLI-Befehle für 'bw send receive' funktionieren nicht mehr mit älteren Versionen.",
+        "Um Verbindungsprobleme mit MariaDB oder MySQL zu vermeiden, sollte die Umgebungsvariable MARIADB_TLS_DISABLE_PEER_VERIFICATION=1 gesetzt werden."
+      ],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "confirmed",
+      "eventTypes": [
+        "security",
+        "breaking_changes"
+      ],
+      "evidence": [
+        {
+          "field": "security",
+          "quote": "This release contains security fixes for the following advisories."
+        }
+      ]
+    },
+    {
+      "id": "jellyfin-55",
+      "appId": "jellyfin",
+      "appSlug": "jellyfin",
+      "appName": "Jellyfin",
+      "domainCategory": "Medien",
+      "version": "v12.2",
+      "publishedAt": "2026-10-05T23:07:59Z",
+      "sourceUrl": "https://github.com/jellyfin/jellyfin/releases/tag/v12.2",
+      "revision": 1,
+      "titleDe": "Jellyfin 12.2: Verbesserungen und Bugfixes",
+      "summaryDe": "Die Version 12.2 von Jellyfin bringt zahlreiche Bugfixes, die die Benutzererfahrung verbessern sollen. Nutzer werden aufgefordert, vor dem Upgrade ein vollständiges Backup durchzuführen.",
+      "changes": [
+        "Ersetzen der benutzerdefinierten Anzeigeeinstellungen in einer Transaktion.",
+        "Verbesserung des internen Suchanbieters für mehrere Skripte.",
+        "Behebung von Problemen mit der EPUB-Metadaten- und Cover-Anzeige unter Windows.",
+        "Optimierung der Datenbankverwaltung und Fehlerbehebungen bei der Medienwiedergabe.",
+        "Korrektur von Problemen bei der Migration von Transcodierungseinstellungen."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This minor release brings several bugfixes to improve your Jellyfin experience."
+        },
+        {
+          "field": "release_notes",
+          "quote": "As always, please ensure you take a full backup before upgrading!"
+        }
+      ]
+    },
+    {
+      "id": "beszel-63",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.21.0",
+      "publishedAt": "2026-10-02T17:34:33Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.21.0",
+      "revision": 1,
+      "titleDe": "Beszel v0.21.0: Erweiterte Netzwerküberwachung und Verbesserungen",
+      "summaryDe": "Die Version v0.21.0 von Beszel bringt zahlreiche neue Funktionen zur Netzwerküberwachung, darunter die Überwachung der WLAN-Signalstärke und eine TLS-Zertifikatsprüfung. Zudem wurden zahlreiche Fehlerbehebungen und Verbesserungen an bestehenden Funktionen vorgenommen.",
+      "changes": [
+        "Hinzufügung einer Liste ausstehenden Paketaktualisierungen auf der Systemseite.",
+        "Überwachung der WLAN-Signalstärke hinzugefügt.",
+        "TLS-Zertifikatsablaufprüfung für HTTPS-Netzwerkmonitore hinzugefügt.",
+        "Systemd-Dienstprotokolle zu den Servicedetails hinzugefügt.",
+        "Option zur Festlegung des DNS-Servers für DNS-Überwachungen hinzugefügt."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Add pending package updates list to the system page (#2357, #2427)"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Add Wi-Fi signal strength monitoring (#2367)"
+        }
+      ]
+    },
+    {
+      "id": "beszel-64",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.20.0",
+      "publishedAt": "2026-09-19T15:33:25Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.20.0",
+      "revision": 1,
+      "titleDe": "Beszel v0.20.0: Netzwerküberwachung und verbesserte Benutzeranpassungen",
+      "summaryDe": "Die Version v0.20.0 von Beszel bringt zahlreiche Verbesserungen, darunter Netzwerküberwachung durch Agenten und die Möglichkeit, Container-Image-Updates zu kennzeichnen. Zudem wurden Benutzeranpassungen wie die Persistenz von Ansichtseinstellungen und Sprache implementiert.",
+      "changes": [
+        "Hinzufügung der Netzwerküberwachung durch Agenten",
+        "Kennzeichnung verfügbarer Container-Image-Updates",
+        "Berichterstattung über Btrfs-Dateisysteme als Speicherpools",
+        "Persistenz von Ansichtseinstellungen und Sprache in den Benutzereinstellungen",
+        "Hinzufügung einer Allowlist für `TRUSTED_PROXY_IPS`",
+        "ZFS-Dienstprogramme zu Intel- und NVIDIA-Agentenbildern hinzugefügt",
+        "Verbesserung der Anzeige von NVMe-Daten in menschenlesbaren GB/TB",
+        "Behebung von Agenten-Abbrüchen während langsamer Sammlungen"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Add network monitoring from agents (#2266, #1911)"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Add container image update available flag (#2211)"
+        }
+      ]
+    },
+    {
       "id": "uptime-kuma-40",
       "appId": "uptime-kuma",
       "appSlug": "uptime-kuma",
@@ -701,6 +1923,78 @@
         "bugfix"
       ],
       "evidence": []
+    },
+    {
+      "id": "jellyfin-56",
+      "appId": "jellyfin",
+      "appSlug": "jellyfin",
+      "appName": "Jellyfin",
+      "domainCategory": "Medien",
+      "version": "v12.1",
+      "publishedAt": "2026-09-15T01:23:53Z",
+      "sourceUrl": "https://github.com/jellyfin/jellyfin/releases/tag/v12.1",
+      "revision": 1,
+      "titleDe": "Jellyfin 12.1: Verbesserungen und Bugfixes",
+      "summaryDe": "Die Version 12.1 von Jellyfin bringt zahlreiche Bugfixes, die die Benutzererfahrung verbessern sollen. Vor dem Upgrade wird empfohlen, ein vollständiges Backup zu erstellen.",
+      "changes": [
+        "Behebung von Problemen mit der Handhabung von Bewertungen in Norwegisch und Italienisch.",
+        "Verbesserungen bei der Synchronisation von Playlists und Fehlerbehebungen bei der Authentifizierung von SyncPlay.",
+        "Optimierung der Datenbanknutzung und Behebung von Speicherproblemen bei der Benutzeransicht."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This minor release brings several bugfixes to improve your Jellyfin experience."
+        },
+        {
+          "field": "release_notes",
+          "quote": "As always, please ensure you take a full backup before upgrading!"
+        }
+      ]
+    },
+    {
+      "id": "vaultwarden-51",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.37.3",
+      "publishedAt": "2026-09-13T15:03:37Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.3",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.37.3: Verbesserungen und Sicherheitsfixes",
+      "summaryDe": "Die Version 1.37.3 von Vaultwarden bringt mehrere Verbesserungen und Sicherheitsfixes mit sich, darunter die Behebung von Problemen beim Passwortwechsel und der Unterstützung für die Rücksetzung der Zwei-Faktor-Authentifizierung durch Administratoren. Zudem wurden neue Funktionen wie die Unterstützung für Multi-Client-Passwortverwaltung hinzugefügt.",
+      "changes": [
+        "Behebung des Problems beim Passwortwechsel mit dem neuen Web-Vault.",
+        "Ignorieren der automatischen Anmeldung zur Passwortzurücksetzung, wenn die E-Mail deaktiviert ist.",
+        "Unterstützung für die Rücksetzung der Zwei-Faktor-Authentifizierung durch Administratoren.",
+        "Einführung des Feature-Flags für die Multi-Client-Passwortverwaltung.",
+        "Sicherheitsfixes zur Einschränkung von Anfragen an die Prelogin- und Authentifizierungsendpunkte."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "quote",
+          "quote": "fix(security): revoke 2FA remember tokens when credentials or 2FA change"
+        },
+        {
+          "field": "quote",
+          "quote": "fix(security): rate limit prelogin and auth request endpoints"
+        }
+      ]
     },
     {
       "id": "uptime-kuma-41",
@@ -737,6 +2031,106 @@
       "evidence": []
     },
     {
+      "id": "jellyfin-85",
+      "appId": "jellyfin",
+      "appSlug": "jellyfin",
+      "appName": "Jellyfin",
+      "domainCategory": "Medien",
+      "version": "v12.0",
+      "publishedAt": "2026-09-08T01:38:39Z",
+      "sourceUrl": "https://github.com/jellyfin/jellyfin/releases/tag/v12.0",
+      "revision": 1,
+      "titleDe": "Jellyfin v12.0: Umfassende Verbesserungen und Datenbankänderungen",
+      "summaryDe": "Die Version 12.0 von Jellyfin bringt bedeutende Änderungen an der Datenbankstruktur und zahlreiche neue Funktionen. Ein vollständiges Backup vor dem Upgrade wird dringend empfohlen, da die Änderungen ein Zurückrollen ohne vollständige Wiederherstellung verhindern.",
+      "changes": [
+        "Leistungsverbesserungen durch vollständige Pfadüberprüfungen auf alle Bibliothekselemente.",
+        "Unterstützung für mehrere Versionen von Episoden und neue Filter für Audio- und Untertitelsprache.",
+        "Entfernung veralteter API-Routen und Legacy-Routenpräfixe.",
+        "Neues Datenbankdesign für Playlists und Sammlungen mit relationalen Tabellen.",
+        "Verbesserte Unterstützung für Live-TV und Metadatenanbieter."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "confirmed",
+      "eventTypes": [
+        "breaking_changes",
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Before upgrading from an earlier version, a full backup of the data directory is strongly recommended, as this release includes database changes that prevent rolling back without a full restore."
+        }
+      ]
+    },
+    {
+      "id": "beszel-95",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.19.0",
+      "publishedAt": "2026-09-03T15:34:30Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.19.0",
+      "revision": 1,
+      "titleDe": "Beszel v0.19.0: Verbesserte Überwachung und Sicherheitsupdates",
+      "summaryDe": "Die Version v0.19.0 von Beszel bringt bedeutende Verbesserungen in der Überwachung von Systemressourcen und Sicherheitsupdates. Eine wichtige Änderung ist die Überprüfung von HTTPS-Zertifikaten durch Agenten, was potenziell zu Verbindungsproblemen führen kann, wenn selbstsignierte Zertifikate verwendet werden.",
+      "changes": [
+        "Überwachung von ZFS-Pools und -Datasets hinzugefügt",
+        "Container-Gesundheitswarnungen mit Protokollauszügen in Benachrichtigungen hinzugefügt",
+        "Warnungen für fehlgeschlagene systemd-Dienste hinzugefügt",
+        "Warnungen für CPU-I/O-Warte- und Steal-Zeiten hinzugefügt",
+        "Kumulative Disk-Lese- und Schreibgesamtheiten zum Disk-I/O-Blatt hinzugefügt",
+        "Griechische und usbekische Übersetzungen hinzugefügt",
+        "Benutzerdefinierte Root-Disk-Namen hinzugefügt und Festplatten alphabetisch sortiert",
+        "Verbesserte Sicherheit von Warnungen durch Durchsetzung der Systembesitzrechte",
+        "Verbesserte ATA SMART-Warnungen für kritische Attribute",
+        "Verschiedene Fehlerbehebungen, einschließlich Hub-Abstürze und falsche Berichterstattung von RAID-Arrays"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "confirmed",
+      "eventTypes": [
+        "breaking_changes",
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "potential breaking change",
+          "quote": "Agents now verify HTTPS certificates."
+        }
+      ]
+    },
+    {
+      "id": "vaultwarden-52",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.37.2",
+      "publishedAt": "2026-08-22T12:29:13Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.2",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.37.2: Unterstützung für neue Clients und diverse Fehlerbehebungen",
+      "summaryDe": "Dieses Update ist erforderlich, um die Unterstützung für Clients der Version 2026.8.0 und höher zu gewährleisten. Es wurden mehrere Fehlerbehebungen und Verbesserungen vorgenommen.",
+      "changes": [
+        "Behebung der Debian-Cross-Linking-Problematik mit xx-cargo.",
+        "Fehlerbehebung bei Playwright-Tests.",
+        "Verschiedene kleinere Fehlerbehebungen und Updates.",
+        "Einschluss der Benutzer-E-Mail in den Protokollen erfolgreicher Anmeldungen.",
+        "Überprüfung der Berechtigungen für das Sendmail-Executable."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "feature"
+      ],
+      "evidence": []
+    },
+    {
       "id": "uptime-kuma-42",
       "appId": "uptime-kuma",
       "appSlug": "uptime-kuma",
@@ -758,6 +2152,1078 @@
         "bugfix"
       ],
       "evidence": []
+    },
+    {
+      "id": "beszel-96",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.18.8",
+      "publishedAt": "2026-08-17T21:31:00Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.18.8",
+      "revision": 1,
+      "titleDe": "Beszel v0.18.8 mit erweiterten Überwachungsfunktionen",
+      "summaryDe": "Die Version v0.18.8 von Beszel bringt zahlreiche Verbesserungen, darunter die Überwachung mehrerer Batterien und die Unterstützung für Intel Arc GPUs. Zudem wurden verschiedene Fehlerbehebungen und Optimierungen vorgenommen, um die Benutzererfahrung zu verbessern.",
+      "changes": [
+        "Hinzufügung der Überwachung mehrerer Batterien",
+        "Unterstützung für die Überwachung von Intel Arc GPUs über `nvtop`",
+        "Verbesserte mdraid-Konsistenzprüfungen zur Vermeidung von Fehlalarmen",
+        "Optimierung der Agentenverbindung nach Neustarts von OPNsense und pfSense",
+        "Einführung einer Umgebungsvariablen zur Handhabung von Verbindungsfehlern"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Add multi-battery monitoring"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Improve mdraid consistency checks (fixes false positives)"
+        }
+      ]
+    },
+    {
+      "id": "vaultwarden-79",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.37.1",
+      "publishedAt": "2026-07-29T13:40:10Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.1",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.37.1: Fehlerbehebungen bei Einladungen und Alpine-Images",
+      "summaryDe": "Die Version 1.37.1 von Vaultwarden behebt Probleme mit Einladungen und adressiert ein Kompilierungsproblem bei Alpine-basierten Images. Nutzer, die lokale Workarounds angewendet haben, sollten diese zurücksetzen.",
+      "changes": [
+        "Einladungs-URLs senden nun immer initOrganization und orgUserHasExistingUser.",
+        "Kompilierungsprobleme mit OpenSSL in Alpine-basierten Images wurden behoben."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This patch release resolves the issues with invites."
+        }
+      ]
+    },
+    {
+      "id": "vaultwarden-80",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.37.0",
+      "publishedAt": "2026-07-24T17:04:39Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.0",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.37.0: Wichtige Sicherheitsupdates und neue Funktionen",
+      "summaryDe": "Die Version 1.37.0 von Vaultwarden bringt bedeutende Sicherheitsfixes und Verbesserungen, die für die Unterstützung von Clients ab Version 2026.7.0 erforderlich sind. Nutzer werden dringend aufgefordert, auf diese Version zu aktualisieren, um Sicherheitsrisiken zu vermeiden.",
+      "changes": [
+        "Unterstützung für OpenDAL S3-Parameter hinzugefügt.",
+        "Verbesserungen bei der SSO-Cookie-Verwaltung.",
+        "Fehlerbehebung für die E-Mail-2FA im bw cli.",
+        "Verbesserungen bei der SSO-Authentifizierung.",
+        "Ablehnung nicht erkannter DATABASE_URL anstelle eines stillen SQLite-Fallbacks.",
+        "Aktualisierungen und Fehlerbehebungen in mehreren Bereichen.",
+        "Unterstützung für Trusted Proxy und nicht authentifizierte Ratenbegrenzung hinzugefügt."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This release contains security fixes for the following advisories."
+        },
+        {
+          "field": "release_notes",
+          "quote": "We strongly advice to update as soon as possible."
+        }
+      ]
+    },
+    {
+      "id": "borgbackup-69",
+      "appId": "borgbackup",
+      "appSlug": "borgbackup",
+      "appName": "BorgBackup",
+      "domainCategory": "Backup",
+      "version": "1.4.5",
+      "publishedAt": "2026-07-18T22:36:16Z",
+      "sourceUrl": "https://github.com/borgbackup/borg/releases/tag/1.4.5",
+      "revision": 1,
+      "titleDe": "BorgBackup 1.4.5: Neue Funktionen und Sicherheitsfixes",
+      "summaryDe": "Die Version 1.4.5 von BorgBackup bringt einige neue Funktionen sowie Fixes, darunter einen Sicherheitsfix mit niedriger Schwere. Weitere Details sind im langen Änderungsprotokoll verfügbar.",
+      "changes": [
+        "Einige neue Funktionen wurden hinzugefügt.",
+        "Es wurden verschiedene Fixes implementiert.",
+        "Ein Sicherheitsfix mit niedriger Schwere wurde bereitgestellt."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Some fixes (including a low-severity security fix), some new features and other updates."
+        }
+      ]
+    },
+    {
+      "id": "pihole-59",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.4.3",
+      "publishedAt": "2026-07-06T20:42:05Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.4.3",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.4.3: Sicherheitsfix und Verbesserungen",
+      "summaryDe": "Die Version v6.4.3 von Pi-hole enthält einen wichtigen Sicherheitsfix zur Vermeidung von lokalen Privilegieneskalationen. Zudem wurden zahlreiche Verbesserungen und Fehlerbehebungen implementiert.",
+      "changes": [
+        "Sicherheitsfix zur Vermeidung von lokalen Privilegieneskalationen über /etc/pihole/logrotate.",
+        "Hardcodierung des PID-Dateipfads in utils.sh zur Vermeidung von Warnungen.",
+        "Verwendung von awk zum Vergleich von curl-Versionen.",
+        "Hinzufügen von gawk zu den APK-Abhängigkeiten.",
+        "Verbesserung der Fehlerausgabe bei ungültigen Dateien im gravity run.",
+        "Ersetzung von pytest/tox durch direkte BATS-Tests im Container.",
+        "Hinzufügen von Fedora 44 und Ubuntu 26.04 LTS zu den Tests.",
+        "Einführung von gravity-Tests.",
+        "Verbesserung der Ausgabe von BATS-Tests je nach Terminal.",
+        "Behebung von Rückgabecodes in gravity_build_tree und database_recovery().",
+        "Einbeziehung von alpine 3.24 in die Tests.",
+        "Behebung eines Problems mit benutzerdefinierten DNS-Einträgen bei nur einem upstream Server."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "bugfix",
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "security",
+          "quote": "Local privilege escalation from pihole user to root via /etc/pihole/logrotate (High)"
+        },
+        {
+          "field": "changes",
+          "quote": "Also hardcode the PID file location in utils.sh to prevent `readonly variable` warning"
+        }
+      ]
+    },
+    {
+      "id": "restic-66",
+      "appId": "restic",
+      "appSlug": "restic",
+      "appName": "Restic",
+      "domainCategory": "Backup",
+      "version": "v0.19.1",
+      "publishedAt": "2026-07-05T08:13:33Z",
+      "sourceUrl": "https://github.com/restic/restic/releases/tag/v0.19.1",
+      "revision": 1,
+      "titleDe": "Restic v0.19.1: Wichtige Bugfixes und Verbesserungen",
+      "summaryDe": "Die Version 0.19.1 von Restic behebt mehrere kritische Fehler, die die Funktionalität und Benutzererfahrung verbessern. Zu den wichtigsten Änderungen gehören die Verhinderung von Mount-Überlappungen und die korrekte Handhabung von nicht zugänglichen Backup-Quellen.",
+      "changes": [
+        "Verhindert das Mounten über das Repository-Verzeichnis.",
+        "Überspringt nicht zugängliche Backup-Quellen.",
+        "Aktualisiert den Symlink 'latest' nach einem Snapshot-Reload.",
+        "Blendet die Fortschrittsanzeige im JSON-Modus aus.",
+        "Stellt das alte Verhalten von 'snapshots --latest ' ohne '--group-by' wieder her.",
+        "Zeigt den Standort der Zeitzone in der 'snapshots'-Ausgabe an.",
+        "Verhindert Abstürze bei der Validierung des Mountpoints, wenn dieser nicht zugänglich ist.",
+        "Entfernt schreibgeschützte Dateien über das SFTP-Backend auf Windows-Servern.",
+        "Berücksichtigt Ausschlüsse für doppelte Verzeichniseinträge beim Backup."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "summary",
+          "quote": "The following sections list the changes in restic 0.19.1 relevant to restic users."
+        }
+      ]
+    },
+    {
+      "id": "restic-67",
+      "appId": "restic",
+      "appSlug": "restic",
+      "appName": "Restic",
+      "domainCategory": "Backup",
+      "version": "v0.19.0",
+      "publishedAt": "2026-06-09T17:06:16Z",
+      "sourceUrl": "https://github.com/restic/restic/releases/tag/v0.19.0",
+      "revision": 1,
+      "titleDe": "Restic v0.19.0: Verbesserte Fehlerbehandlung und neue Funktionen",
+      "summaryDe": "Die Version 0.19.0 von Restic bringt zahlreiche Bugfixes und Verbesserungen, darunter die Unterstützung für Samba bei Windows-Backups und eine verbesserte Fehlerbehandlung bei fehlenden Backup-Pfaden. Zudem wurden die Berechtigungen für SFTP-Repositories angepasst und die Handhabung von Umgebungsvariablen optimiert.",
+      "changes": [
+        "Unterstützung für das Servieren eines 'restic mount' eines Windows-Systems über Samba.",
+        "Verwendung von Berechtigungen 0700 für über SFTP erstellte Repository-Verzeichnisse.",
+        "Fehlerbehebung bei der Rückgabe von Exit-Codes bei fehlenden Backup-Quellen.",
+        "Optimierung der Handhabung ungültiger Umgebungsvariablen.",
+        "Verbesserte Handhabung von ACL-Erbschaften unter Windows."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "summary",
+          "quote": "Support serving a `restic mount` of a Windows system via Samba"
+        },
+        {
+          "field": "summary",
+          "quote": "Use mode 0700 for repository directories created over SFTP"
+        },
+        {
+          "field": "summary",
+          "quote": "Exit with code 3 when some `backup` source paths do not exist"
+        }
+      ]
+    },
+    {
+      "id": "jellyfin-86",
+      "appId": "jellyfin",
+      "appSlug": "jellyfin",
+      "appName": "Jellyfin",
+      "domainCategory": "Medien",
+      "version": "v10.11.11",
+      "publishedAt": "2026-06-06T16:18:54Z",
+      "sourceUrl": "https://github.com/jellyfin/jellyfin/releases/tag/v10.11.11",
+      "revision": 1,
+      "titleDe": "Jellyfin 10.11.11: Bugfix-Release mit Verbesserungen",
+      "summaryDe": "Die neueste stabile Version von Jellyfin, 10.11.11, bringt mehrere Bugfixes zur Verbesserung der Benutzererfahrung. Vor dem Upgrade wird empfohlen, ein vollständiges Backup durchzuführen.",
+      "changes": [
+        "Hinzufügung eines Lockhelpers für den UserManager"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This minor release brings several bugfixes to improve your Jellyfin experience."
+        },
+        {
+          "field": "release_notes",
+          "quote": "As always, please ensure you take a full backup before upgrading!"
+        }
+      ]
+    },
+    {
+      "id": "jellyfin-87",
+      "appId": "jellyfin",
+      "appSlug": "jellyfin",
+      "appName": "Jellyfin",
+      "domainCategory": "Medien",
+      "version": "v10.11.10",
+      "publishedAt": "2026-05-24T23:07:10Z",
+      "sourceUrl": "https://github.com/jellyfin/jellyfin/releases/tag/v10.11.10",
+      "revision": 1,
+      "titleDe": "Jellyfin 10.11.10: Bugfixes und Sicherheitsupdates",
+      "summaryDe": "Die Version 10.11.10 von Jellyfin bringt mehrere Bugfixes sowie wichtige Sicherheitsupdates. Nutzer sollten vor dem Upgrade ein vollständiges Backup erstellen.",
+      "changes": [
+        "Behebung von Sicherheitsanfälligkeiten (GHSA-f47c-m7gr-q92j, GHSA-jg92-mrxq-vv75, GHSA-wwwm-px48-fpvq)",
+        "Behebung des Problems mit dem veralteten UserData-Cache",
+        "Korrektur der Kollation im Benutzerverwaltungsbereich"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This minor release brings several bugfixes to improve your Jellyfin experience."
+        },
+        {
+          "field": "release_notes",
+          "quote": "Fix GHSA-f47c-m7gr-q92j, by @Shadowghost"
+        }
+      ]
+    },
+    {
+      "id": "jellyfin-88",
+      "appId": "jellyfin",
+      "appSlug": "jellyfin",
+      "appName": "Jellyfin",
+      "domainCategory": "Medien",
+      "version": "v10.11.9",
+      "publishedAt": "2026-05-21T01:59:59Z",
+      "sourceUrl": "https://github.com/jellyfin/jellyfin/releases/tag/v10.11.9",
+      "revision": 1,
+      "titleDe": "Jellyfin 10.11.9: Bugfix-Release mit Verbesserungen",
+      "summaryDe": "Die Version 10.11.9 von Jellyfin bringt mehrere Bugfixes, die die Benutzererfahrung verbessern sollen. Vor dem Upgrade wird empfohlen, ein vollständiges Backup durchzuführen.",
+      "changes": [
+        "Behebung der Rate-Control im av1_amf Encoder.",
+        "Fehlerbehebung im UserManager nach der EFcore-Refaktorisierung.",
+        "Aktualisierung des Logs für Benutzer-Sitzungsbezogene Konkurrenz-Update-Fehler.",
+        "Ermöglichung von HDR10 für VPP-Tonemapping.",
+        "Verwendung einer strengen QSV CPB-Größe für weniger leistungsstarke H.264-Dekodierer."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "This minor release brings several bugfixes to improve your Jellyfin experience."
+        },
+        {
+          "field": "release_notes",
+          "quote": "As always, please ensure you take a full backup before upgrading!"
+        }
+      ]
+    },
+    {
+      "id": "vaultwarden-81",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.36.0",
+      "publishedAt": "2026-05-03T12:54:52Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.36.0",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.36.0 mit Sicherheitsupdates und Item-Archivierung",
+      "summaryDe": "Die Version 1.36.0 von Vaultwarden enthält wichtige Sicherheitsfixes und die neue Funktion zur Archivierung von Elementen. Nutzer werden dringend aufgefordert, auf diese Version zu aktualisieren.",
+      "changes": [
+        "Einführung der Archivierungsfunktion für Elemente.",
+        "Aktualisierung des Web Vault auf Version 2026.4.1.",
+        "Verschiedene Sicherheitsfixes, insbesondere für SSO und Benutzer-/Organisationsenumeration."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "security",
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "security",
+          "quote": "This release contains security fixes for the following advisories."
+        }
+      ]
+    },
+    {
+      "id": "vaultwarden-82",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.35.8",
+      "publishedAt": "2026-04-25T18:08:50Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.35.8",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.35.8: Fehlerbehebungen und Aktualisierungen",
+      "summaryDe": "Die Version 1.35.8 von Vaultwarden bringt mehrere Fehlerbehebungen und Aktualisierungen mit sich. Dazu gehören Korrekturen für die Master-Passwort-Richtlinie, den Wiederherstellungscode und ungültige Refresh-Token-Antworten.",
+      "changes": [
+        "Fehlerbehebung für die Master-Passwort-Richtlinie.",
+        "Korrektur des nicht funktionierenden Wiederherstellungscodes.",
+        "Behebung der ungültigen Refresh-Token-Antwort.",
+        "Aktualisierung von Rust, Crates und GHA sowie Behebung eines DNS-Problems.",
+        "Aktualisierung des Web-Vault und der Crates."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "changes",
+          "quote": "Dummy org Master password policy auth fix by @Timshel in https://github.com/dani-garcia/vaultwarden/pull/7097"
+        },
+        {
+          "field": "changes",
+          "quote": "Fix recovery-code not working by @BlackDex in https://github.com/dani-garcia/vaultwarden/pull/7102"
+        },
+        {
+          "field": "changes",
+          "quote": "Fix invalid refresh token response by @BlackDex in https://github.com/dani-garcia/vaultwarden/pull/7105"
+        },
+        {
+          "field": "changes",
+          "quote": "Update Rust, Crates, GHA and fix a DNS issue by @BlackDex in https://github.com/dani-garcia/vaultwarden/pull/7108"
+        },
+        {
+          "field": "changes",
+          "quote": "Update web-vault and crates by @BlackDex in https://github.com/dani-garcia/vaultwarden/pull/7121"
+        }
+      ]
+    },
+    {
+      "id": "pihole-60",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.4.2",
+      "publishedAt": "2026-04-24T21:56:33Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.4.2",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.4.2: Verbesserungen und Fehlerbehebungen",
+      "summaryDe": "Die Version 6.4.2 von Pi-hole bringt mehrere Verbesserungen und Fehlerbehebungen mit sich, darunter Anpassungen an Berechtigungen und Optimierungen im Update-Prozess. Zudem wurden einige redundante Prozesse entfernt und die Fehlermeldungen verbessert.",
+      "changes": [
+        "Versionierungsdatei vor Erstellung einer neuen Datei löschen.",
+        "Berechtigungen für enthaltene Verzeichnisse korrigiert.",
+        "Referenz zu /usr/local/bin/COL_TABLE entfernt.",
+        "Apt-Cache-Update überspringen, wenn pihole-meta aktuell ist.",
+        "Versionen in /etc/pihole/versions auf null setzen, wenn das Skript fehlschlägt.",
+        "Redundantes Berühren von Logdateien im systemd-Dienst entfernt.",
+        "Anforderungen für den lokalen Datei-Zugriff für Gravity gelockert.",
+        "Berechtigungen für *.etag-Dateien nach dem Gravity-Lauf korrigiert.",
+        "Logrotate zu DEB- und RPM-Abhängigkeiten hinzugefügt.",
+        "Fehlermeldung von Gravity verbessert, einschließlich Curl-Exit-Code und Fehlermeldung."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "feature",
+        "security"
+      ],
+      "evidence": [
+        {
+          "field": "changes",
+          "quote": "Fixed with : https://github.com/pi-hole/pi-hole/commit/7ccb8ddfb085479fa96e801886eb1cdbeaf3a720 and https://github.com/pi-hole/FTL/commit/88c569aa026d905d0066135bb71f36a13acf4bf4"
+        }
+      ]
+    },
+    {
+      "id": "vaultwarden-83",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.35.7",
+      "publishedAt": "2026-04-13T21:51:32Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.35.7",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.35.7: Fehlerbehebung für 2FA auf Android",
+      "summaryDe": "In der Version 1.35.7 von Vaultwarden wurde ein Problem mit der Zwei-Faktor-Authentifizierung (2FA) für Android-Geräte behoben. Diese Verbesserung wurde von einem Mitwirkenden implementiert.",
+      "changes": [
+        "Fehlerbehebung für die Zwei-Faktor-Authentifizierung auf Android"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Fix 2FA for Android by @BlackDex in https://github.com/dani-garcia/vaultwarden/pull/7093"
+        }
+      ]
+    },
+    {
+      "id": "vaultwarden-84",
+      "appId": "vaultwarden",
+      "appSlug": "vaultwarden",
+      "appName": "Vaultwarden",
+      "domainCategory": "Sicherheit",
+      "version": "1.35.6",
+      "publishedAt": "2026-04-12T19:28:35Z",
+      "sourceUrl": "https://github.com/dani-garcia/vaultwarden/releases/tag/1.35.6",
+      "revision": 1,
+      "titleDe": "Vaultwarden 1.35.6 behebt MFA-Token-Probleme",
+      "summaryDe": "In der Version 1.35.6 von Vaultwarden wurde ein Problem behoben, bei dem Zwei-Faktor-Authentifizierungs- und Wiederherstellungstoken nicht akzeptiert wurden. Diese Funktionalität ist nun wiederhergestellt.",
+      "changes": [
+        "Behebung des Problems mit MFA Remember Tokens",
+        "Behebung des Problems mit Recovery Tokens"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "The previous release contained an issue where Two Factor Remember Tokens and Recovery Tokens were not accepted at all."
+        },
+        {
+          "field": "release_notes",
+          "quote": "This has been fixed now in this release."
+        }
+      ]
+    },
+    {
+      "id": "beszel-97",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.18.7",
+      "publishedAt": "2026-04-05T20:31:06Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.18.7",
+      "revision": 1,
+      "titleDe": "Beszel v0.18.7: Erweiterte Disk-I/O-Metriken und Verbesserungen",
+      "summaryDe": "Die Version v0.18.7 von Beszel bringt erweiterte Disk-I/O-Metriken sowie zahlreiche Fehlerbehebungen und Verbesserungen. Zu den neuen Funktionen gehört die Möglichkeit, Alarme zwischen Systemen zu kopieren und die Einführung einer Umgebungsvariable für Zeitüberschreitungen.",
+      "changes": [
+        "Erweiterung der Disk-I/O-Metriken (Auslastung, Lese-/Schreibzeit, Wartezeit, Warteschlangentiefe)",
+        "Möglichkeit zum Kopieren von Alarmen zwischen Systemen hinzugefügt",
+        "Einführung der Umgebungsvariable `SENSORS_TIMEOUT`",
+        "Ersetzung von `distatus/battery` durch eine interne Implementierung",
+        "Einschränkung der universellen Token-API auf Nicht-Superuser-Konten",
+        "Behebung von Abstürzen auf macOS ARM64 durch Upgrade von `gopsutil`",
+        "Korrektur der Textgröße für Systemnamen in der Rasteransicht",
+        "Behebung der NVMe-Kapazitätsberichterstattung für Apple SSDs",
+        "Korrektur der Erkennung des Windows-Root-Datenträgers",
+        "Behebung der Einbeziehung des verschachtelten virtuellen Dateisystems in Docker",
+        "Behebung der Persistenz bei der OPNsense-Installation durch Verwendung des Daemon-Benutzers",
+        "Upgrade der JS-Abhängigkeiten mit Sicherheitswarnungen von dependabot"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Add more disk I/O metrics (utilization, read/write time, await, queue depth)"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Add ability to copy alerts between systems by @svenvg93"
+        }
+      ]
+    },
+    {
+      "id": "pihole-89",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.4.1",
+      "publishedAt": "2026-04-03T16:54:32Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.4.1",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.4.1: Verbesserungen und Fehlerbehebungen",
+      "summaryDe": "Die Version v6.4.1 von Pi-hole bringt mehrere Verbesserungen und Fehlerbehebungen mit sich. Unter anderem wurde ein Fehler im Debug-Log und in den Skripten behoben.",
+      "changes": [
+        "Entfernung eines zusätzlichen ':' aus der Ausgabe der Systemzeit im Debug-Log.",
+        "Entfernung von 'readonly' aus piholeNetworkFlush.sh zur Vermeidung von Fehlermeldungen.",
+        "Hinzufügung eines Antigravity-Index.",
+        "Behebung der Rückgabewert-Erfassung des FTL-Checks.",
+        "Entfernung eines irreführenden TODO-Kommentars für SetWebPassword."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "confirmed",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "security"
+      ],
+      "evidence": [
+        {
+          "field": "changes",
+          "quote": "Remove additional ':' from debug log system time output by @yubiuser"
+        },
+        {
+          "field": "security",
+          "quote": "[GHSA-c935-8g63-qp74 – Local Privilege Escalation]"
+        }
+      ]
+    },
+    {
+      "id": "beszel-98",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.18.6",
+      "publishedAt": "2026-03-29T17:16:52Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.18.6",
+      "revision": 1,
+      "titleDe": "Beszel v0.18.6: UI-Verbesserungen und Fehlerbehebungen",
+      "summaryDe": "Die Version v0.18.6 von Beszel bringt mehrere Fehlerbehebungen und eine neue Funktion zur Unterstützung von Apple Touch Icons. Zudem wurden Probleme bei der Partitionserkennung und der GPU-Datensammlung behoben.",
+      "changes": [
+        "Hinzufügen eines `apple-touch-icon` Links",
+        "Behebung einer Regression bei der Partitionserkennung auf Docker",
+        "Behebung eines UI-Fehlers, bei dem Diagramme nicht korrekt angezeigt wurden",
+        "Behebung der Agentenerkennung von Podman bei Verwendung eines Socket-Proxys",
+        "Behebung der Deaktivierung der NVML GPU-Sammlung, wenn `nvidia-smi` nicht im PATH ist",
+        "Zurücksetzen des SMART-Intervalls bei der Agenten-Neuverbindung, wenn keine SMART-Daten gesammelt wurden"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "changes",
+          "quote": "Fix regression in partition discovery on Docker (#1847)"
+        },
+        {
+          "field": "changes",
+          "quote": "Fix UI bug where charts did not display 1m max until next update"
+        },
+        {
+          "field": "changes",
+          "quote": "Fix agent detection of Podman when using socket proxy (#1846)"
+        },
+        {
+          "field": "changes",
+          "quote": "Fix NVML GPU collection being disabled when `nvidia-smi` is not in PATH (#1849)"
+        },
+        {
+          "field": "changes",
+          "quote": "Reset SMART interval on agent reconnect if the agent hasn't collected SMART data"
+        }
+      ]
+    },
+    {
+      "id": "beszel-99",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.18.5",
+      "publishedAt": "2026-03-27T20:47:35Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.18.5",
+      "revision": 1,
+      "titleDe": "Beszel v0.18.5: Verbesserte Benutzeroberfläche und Systemüberwachung",
+      "summaryDe": "Die Version v0.18.5 von Beszel bringt zahlreiche Verbesserungen, darunter eine Benachrichtigung über verfügbare Updates in der Web-Oberfläche und die Überwachung der Gesundheit von Linux mdraid. Zudem wurden die Leistung der Web-Oberfläche und die mobile Darstellung optimiert.",
+      "changes": [
+        "Hinzufügung einer Benachrichtigung über verfügbare Updates in der Hub-Web-Oberfläche.",
+        "Überwachung der Gesundheit von Linux mdraid hinzugefügt.",
+        "Spalte für Ports in der Containertabelle hinzugefügt.",
+        "Verbesserte Leistung der Web-Oberfläche und mobile Stile.",
+        "Fehlerbehebungen für Temperaturerfassung und Container-Gesundheitsstatus."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Add \"update available\" notification in hub web UI with `CHECK_UPDATES=true`"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Add Linux mdraid health monitoring"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Improve web UI performance and mobile styles"
+        }
+      ]
+    },
+    {
+      "id": "borgbackup-70",
+      "appId": "borgbackup",
+      "appSlug": "borgbackup",
+      "appName": "BorgBackup",
+      "domainCategory": "Backup",
+      "version": "1.4.4",
+      "publishedAt": "2026-03-19T08:18:05Z",
+      "sourceUrl": "https://github.com/borgbackup/borg/releases/tag/1.4.4",
+      "revision": 1,
+      "titleDe": "BorgBackup 1.4.4: Verbesserte Version mit größeren Änderungen",
+      "summaryDe": "Die Version 1.4.4 von BorgBackup bringt bedeutende Änderungen mit sich, die eine erweiterte Testphase erforderten. Diese Version ist eine aktualisierte Variante der 1.2.x-Serie und bietet größtenteils die gleichen Funktionen und Verhaltensweisen.",
+      "changes": [
+        "Borg 1.4.x ist eine erfrischte Version von 1.2 mit größeren Änderungen.",
+        "Die neuen -gh Binaries werden jetzt auf GitHub gebaut und unterstützen `borg mount` unter Linux und FreeBSD.",
+        "Hinweis für Benutzer von großen Endian-Architekturen: Überprüfen Sie das Issue #9521."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "- *-gh binaries are built on GitHub now."
+        }
+      ]
+    },
+    {
+      "id": "beszel-100",
+      "appId": "beszel",
+      "appSlug": "beszel",
+      "appName": "Beszel",
+      "domainCategory": "Monitoring",
+      "version": "v0.18.4",
+      "publishedAt": "2026-02-20T21:10:52Z",
+      "sourceUrl": "https://github.com/henrygd/beszel/releases/tag/v0.18.4",
+      "revision": 1,
+      "titleDe": "Beszel v0.18.4: Erweiterte Überwachungsfunktionen und Verbesserungen",
+      "summaryDe": "Die Version v0.18.4 von Beszel bringt neue Funktionen zur Überwachung von externen Diensten und experimentelle GPU-Überwachung für Apple Silicon. Zudem wurden verschiedene Verbesserungen und Fehlerbehebungen implementiert.",
+      "changes": [
+        "Hinzufügung von Outbound-Herzschlagüberwachung für externe Dienste.",
+        "Experimentelle GPU-Überwachung für Apple Silicon hinzugefügt.",
+        "Integration von `nvtop` für die GPU-Überwachung.",
+        "Umgebungsvariable `DISABLE_SSH` zur Deaktivierung der SSH-Agentenfunktionalität hinzugefügt.",
+        "Verbesserte Erkennung von multiplexierten Protokollen für Podman.",
+        "Fehlerbehebung bei der Berichterstattung über falsche Root-Disk-I/O im Docker-Betrieb."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "changes",
+          "quote": "Add outbound heartbeat monitoring to external services by @amirhmoradi"
+        },
+        {
+          "field": "changes",
+          "quote": "Add experimental GPU monitoring for Apple Silicon by @raccettura."
+        },
+        {
+          "field": "changes",
+          "quote": "Harden against Docker API path traversal."
+        }
+      ]
+    },
+    {
+      "id": "pihole-90",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.4",
+      "publishedAt": "2026-02-17T20:27:27Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.4",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.4: Verbesserungen und Bereinigungen",
+      "summaryDe": "Die Version v6.4 von Pi-hole bringt mehrere Verbesserungen und Bereinigungen in den Abhängigkeiten und im Debug-Log. Zudem wurden Anpassungen an den Update- und Reparaturprozessen vorgenommen.",
+      "changes": [
+        "Entfernung von wget aus den Alpine-Abhängigkeiten.",
+        "Entfernung der benutzerdefinierten FTL FirewallD-Zonenprüfungen aus dem Debug-Log.",
+        "Hinzufügung von Alpine 3.23 zur Test-Suite.",
+        "Farbliche Gestaltung der Gravity-Tabellen im Debug-Log.",
+        "Verwendung des konfigurierten Standorts für das Web-Repository bei Updates oder Reparaturen.",
+        "Hinzufügung der fehlenden '-g' Option in der Nachricht des Gravity-Wiederherstellungskommandos.",
+        "Vermeidung der Installation ungenutzter Man-Seiten."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Remove wget from alpine dependencies by @darkexplosiveqwx in https://github.com/pi-hole/pi-hole/pull/6484"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Debug log - Add colors to gravity tables by @rdwebdesign in https://github.com/pi-hole/pi-hole/pull/6485"
+        }
+      ]
+    },
+    {
+      "id": "borgbackup-71",
+      "appId": "borgbackup",
+      "appSlug": "borgbackup",
+      "appName": "BorgBackup",
+      "domainCategory": "Backup",
+      "version": "1.4.3",
+      "publishedAt": "2025-12-02T07:43:18Z",
+      "sourceUrl": "https://github.com/borgbackup/borg/releases/tag/1.4.3",
+      "revision": 1,
+      "titleDe": "BorgBackup 1.4.3: Verbesserte Installation und Unterstützung für FUSE",
+      "summaryDe": "Die Version 1.4.3 von BorgBackup bringt einige größere Änderungen mit sich, die zuvor getestet werden mussten. Diese Version ist eine aktualisierte Version von 1.2 mit ähnlichen Funktionen und Verhaltensweisen.",
+      "changes": [
+        "Unterstützung für `borg mount` (FUSE-Dateisystem) in den Linux- und FreeBSD-Binärdateien.",
+        "Die macOS-Binärdateien unterstützen `borg mount` nicht und es wird empfohlen, den Homebrew-Tap zu verwenden."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "pihole-91",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.3",
+      "publishedAt": "2025-11-27T18:12:22Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.3",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.3: Verbesserungen und Fehlerbehebungen",
+      "summaryDe": "Die Version 6.3 von Pi-hole bringt mehrere Verbesserungen und Fehlerbehebungen mit sich, darunter die Unterstützung für Fedora 43 und Optimierungen im Debugging. Zudem wurden einige systemd-Dienste aktualisiert, um veraltete Berechtigungen zu vermeiden.",
+      "changes": [
+        "Hinzufügung von Fedora 43 zur Testumgebung.",
+        "Behebung von Problemen mit libcap-Berechtigungen auf OpenRC-Distros.",
+        "Aktualisierung des systemd-Dienstes zur Vermeidung veralteter PermissionsStartOnly.",
+        "Optimierung der Verarbeitung und Anzeige von Dateiinhalten und Diensten im Debug-Modus.",
+        "Verwendung des Ports aus dns.port in piholeDebug.sh.",
+        "Verbesserung der Darstellung der Gravity-Tabellen im Debug-Log."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix",
+        "feature"
+      ],
+      "evidence": [
+        {
+          "field": "What's Changed",
+          "quote": "Add Fedora 43 to test suite by @yubiuser in https://github.com/pi-hole/pi-hole/pull/6453"
+        },
+        {
+          "field": "What's Changed",
+          "quote": "Fix libcap capabilities not being granted on OpenRC distros by @Sparronator9999 in https://github.com/pi-hole/pi-hole/pull/6456"
+        },
+        {
+          "field": "What's Changed",
+          "quote": "systemd service - don't use deprecated PermissionsStartOnly by @rrobgill in https://github.com/pi-hole/pi-hole/pull/6465"
+        },
+        {
+          "field": "What's Changed",
+          "quote": "debug - speed up processing and display of file contents and services by @rrobgill in https://github.com/pi-hole/pi-hole/pull/6469"
+        },
+        {
+          "field": "What's Changed",
+          "quote": "Use port from dns.port in piholeDebug.sh by @darkexplosiveqwx in https://github.com/pi-hole/pi-hole/pull/6475"
+        },
+        {
+          "field": "What's Changed",
+          "quote": "Improve gravity tables presentation on the debug log by @rdwebdesign in https://github.com/pi-hole/pi-hole/pull/6460"
+        }
+      ]
+    },
+    {
+      "id": "borgbackup-72",
+      "appId": "borgbackup",
+      "appSlug": "borgbackup",
+      "appName": "BorgBackup",
+      "domainCategory": "Backup",
+      "version": "1.4.2",
+      "publishedAt": "2025-10-31T18:39:02Z",
+      "sourceUrl": "https://github.com/borgbackup/borg/releases/tag/1.4.2",
+      "revision": 1,
+      "titleDe": "BorgBackup 1.4.2: Verbesserte Version mit größeren Änderungen",
+      "summaryDe": "Die Version 1.4.2 von BorgBackup stellt eine aktualisierte Version der 1.2.x-Reihe dar, die einige größere Änderungen enthält, die potenziell Probleme verursachen könnten. Diese Änderungen erforderten eine Testphase, bevor sie veröffentlicht wurden.",
+      "changes": [
+        "Borg 1.4.x bietet ähnliche Funktionen und Verhaltensweisen wie 1.2, jedoch mit signifikanten Änderungen.",
+        "Die Installation über pip wird empfohlen mit dem Befehl: pip install \"borgbackup==1.4.2\".",
+        "Die -gh Binaries unterstützen nicht `borg mount` aufgrund einer fehlenden Bibliothek."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "pihole-92",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.2.2",
+      "publishedAt": "2025-10-28T17:07:47Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.2.2",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.2.2: Verbesserungen bei Log-Dateien und Abhängigkeiten",
+      "summaryDe": "In der Version 6.2.2 von Pi-hole wurden mehrere Verbesserungen vorgenommen, darunter die Erstellung einer Versionsdatei beim ersten Start des Containers und die Sicherstellung, dass Log-Dateien erstellt werden, wenn sie fehlen. Zudem wurde 'bind9-dnsutils' als Abhängigkeit für APT-basierte Systeme hinzugefügt.",
+      "changes": [
+        "Erstellung einer Versionsdatei, falls diese nicht existiert, beim ersten Containerstart.",
+        "Hinzufügen von Log-Dateipfadvariablen und Sicherstellung, dass Log-Dateien erstellt werden, wenn sie fehlen.",
+        "Hinzufügen von 'bind9-dnsutils' als Abhängigkeit für APT-basierte Systeme."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "What's Changed",
+          "quote": "Create version file, if not existing (on first Container start) by @casperklein in https://github.com/pi-hole/pi-hole/pull/6440"
+        },
+        {
+          "field": "What's Changed",
+          "quote": "Add log file path variables and ensure log files are created if missing by @Yannick7777 in https://github.com/pi-hole/pi-hole/pull/6441"
+        },
+        {
+          "field": "What's Changed",
+          "quote": "Add bind9-dnsutils as dependency for APT based systems by @yubiuser in https://github.com/pi-hole/pi-hole/pull/6444"
+        }
+      ]
+    },
+    {
+      "id": "pihole-93",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.2.1",
+      "publishedAt": "2025-10-25T10:39:32Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.2.1",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.2.1: Hotfix für neue Installationen",
+      "summaryDe": "Die Version v6.2.1 von Pi-hole behebt einen Fehler, der bei neuen Installationen mit der Version 6.2 aufgetreten ist. Diese Aktualisierung sorgt für eine verbesserte Funktionalität der Software.",
+      "changes": [
+        "Behebung von Formatierungsproblemen in der Funktion chooseInterface."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "release_notes",
+          "quote": "Hotfix for a bug introduced for new installs with 6.2"
+        },
+        {
+          "field": "release_notes",
+          "quote": "Fix formatting in chooseInterface function by @PromoFaux"
+        }
+      ]
+    },
+    {
+      "id": "pihole-94",
+      "appId": "pihole",
+      "appSlug": "pihole",
+      "appName": "Pi-hole",
+      "domainCategory": "Netzwerk",
+      "version": "v6.2",
+      "publishedAt": "2025-10-25T10:12:28Z",
+      "sourceUrl": "https://github.com/pi-hole/pi-hole/releases/tag/v6.2",
+      "revision": 1,
+      "titleDe": "Pi-hole v6.2: Verbesserungen und Fehlerbehebungen",
+      "summaryDe": "Die Version 6.2 von Pi-hole bringt zahlreiche Verbesserungen und Fehlerbehebungen mit sich, darunter Optimierungen der Geschwindigkeit und Anpassungen an der Benutzeroberfläche. Zudem wurden einige Abhängigkeiten entfernt und die Dokumentation aktualisiert.",
+      "changes": [
+        "Entfernung von 'readonly' aus list.sh zur Vermeidung von Fehlern.",
+        "Netcat wurde aus der Liste der Abhängigkeiten entfernt.",
+        "Verbesserung der Geschwindigkeit von pihole --query und pihole api.",
+        "Aktualisierung der Man-Seite und Entfernung der Option 'reconfigure'.",
+        "Refactoring und Verbesserung des Deinstallationsprozesses."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "feature",
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "changes",
+          "quote": "Remove `readonly` from list.sh to avoid errors by @rdwebdesign in https://github.com/pi-hole/pi-hole/pull/6349"
+        },
+        {
+          "field": "changes",
+          "quote": "Speed up pihole --query by @rrobgill in https://github.com/pi-hole/pi-hole/pull/6334"
+        }
+      ]
+    },
+    {
+      "id": "restic-68",
+      "appId": "restic",
+      "appSlug": "restic",
+      "appName": "Restic",
+      "domainCategory": "Backup",
+      "version": "v0.18.1",
+      "publishedAt": "2025-09-21T18:24:38Z",
+      "sourceUrl": "https://github.com/restic/restic/releases/tag/v0.18.1",
+      "revision": 1,
+      "titleDe": "Restic v0.18.1: Fehlerbehebungen und Verbesserungen",
+      "summaryDe": "Die Version 0.18.1 von Restic bringt mehrere wichtige Fehlerbehebungen mit sich, die die Handhabung von Backup-Operationen und Umgebungsvariablen verbessern. Zudem wurden Probleme mit der Fehlerberichterstattung und dem Umgang mit Speicherplatzmangel behoben.",
+      "changes": [
+        "Korrekte Handhabung von `backup --stdin-filename` mit Verzeichnispfaden.",
+        "Akzeptanz der Umgebungsvariable `RESTIC_HOST` im `forget`-Befehl.",
+        "Ignorieren von 'chmod not supported'-Fehlern beim Schreiben von Dateien.",
+        "Ignorieren von `EOPNOTSUPP`-Fehlern für erweiterte Attribute.",
+        "Behebung eines seltenen Absturzes, wenn ein Verzeichnis während des Backups entfernt wird.",
+        "Stoppen der Wiederholungen von Uploads, wenn der Rest-Server keinen Speicherplatz mehr hat.",
+        "Verbesserte Handhabung von Download-Wiederholungen im `check`-Befehl."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "bugfix"
+      ],
+      "evidence": [
+        {
+          "field": "summary",
+          "quote": "The following sections list the changes in restic 0.18.1 relevant to restic users."
+        },
+        {
+          "field": "details",
+          "quote": "In restic 0.18.0, the `backup` command failed if a filename that includes at least a directory was passed to `--stdin-filename`."
+        }
+      ]
     }
   ]
 }
