@@ -1,7 +1,7 @@
 ---
 title: "Linux-Server Monitoring: Beszel, Netdata oder Prometheus?"
 description: "Die 3 besten Self-Hosted Monitoring-Tools für Linux-Server und Docker im Praxistest – inklusive Quick-Start-Anleitung für Beszel."
-pubDate: "2026-11-20"
+pubDate: 2026-11-20T12:00:00
 heroImage: "/images/linux-server-monitoring-beszel-netdata-prometheus.webp"
 category: "Self-Hosting"
 tags: ["Linux", "Docker", "Monitoring", "Beszel", "Self-Hosting", "Homelab"]
@@ -10,6 +10,8 @@ tags: ["Linux", "Docker", "Monitoring", "Beszel", "Self-Hosting", "Homelab"]
 Wer mehrere Linux-Server oder Docker-Hosts betreibt, kennt das Problem: Läuft ein Container heimlich voll, klettert die CPU-Last durch einen hängenden Prozess oder meldet eine NVMe erste S.M.A.R.T.-Warnungen, merkt man es ohne Monitoring oft erst, wenn ein Dienst ausfällt.
 
 Klassische Enterprise-Systeme wie Zabbix oder Checkmk sind im Homelab oder auf kompakten Produktiv-Servern meist überdimensioniert. Drei moderne Open-Source-Lösungen haben sich stattdessen als praxistaugliche Favoriten etabliert: **Beszel**, **Netdata** und der Stack aus **Prometheus + Grafana**.
+
+---
 
 ## Die 3 Kandidaten im direkten Vergleich
 
@@ -22,14 +24,22 @@ Klassische Enterprise-Systeme wie Zabbix oder Checkmk sind im Homelab oder auf k
 
 ---
 
+## Architektur & Ressourcen im Überblick
+
+Die drei Werkzeuge unterscheiden sich vor allem darin, wie viel Speicher und Rechenzeit sie dauerhaft auf den überwachten Hosts beanspruchen und wie die Daten eingesammelt werden:
+
+![Architektur- und Ressourcen-Vergleich Beszel, Netdata und Prometheus](/images/linux-server-monitoring-beszel-netdata-prometheus-2.webp)
+
+---
+
 ## 1. Beszel – Der schlanke Preis-Leistungs-Sieger
 
 <img src="/images/logos/beszel.svg" alt="Beszel Logo" style="height: 44px; width: auto; margin-bottom: 0.75rem;" />
 
 **Beszel** verfolgt einen radikal einfachen Ansatz: Ein zentraler **Hub** (Web-UI + SQLite-Datenbank) sammelt über einen extrem leichtgewichtigen **Agenten** die Metriken beliebig vieler Linux-Server ein – abgesichert über SSH-Keys, ohne dass auf den Zielsystemen offene HTTP-Ports ins Netzwerk freigegeben werden müssen.
 
-* **Pro:** Minimaler Ressourcenverbrauch (~15–25 MB RAM), sofort einsatzbereite Übersichten für CPU, RAM, Disk-I/O, Docker-Container und S.M.A.R.T.-Werte sowie integrierte Benachrichtigungen (E-Mail, Discord, Telegram, Gotify, ntfy).
-* **Contra:** Keine frei zusammenklickbaren Custom-Panels wie in Grafana; der Fokus liegt bewusst auf System- und Container-Metriken.
+- **Pro:** Minimaler Ressourcenverbrauch (~15–25 MB RAM), sofort einsatzbereite Übersichten für CPU, RAM, Disk-I/O, Docker-Container und S.M.A.R.T.-Werte sowie integrierte Benachrichtigungen (E-Mail, Discord, Telegram, Gotify, ntfy).
+- **Contra:** Keine frei zusammenklickbaren Custom-Panels wie in Grafana; der Fokus liegt bewusst auf System- und Container-Metriken.
 
 **Fazit:** Für 90 % aller Homelabs und Multi-Node-Setups der klare Testsieger – in unter 5 Minuten produktiv und extrem sparsam.
 
@@ -41,8 +51,8 @@ Klassische Enterprise-Systeme wie Zabbix oder Checkmk sind im Homelab oder auf k
 
 **Netdata** liefert direkt nach dem Start hunderte Metriken im Sekundentakt – vom Kernel-Interrupt über Festplatten-Latenzen bis zu einzelnen Systemd-Services.
 
-* **Pro:** Zero-Config-Erkennung fast aller Dienste und extreme Granularität bei akuten Performance-Engpässen („Warum ist der Server gerade träge?“).
-* **Contra:** Deutlich höherer RAM- und CPU-Bedarf auf kleinen Mini-PCs; für Multi-Server-Ansichten oft auf Netdata Cloud angewiesen.
+- **Pro:** Zero-Config-Erkennung fast aller Dienste und extreme Granularität bei akuten Performance-Engpässen („Warum ist der Server gerade träge?“).
+- **Contra:** Deutlich höherer RAM- und CPU-Bedarf auf kleinen Mini-PCs; für Multi-Server-Ansichten oft auf Netdata Cloud angewiesen.
 
 **Fazit:** Das perfekte Diagnose-Werkzeug für gezielte Live-Fehlersuche auf stark belasteten Maschinen, für Dauer-Monitoring kleiner Nodes aber oft zu schwergewichtig.
 
@@ -54,8 +64,8 @@ Klassische Enterprise-Systeme wie Zabbix oder Checkmk sind im Homelab oder auf k
 
 Die Kombination aus **Prometheus** (Zeitreihendatenbank), **Node Exporter / cAdvisor** und **Grafana** ist der Industriestandard – ideal, wenn neben Linux-Servern auch Router oder Smart-Home-Systeme in einem Dashboard zusammenlaufen sollen.
 
-* **Pro:** Unbegrenzte Anpassbarkeit, riesige Auswahl an Community-Dashboards und beliebig lange Datenhistorie.
-* **Contra:** Höherer Wartungsaufwand (`prometheus.yml`, Scrape-Targets, Exporter) und spürbar mehr Speicher- sowie Einarbeitungsbedarf.
+- **Pro:** Unbegrenzte Anpassbarkeit, riesige Auswahl an Community-Dashboards und beliebig lange Datenhistorie.
+- **Contra:** Höherer Wartungsaufwand (`prometheus.yml`, Scrape-Targets, Exporter) und spürbar mehr Speicher- sowie Einarbeitungsbedarf.
 
 **Fazit:** Spielt seine Stärke erst bei komplexen, systemübergreifenden Dashboards aus, in denen viele verschiedene Datenquellen zusammenlaufen.
 
@@ -63,17 +73,19 @@ Die Kombination aus **Prometheus** (Zeitreihendatenbank), **Node Exporter / cAdv
 
 ## Quick-Start: Beszel in 5 Minuten per Docker installieren
 
-Beszel besteht aus zwei schlanken Programmen, die im Hintergrund als Docker-Container laufen:
-* **Beszel Hub:** Die zentrale Weboberfläche, in der du alle Messwerte im Browser anschaust und Warnmeldungen einrichtest.
-* **Beszel Agent:** Ein winziger Datensammler, der auf jedem Linux-Rechner läuft, den du überwachen möchtest (auch auf demselben Server, auf dem schon der Hub liegt).
+Beszel besteht aus zwei schlanken Komponenten, die im Hintergrund als Docker-Container laufen:
+- **Beszel Hub:** Die zentrale Weboberfläche, in der du alle Messwerte im Browser anschaust und Warnmeldungen einrichtest.
+- **Beszel Agent:** Ein winziger Datensammler, der auf jedem Linux-Rechner läuft, den du überwachen möchtest (auch auf demselben Server, auf dem schon der Hub liegt).
+
+![Beszel Hub und Agent Multi-Node-Architektur](/images/linux-server-monitoring-beszel-netdata-prometheus-3.webp)
 
 ### Vorbereitung: Server-IP herausfinden & Einbauort wählen
 
-Bevor du startest, brauchst du die lokale IP-Adresse deines Linux-Servers (z. B. `192.168.178.50`). Falls du sie nicht auswendig kennst, melde dich per SSH am Server an und gib `hostname -I` ein – die erste angezeigte Zahl ist deine IP.
+Bevor du startest, brauchst du die lokale IP-Adresse deines Linux-Servers. Falls du sie nicht auswendig kennst, melde dich per SSH am Server an und gib `hostname -I` ein – die erste angezeigte Zahl ist deine IP.
 
 Die folgenden YAML-Vorlagen kannst du auf zwei Arten starten:
-* **Bequem per Browser in Portainer:** Öffne Portainer → **Stacks → + Add stack**, vergib einen Namen (z. B. `beszel`), füge den Text in das große Editor-Feld ein und klicke unten auf **Deploy the stack**.
-* **Direkt im Terminal:** Lege einen Ordner an (z. B. `mkdir -p /opt/beszel && cd /opt/beszel`), speichere den Text in einer Datei namens `docker-compose.yml` und starte ihn mit `docker compose up -d`.
+- **Bequem per Browser in Portainer:** Öffne Portainer → **Stacks → + Add stack**, vergib einen Namen (z. B. `beszel`), füge den Text in das große Editor-Feld ein und klicke unten auf **Deploy the stack**.
+- **Direkt im Terminal:** Lege einen Ordner an (z. B. `mkdir -p /opt/stacks/beszel && cd /opt/stacks/beszel`), speichere den Text in einer Datei namens `docker-compose.yml` und starte ihn mit `docker compose up -d`.
 
 ---
 
@@ -93,7 +105,7 @@ services:
       - ./beszel_data:/beszel_data
 ```
 
-*Erfolgskontrolle:* Öffne deinen Browser und rufe `http://DEINE-SERVER-IP:8090` auf (ersetze `DEINE-SERVER-IP` durch deine echte IP). Es erscheint die Willkommensseite von Beszel, auf der du beim ersten Besuch deine E-Mail-Adresse und ein Admin-Passwort festlegst.
+*Erfolgskontrolle:* Öffne deinen Browser und rufe `http://<DEINE-SERVER-IP>:8090` auf. Es erscheint die Willkommensseite von Beszel, auf der du beim ersten Besuch deine E-Mail-Adresse und ein Admin-Passwort festlegst.
 
 ---
 
