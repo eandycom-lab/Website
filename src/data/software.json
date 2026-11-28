@@ -1,0 +1,95 @@
+[
+  {
+    "id": "immich",
+    "slug": "immich",
+    "name": "Immich",
+    "category": "Self-Hosting",
+    "domainCategory": "Fotos",
+    "website": "https://immich.app/",
+    "repository": "https://github.com/immich-app/immich",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "immich-app",
+      "repo": "immich",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": true,
+    "relatedGuides": []
+  },
+  {
+    "id": "paperless-ngx",
+    "slug": "paperless-ngx",
+    "name": "Paperless-ngx",
+    "category": "Self-Hosting",
+    "domainCategory": "Dokumente",
+    "website": "https://docs.paperless-ngx.com/",
+    "repository": "https://github.com/paperless-ngx/paperless-ngx",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "paperless-ngx",
+      "repo": "paperless-ngx",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": true,
+    "relatedGuides": []
+  },
+  {
+    "id": "ollama",
+    "slug": "ollama",
+    "name": "Ollama",
+    "category": "Local AI",
+    "domainCategory": "Local AI",
+    "website": "https://ollama.com/",
+    "repository": "https://github.com/ollama/ollama",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "ollama",
+      "repo": "ollama",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": true,
+    "relatedGuides": []
+  },
+  {
+    "id": "uptime-kuma",
+    "slug": "uptime-kuma",
+    "name": "Uptime Kuma",
+    "category": "Self-Hosting",
+    "domainCategory": "Monitoring",
+    "website": "https://uptime.kuma.pet/",
+    "repository": "https://github.com/louislam/uptime-kuma",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "louislam",
+      "repo": "uptime-kuma",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": true,
+    "relatedGuides": []
+  },
+  {
+    "id": "home-assistant",
+    "slug": "home-assistant",
+    "name": "Home Assistant Core",
+    "category": "Home Automation",
+    "domainCategory": "Home Automation",
+    "website": "https://www.home-assistant.io/",
+    "repository": "https://github.com/home-assistant/core",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "home-assistant",
+      "repo": "core",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": true,
+    "relatedGuides": [
+      "home-assistant-bare-metal-vs-docker-vergleich",
+      "pv-waermepumpe-home-assistant-energy-dashboard"
+    ]
+  }
+]

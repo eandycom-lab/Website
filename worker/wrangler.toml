@@ -1,0 +1,17 @@
+name = "sysai-update-radar"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+
+[triggers]
+crons = ["0 */3 * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sysai-radar"
+database_id = "897b5005-11c2-4b48-9f77-787c6e345239"
+
+[vars]
+LLM_PROVIDER = "openai_compatible"
+LLM_MODEL = "gpt-4o-mini"
+PROMPT_VERSION = "radar-de-v1"
+BASELINE_LIMIT = "4"

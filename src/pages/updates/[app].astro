@@ -1,0 +1,79 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import { SITE_TITLE } from "../../consts";
+import softwareCatalog from "../../data/software.json";
+import snapshot from "../../data/radar-snapshot.json";
+import type { PublishedRadarItem } from "../../lib/radar";
+
+export function getStaticPaths() {
+  return softwareCatalog.map((app) => ({
+    params: { app: app.slug },
+    props: { app },
+  }));
+}
+
+const { app } = Astro.props;
+const allItems = ((snapshot.items ?? []) as PublishedRadarItem[])
+  .filter((item) => item.appSlug === app.slug)
+  .sort((a, b) => new Date(b.publishedAt).valueOf() - new Date(a.publishedAt).valueOf());
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <BaseHead
+      title={`${app.name} Updates | ${SITE_TITLE}`}
+      description={`Release-Historie und Zusammenfassungen für ${app.name} (${app.domainCategory}).`}
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="container mag-layout">
+      <section>
+        <h1 class="section-header">{app.name} – Releases</h1>
+
+        <div class="article-box" style="padding: 1.35rem 1.5rem; margin-bottom: 1.5rem;">
+          <p style="margin: 0 0 0.6rem 0; color: var(--text-muted); font-size: 0.94rem;">
+            Kategorie: <strong style="color: var(--text-main);">{app.domainCategory}</strong> ·
+            <a href={app.website} target="_blank" rel="noopener noreferrer">Website</a> ·
+            <a href={app.repository} target="_blank" rel="noopener noreferrer">Repository</a>
+          </p>
+          <p style="margin: 0; color: var(--text-dim); font-size: 0.84rem;">
+            KI-gestützte Zusammenfassung offizieller Release Notes; nicht praktisch getestet.
+            <a href="/updates/" style="margin-left: 0.5rem; color: var(--accent-light);">← Alle Updates</a>
+          </p>
+        </div>
+
+        {allItems.length === 0 ? (
+          <div class="article-box" style="padding: 1.35rem 1.5rem;">
+            <p style="margin: 0; color: var(--text-muted);">
+              Für {app.name} liegen aktuell noch keine veröffentlichten Release-Einträge vor.
+            </p>
+          </div>
+        ) : (
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            {allItems.map((item) => (
+              <article class="article-box" style="padding: 1.25rem 1.4rem;">
+                <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.4rem; font-size: 0.85rem;">
+                  <strong>{item.version}</strong>
+                  <span style="color: var(--text-dim);">{new Date(item.publishedAt).toLocaleDateString("de-DE")}</span>
+                </div>
+                <h2 style="margin: 0 0 0.45rem 0; font-size: 1.1rem;">{item.titleDe}</h2>
+                <p style="margin: 0 0 0.75rem 0; color: var(--text-muted);">{item.summaryDe}</p>
+                <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent-light); font-size: 0.88rem; font-weight: 600;">
+                  Offizielle Release Notes →
+                </a>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <Sidebar />
+    </main>
+    <Footer />
+  </body>
+</html>

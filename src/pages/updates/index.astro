@@ -1,0 +1,268 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import { SITE_TITLE } from "../../consts";
+import softwareCatalog from "../../data/software.json";
+import snapshot from "../../data/radar-snapshot.json";
+import type { PublishedRadarItem } from "../../lib/radar";
+
+const items = ((snapshot.items ?? []) as PublishedRadarItem[])
+  .slice()
+  .sort((a, b) => new Date(b.publishedAt).valueOf() - new Date(a.publishedAt).valueOf());
+
+const eventLabels: Record<string, string> = {
+  security: "Security",
+  breaking_changes: "Breaking Changes",
+  feature: "Feature",
+  bugfix: "Bugfix",
+  unclear: "Unklar",
+};
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <BaseHead
+      title={`Update Radar | ${SITE_TITLE}`}
+      description="Automatisierte deutsche Release-Zusammenfassungen und Quellenlinks für Self-Hosting, Linux, Local AI und Home Automation."
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="container mag-layout">
+      <section>
+        <h1 class="section-header">Update Radar</h1>
+
+        <div class="article-box" style="padding: 1.35rem 1.5rem; margin-bottom: 1.5rem;">
+          <p style="margin: 0 0 0.5rem 0; color: var(--text-main); font-weight: 600;">
+            Dein Stack. Immer auf dem neuesten Stand.
+          </p>
+          <p style="margin: 0 0 0.75rem 0; color: var(--text-muted); font-size: 0.94rem;">
+            Übersicht offizieller Software-Releases mit deutschsprachiger Zusammenfassung und direktem Link zu den Original-Release-Notes.
+          </p>
+          <p style="margin: 0; color: var(--text-dim); font-size: 0.84rem;">
+            Hinweis: KI-gestützte Zusammenfassung offizieller Release Notes; nicht praktisch getestet.
+            {snapshot.isPreviewSample ? " Aktuell werden Beispiel-Vorschaudaten bis zur Anbindung des Release-Workers angezeigt." : ""}
+          </p>
+        </div>
+
+        <div class="filter-bar" aria-label="Filter nach Anwendung und Typ">
+          <select id="filter-app" class="filter-select" aria-label="Nach Software filtern">
+            <option value="">Alle Anwendungen</option>
+            {softwareCatalog.map((app) => (
+              <option value={app.slug}>{app.name}</option>
+            ))}
+          </select>
+
+          <select id="filter-type" class="filter-select" aria-label="Nach Update-Typ filtern">
+            <option value="">Alle Typen</option>
+            <option value="security">Security</option>
+            <option value="breaking_changes">Breaking Changes</option>
+            <option value="feature">Feature</option>
+            <option value="bugfix">Bugfix</option>
+            <option value="unclear">Unklar</option>
+          </select>
+
+          <a href="/updates/rss.xml" class="rss-pill">RSS /updates/rss.xml</a>
+        </div>
+
+        <div id="radar-list" class="radar-list">
+          {items.map((item) => (
+            <article
+              class="radar-card"
+              data-app={item.appSlug}
+              data-events={item.eventTypes.join(",")}
+            >
+              <div class="radar-meta">
+                <a href={`/updates/${item.appSlug}/`} class="radar-app">{item.appName}</a>
+                <span class="radar-version">{item.version}</span>
+                <span class="radar-date">
+                  {new Date(item.publishedAt).toLocaleDateString("de-DE")}
+                </span>
+              </div>
+
+              <h2 class="radar-title">{item.titleDe}</h2>
+              <p class="radar-summary">{item.summaryDe}</p>
+
+              {item.upgradeNotes.length > 0 && (
+                <div class="radar-notes">
+                  <strong>Herstellerhinweise / Upgrade:</strong>
+                  <ul>
+                    {item.upgradeNotes.map((note) => (
+                      <li>{note}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div class="radar-footer">
+                <div class="radar-tags">
+                  {item.eventTypes.map((ev) => (
+                    <span class={`ev-badge ev-${ev}`}>{eventLabels[ev] ?? ev}</span>
+                  ))}
+                </div>
+                <a
+                  href={item.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="radar-source-link"
+                >
+                  Offizielle Release Notes →
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <Sidebar />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      (function () {
+        const appSel = document.getElementById("filter-app");
+        const typeSel = document.getElementById("filter-type");
+        const cards = Array.from(document.querySelectorAll(".radar-card"));
+        if (!appSel || !typeSel || cards.length === 0) return;
+
+        function applyFilters() {
+          const appVal = appSel.value;
+          const typeVal = typeSel.value;
+          for (const card of cards) {
+            const cardApp = card.getAttribute("data-app") || "";
+            const cardEvents = (card.getAttribute("data-events") || "").split(",").filter(Boolean);
+            const matchApp = !appVal || cardApp === appVal;
+            const matchType = !typeVal || cardEvents.includes(typeVal);
+            card.style.display = matchApp && matchType ? "" : "none";
+          }
+        }
+
+        appSel.addEventListener("change", applyFilters);
+        typeSel.addEventListener("change", applyFilters);
+      })();
+    </script>
+
+    <style>
+      .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      .filter-select {
+        background: var(--bg-card);
+        color: var(--text-main);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+      }
+      .rss-pill {
+        margin-left: auto;
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: #fb923c;
+        background: rgba(249, 115, 22, 0.12);
+        border: 1px solid rgba(249, 115, 22, 0.35);
+        padding: 0.45rem 0.75rem;
+        border-radius: 8px;
+      }
+      .radar-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .radar-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.25rem 1.4rem;
+      }
+      .radar-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.65rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+      }
+      .radar-app {
+        font-weight: 700;
+        color: var(--accent-light);
+      }
+      .radar-version {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        background: var(--bg-elevated);
+        padding: 0.12rem 0.48rem;
+        border-radius: 6px;
+        font-size: 0.82rem;
+      }
+      .radar-date {
+        color: var(--text-dim);
+      }
+      .radar-title {
+        margin: 0 0 0.45rem 0;
+        font-size: 1.15rem;
+        line-height: 1.35;
+      }
+      .radar-summary {
+        margin: 0 0 0.85rem 0;
+        color: var(--text-muted);
+        font-size: 0.94rem;
+      }
+      .radar-notes {
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: 8px;
+        padding: 0.65rem 0.85rem;
+        margin-bottom: 0.85rem;
+        font-size: 0.88rem;
+      }
+      .radar-notes ul {
+        margin: 0.35rem 0 0 1.1rem;
+        padding: 0;
+      }
+      .radar-footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+      }
+      .radar-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .ev-badge {
+        font-size: 0.76rem;
+        font-weight: 700;
+        padding: 0.16rem 0.55rem;
+        border-radius: 99px;
+        background: var(--bg-elevated);
+        color: var(--text-main);
+      }
+      .ev-security, .ev-breaking_changes {
+        background: rgba(239, 68, 68, 0.18);
+        color: #fca5a5;
+      }
+      .ev-feature {
+        background: rgba(34, 211, 238, 0.15);
+        color: #67e8f9;
+      }
+      .ev-bugfix {
+        background: rgba(59, 130, 246, 0.18);
+        color: #93c5fd;
+      }
+      .radar-source-link {
+        font-size: 0.86rem;
+        font-weight: 600;
+        color: var(--accent-light);
+      }
+    </style>
+  </body>
+</html>

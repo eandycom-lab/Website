@@ -1,0 +1,757 @@
+{
+  "generatedAt": "2026-11-28T17:55:28.602Z",
+  "isPreviewSample": false,
+  "items": [
+    {
+      "id": "ollama-29",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.16",
+      "publishedAt": "2026-11-09T18:21:19Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.16",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.16",
+      "summaryDe": "Die Version v0.40.16 von Ollama bringt Verbesserungen in der Speichernutzung und Änderungen an den Befehlen sowie der API.",
+      "changes": [
+        "Qwen3.8 Flash Next verwendet etwa 27 GiB weniger Speicher auf Apple Silicon.",
+        "`ollama launch claude` leitet Claude Code immer an das ausgewählte Modell weiter.",
+        "`ollama launch` erklärt, wenn ein Cloud-Modell eingestellt wurde.",
+        "`/v1/responses` respektiert `truncation` und schneidet nicht mehr standardmäßig stillschweigend ab.",
+        "`/v1/models` gibt eine leere Liste zurück, anstatt `null`, wenn keine Modelle installiert sind.",
+        "CUDA 13.5 Unterstützung für Windows auf ARM.",
+        "Aktualisierte llama.cpp."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "home-assistant-43",
+      "appId": "home-assistant",
+      "appSlug": "home-assistant",
+      "appName": "Home Assistant Core",
+      "domainCategory": "Home Automation",
+      "version": "2026.11.0",
+      "publishedAt": "2026-11-04T17:32:55Z",
+      "sourceUrl": "https://github.com/home-assistant/core/releases/tag/2026.11.0",
+      "revision": 1,
+      "titleDe": "Home Assistant Core 2026.11.0",
+      "summaryDe": "Die Version 2026.11 von Home Assistant ist veröffentlicht worden und umfasst 38 neue Integrationen sowie 5.827 Pull-Requests von 557 Mitwirkenden.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "immich-16",
+      "appId": "immich",
+      "appSlug": "immich",
+      "appName": "Immich",
+      "domainCategory": "Fotos",
+      "version": "v3.3.6",
+      "publishedAt": "2026-11-04T17:24:55Z",
+      "sourceUrl": "https://github.com/immich-app/immich/releases/tag/v3.3.6",
+      "revision": 1,
+      "titleDe": "Immich v3.3.6",
+      "summaryDe": "Die Version v3.3.6 von Immich behebt ein Problem mit aktivierter Telemetrie in onnxruntime, die standardmäßig anonymisierte Metrikdaten an Microsoft sendete. Diese Funktion wurde deaktiviert.",
+      "changes": [
+        "Deaktivierung der onnxruntime Telemetrie"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "ollama-30",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.15",
+      "publishedAt": "2026-11-03T22:52:31Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.15",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.15",
+      "summaryDe": "Die Version v0.40.15 von Ollama führt neue Modelle und Verbesserungen ein, darunter Unterstützung für Xiaomi MiMo V2.6 und AutoTrust Entscheidungsmodelle.",
+      "changes": [
+        "ollama launch unterstützt jetzt Kimi Code CLI und bietet die Migration bestehender kimi-cli Setups an.",
+        "ollama launch füllt jetzt automatisch die Modellliste von Pi aus, sodass Modelle innerhalb von Pi ausgewählt werden können.",
+        "Der Modellpicker von Claude Desktop zeigt nun die tatsächlichen Modellnamen von Ollama an.",
+        "Recurrent und vision GGUF Modelle können jetzt mehr als eine Anfrage gleichzeitig bedienen.",
+        "Qwen3 und Qwen3.5 Modelle nutzen das Long-Context (YaRN) Scaling.",
+        "Das Ausführen von ollama ohne Argumente öffnet den Willkommenslauncher."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "ollama-31",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.14",
+      "publishedAt": "2026-11-03T01:40:40Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.14",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.14",
+      "summaryDe": "Die Version v0.40.14 von Ollama bringt mehrere Verbesserungen und Fehlerbehebungen, insbesondere in Bezug auf die Handhabung von Modellausgaben und API-Antworten.",
+      "changes": [
+        "`ollama launch claude` wendet jetzt das Token-Limit des Modells für Claude Code an, sodass Cloud-Modelle nicht mehr an die 128k Standardgrenze stoßen.",
+        "Cloud-Websuchantworten auf `/api/chat` werden jetzt korrekt decodiert, einschließlich komprimierter Antworten.",
+        "OpenAI-kompatible Endpunkte überschreiben nicht mehr die standardmäßigen Sampler-Werte eines Modells — Clients, die keine `temperature`/`top_p` senden, erhalten die eigenen Werte des Modells anstelle von 1.0, was mit `/api/chat` übereinstimmt.",
+        "`/v1/responses` bewahrt jetzt lesbare Eingabeinhalte, einschließlich vorheriger Ablehnungen des Assistenten, anstatt sie zu glätten.",
+        "Die Ollama-App kann jetzt ChatGPT-Verbindungsfehler erneut versuchen, anstatt die Verbindung in einem fehlerhaften Zustand zu belassen.",
+        "`ollama launch codex` überprüft das Routing von ChatGPT, bevor es konfiguriert wird, und meldet einen klaren Fehler, wenn das Routing nicht verfügbar ist.",
+        "Schnelleres Top-k-Sampling auf MLX für große Wortschätze."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "uptime-kuma-36",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.9",
+      "publishedAt": "2026-10-31T16:03:58Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.9",
+      "revision": 1,
+      "titleDe": "Uptime Kuma Version 2.5.9",
+      "summaryDe": "Die Version 2.5.9 von Uptime Kuma enthält mehrere Bugfixes sowie Sicherheitsverbesserungen.",
+      "changes": [
+        "Bugfix: Laufzeit-Timeout-Fallback verwendet Millisekunden für ein Sekundenfeld (#8082)",
+        "Bugfix: Zurücksetzen der Push-Monitor-Wiederholungen basierend auf dem letzten gespeicherten Herzschlag (#8081)",
+        "Bugfix: Entfernen des doppelten Aktualisierungstimers auf der Statusseite (#8079)",
+        "Bugfix: Anzeige der wiederkehrenden Wartung in der konfigurierten Zeitzone (#8064)",
+        "Sicherheitsfix: RSS-Cache-Vergiftung (GHSA-86ch-2247-gr56)",
+        "Chore: Veralteten apicache entfernen, Migration zu http-cache-semantics (im Zusammenhang mit dem obigen Problem) (#8080)",
+        "Chore: Abhängigkeiten aktualisieren (#8050)"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "paperless-ngx-22",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.4.1",
+      "publishedAt": "2026-10-31T05:39:11Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.4.1",
+      "revision": 1,
+      "titleDe": "Paperless-ngx v3.4.1",
+      "summaryDe": "Die Version 3.4.1 von Paperless-ngx enthält mehrere Bugfixes und Verbesserungen.",
+      "changes": [
+        "Fix the id__ schemae in the right place",
+        "Drop redundant change perms checks on cards open button",
+        "Improve idle memory via more lazy imports",
+        "Make new pdf controls mostly hidden",
+        "Move preview button in doc list",
+        "Fix checksum light mode display and cf dropdown mobile position"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "paperless-ngx-23",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.4.0",
+      "publishedAt": "2026-10-29T22:28:28Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.4.0",
+      "revision": 1,
+      "titleDe": "Paperless-ngx v3.4.0",
+      "summaryDe": "Die Version 3.4.0 von Paperless-ngx bringt zahlreiche Verbesserungen, neue Funktionen und Fehlerbehebungen mit sich.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "ollama-32",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.13",
+      "publishedAt": "2026-10-28T19:55:04Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.13",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.13",
+      "summaryDe": "Die Version v0.40.13 von Ollama bringt Unterstützung für die LFM3-Modelle von Liquid AI auf Linux und Windows, einschließlich Text-to-Speech-Funktionen.",
+      "changes": [
+        "Unterstützung für LFM3-Modelle auf Linux und Windows hinzugefügt.",
+        "Text-to-Speech-Funktionalität in lfm3-audio und lfm3-omni verfügbar."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "ollama-33",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.12",
+      "publishedAt": "2026-10-27T00:07:12Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.12",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.12",
+      "summaryDe": "Die Version v0.40.12 von Ollama bringt die neue Liquid AI LFM3 Modellfamilie sowie Verbesserungen bei den d1 Entscheidungsmodellen. Diese Version bietet schnellere Prompt-Verarbeitung auf Apple Silicon und unterstützt neue Funktionen.",
+      "changes": [
+        "Schnellere Prompt-Verarbeitung auf Apple Silicon für die Modelle Gemma 4, Flint und Laguna.",
+        "Spekulatives Decoding unterstützt jetzt DFlash2 Entwurfsmodelle auf MLX.",
+        "Gemma 4 behält mehr Details in kleinen Bildern.",
+        "`ollama launch` funktioniert jetzt mit OpenCode v2.",
+        "Fehlerbehebung bei tool-only Assistant-Turns von Kimi CLI.",
+        "Aktualisierte MLX und llama.cpp."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "uptime-kuma-37",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.8",
+      "publishedAt": "2026-10-26T17:12:57Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.8",
+      "revision": 1,
+      "titleDe": "Uptime Kuma Version 2.5.8",
+      "summaryDe": "Die Version 2.5.8 von Uptime Kuma enthält Bugfixes und Sicherheitsupdates.",
+      "changes": [
+        "Docker-Überprüfungscheck korrigiert, der manchmal ungültige Antworten nicht erfasst hat.",
+        "Neuer Docker-Tag `next-slim-rootless` hinzugefügt.",
+        "TLS-Unterstützung für den TCP-Portmonitor entfernt, da sie nie wie erwartet funktionierte."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "home-assistant-44",
+      "appId": "home-assistant",
+      "appSlug": "home-assistant",
+      "appName": "Home Assistant Core",
+      "domainCategory": "Home Automation",
+      "version": "2026.10.4",
+      "publishedAt": "2026-10-24T20:03:14Z",
+      "sourceUrl": "https://github.com/home-assistant/core/releases/tag/2026.10.4",
+      "revision": 1,
+      "titleDe": "Home Assistant Core 2026.10.4",
+      "summaryDe": "Diese Version enthält Verbesserungen und Aktualisierungen für Home Assistant Core.",
+      "changes": [
+        "Erhöhung der aiohttp-Client-Header-Limits auf 64 KiB.",
+        "Aktualisierung von pylutron-caseta auf Version 0.30.0."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "ollama-34",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.11",
+      "publishedAt": "2026-10-24T00:30:13Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.11",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.11",
+      "summaryDe": "Die Version v0.40.11 von Ollama bringt neue Funktionen zur Sprachgenerierung und zur Nutzung von d3 Entscheidungsmodellen.",
+      "changes": [
+        "Ollama kann jetzt auf macOS Sprache generieren. Der Befehl `ollama run` spielt Text oder die Antwort eines Chat-Modells laut ab, während der Audioinhalt generiert wird.",
+        "Die d3-Bibliothek bringt die Entscheidungsmodelle des vLLM Semantic Routers zu Ollama, die es ermöglichen, Texte, strukturierte Zustände oder Bilder zu klassifizieren und Wahrscheinlichkeiten zu bewerten."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "ollama-35",
+      "appId": "ollama",
+      "appSlug": "ollama",
+      "appName": "Ollama",
+      "domainCategory": "Local AI",
+      "version": "v0.40.10",
+      "publishedAt": "2026-10-23T15:03:59Z",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.40.10",
+      "revision": 1,
+      "titleDe": "Ollama v0.40.10",
+      "summaryDe": "Diese Version enthält das NVIDIA Nemotron 3.5 Bolt E4B, ein kleineres, auf Gemma 4 basierendes Vision-Language-Modell für schnelle lokale Gespräche, Bildverständnis und Werkzeugnutzung. Es unterstützt ein Kontextfenster von 128K Tokens.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "uptime-kuma-38",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.7",
+      "publishedAt": "2026-10-23T05:16:17Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.7",
+      "revision": 1,
+      "titleDe": "Uptime Kuma Version 2.5.7",
+      "summaryDe": "Die Version 2.5.7 von Uptime Kuma enthält Bugfixes und Sicherheitsupdates.",
+      "changes": [
+        "Bugfix: retries wurden vom TCP Port Monitor mit SSL/STARTTLS ignoriert.",
+        "Sicherheitsfix: Docker-Images wurden auf Node.js 22.23.4 aktualisiert, um ein Leck der eMudhra 384 Bit CA zu verhindern."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "paperless-ngx-24",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.3.4",
+      "publishedAt": "2026-10-22T22:26:39Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.3.4",
+      "revision": 1,
+      "titleDe": "Paperless-ngx v3.3.4",
+      "summaryDe": "Diese Sicherheitswartungsversion aktualisiert Abhängigkeiten, um auf den eMudhra / emSign CA-Zertifikatsvorfall und Sicherheitsanfälligkeiten in Pillow und aiohttp zu reagieren.",
+      "changes": [
+        "Update certifi für eMudhra CA Vorfall",
+        "Update uv auf 0.13 für eMudhra CA Fixes"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "immich-17",
+      "appId": "immich",
+      "appSlug": "immich",
+      "appName": "Immich",
+      "domainCategory": "Fotos",
+      "version": "v3.3.5",
+      "publishedAt": "2026-10-21T18:12:57Z",
+      "sourceUrl": "https://github.com/immich-app/immich/releases/tag/v3.3.5",
+      "revision": 1,
+      "titleDe": "Immich v3.3.5",
+      "summaryDe": "Diese Version enthält einen Fix für einen heutigen CA-Kompromiss sowie einige Sicherheitsupdates für Node.js.",
+      "changes": [
+        "Aktualisierung der Python-Docker-Digests",
+        "Aktualisierung der Abhängigkeit certifi auf v2026.10.19"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "immich-18",
+      "appId": "immich",
+      "appSlug": "immich",
+      "appName": "Immich",
+      "domainCategory": "Fotos",
+      "version": "v3.3.4",
+      "publishedAt": "2026-10-20T10:18:17Z",
+      "sourceUrl": "https://github.com/immich-app/immich/releases/tag/v3.3.4",
+      "revision": 1,
+      "titleDe": "Immich v3.3.4",
+      "summaryDe": "Die Version v3.3.4 von Immich behebt ein Problem mit der Leistung bei der Verarbeitung von Personen und enthält eine fehlende Übersetzung.",
+      "changes": [
+        "Behebung eines Problems mit fehlender Übersetzung.",
+        "Effizientere Abfragen von Personen auf dem Server."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "paperless-ngx-25",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.3.3",
+      "publishedAt": "2026-10-19T17:24:02Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.3.3",
+      "revision": 1,
+      "titleDe": "Paperless-ngx v3.3.3",
+      "summaryDe": "Die Version 3.3.3 von Paperless-ngx enthält mehrere Bugfixes, die die Benutzeroberfläche und die Funktionalität der Anwendung verbessern.",
+      "changes": [
+        "Fix: global search input layout shifting",
+        "Fix: nicht den Dokumenteninhalt in den globalen Suchergebnissen einbeziehen",
+        "Fix: einige redundante Paginierungen entfernen",
+        "Fix: seltsames Umwickeln der Dashboard-Widget-Spaltentitel verhindern",
+        "Fix: 'alle' Aufgabenansicht nicht über Abschnitte paginieren",
+        "Fix: Float-Parsing für Importer-Manifestdatensätze mit einem Passwort verwenden",
+        "Fix: Subpfad bei Logout, Freigabelink und automatischen Anmeldungen respektieren",
+        "Fix: Vorschläge-Button nicht mehr an AI aktiviert binden",
+        "Fix: Einzelklassifikator im Schwellenwertvorhersage behandeln",
+        "Fix: Zähler und Erweiterung beim Kürzen langer öffentlicher Dateinamen beibehalten"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "paperless-ngx-26",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.3.2",
+      "publishedAt": "2026-10-16T06:14:32Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.3.2",
+      "revision": 1,
+      "titleDe": "Paperless-ngx v3.3.2",
+      "summaryDe": "Die Version 3.3.2 von Paperless-ngx behebt ein Sicherheitsproblem und enthält mehrere Bugfixes sowie Abhängigkeitsaktualisierungen.",
+      "changes": [
+        "Fix: copy only direct user grants in DocumentMetadataOverrides.from_document",
+        "Fix: support combined text/query searches",
+        "Fix: make exporter derived file names unique when originals differ only by extension",
+        "Chore(deps): Bump filelock from 3.32.6 to 4.0.12",
+        "Chore(deps): Bump the uv group across 1 directory with 3 updates"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "immich-19",
+      "appId": "immich",
+      "appSlug": "immich",
+      "appName": "Immich",
+      "domainCategory": "Fotos",
+      "version": "v3.3.3",
+      "publishedAt": "2026-10-14T16:56:21Z",
+      "sourceUrl": "https://github.com/immich-app/immich/releases/tag/v3.3.3",
+      "revision": 1,
+      "titleDe": "Immich v3.3.3",
+      "summaryDe": "Die Version v3.3.3 von Immich enthält mehrere Bugfixes und eine signifikante Leistungsverbesserung für die Explore-Seite.",
+      "changes": [
+        "Bugfix: Anzeige des Erinnerungsdatums in jeder App-Sprache",
+        "Leistungsverbesserung der Abfrage für Personen"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "paperless-ngx-27",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.3.1",
+      "publishedAt": "2026-10-12T20:19:12Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.3.1",
+      "revision": 1,
+      "titleDe": "Paperless-ngx v3.3.1",
+      "summaryDe": "Die Version 3.3.1 von Paperless-ngx enthält mehrere Bugfixes, Dokumentationsaktualisierungen und Wartungsarbeiten.",
+      "changes": [
+        "Fix: Verwendung des effektiven Inhalts eines Root-Dokuments für den LLM-Index.",
+        "Fix: Indizierung von Dokumentversionen als ihr Root-Dokument.",
+        "Fix: Autorisierung von Dokumentversionen basierend auf ihrem Root im Berechtigungscheck für Einzelobjekte.",
+        "Fix: Bereitstellung besserer Fehlermeldungen für ungültiges JSON.",
+        "Fix: Autorisierung von Dokumentversionen durch ihr Root und Beschleunigung der Berechtigungs-ID-Sets.",
+        "Chore: Aktualisierung der Warnung zu den Datenbankoptionen.",
+        "Fix: Bulk-Neuverarbeitung der neuesten Version für Root-Dokumente.",
+        "Fix: Konsistente Verwendung des Root-Dokuments für Berechtigungen bei Versionsaktionen.",
+        "Fix: Vermeidung der Indizierung von Erstellungsdaten, die im FTS-Index nicht darstellbar sind.",
+        "Fix: Wiederholung eines unterbrochenen Suchindex-Neubaus.",
+        "Chore: Stille Gotenberg-Startwarnung.",
+        "Dokumentation: Entfernen von MARIADB_HOST aus den MariaDB-Compose-Dateien."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "uptime-kuma-39",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.6",
+      "publishedAt": "2026-10-09T15:46:26Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.6",
+      "revision": 1,
+      "titleDe": "Uptime Kuma Version 2.5.6",
+      "summaryDe": "Die Version 2.5.6 von Uptime Kuma enthält Bugfixes und Sicherheitsupdates.",
+      "changes": [
+        "Bugfix: Verwendung von UptimeCalculator für den Durchschnittsantwort-Badge-Endpunkt.",
+        "Sicherheitsfix: Aktualisierung der Abhängigkeiten."
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "immich-20",
+      "appId": "immich",
+      "appSlug": "immich",
+      "appName": "Immich",
+      "domainCategory": "Fotos",
+      "version": "v3.3.1",
+      "publishedAt": "2026-10-08T21:52:06Z",
+      "sourceUrl": "https://github.com/immich-app/immich/releases/tag/v3.3.1",
+      "revision": 1,
+      "titleDe": "Immich v3.3.1",
+      "summaryDe": "Dieses Patch-Release behebt verschiedene Fehler im Zusammenhang mit dem Teilen von Personen sowie ein Scrollproblem auf mobilen Geräten. Zudem gibt es jetzt einen Indikator, der anzeigt, welche Personen geteilt werden.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "immich-21",
+      "appId": "immich",
+      "appSlug": "immich",
+      "appName": "Immich",
+      "domainCategory": "Fotos",
+      "version": "v3.3.0",
+      "publishedAt": "2026-10-07T18:37:01Z",
+      "sourceUrl": "https://github.com/immich-app/immich/releases/tag/v3.3.0",
+      "revision": 1,
+      "titleDe": "Immich v3.3.0",
+      "summaryDe": "Die Version v3.3.0 von Immich bringt Funktionen wie das Teilen von Personen, Geburtstags-Erinnerungen, automatisch gestapelte mobile Bearbeitungen und zahlreiche Verbesserungen sowie Fehlerbehebungen.",
+      "changes": [
+        "Shared people management",
+        "Birthday memories",
+        "Auto-stacked mobile edits",
+        "Sync OAuth claims on every login",
+        "Higher quality thumbnails and previews",
+        "Machine learning performance and accuracy improvements (opt-in)",
+        "New OCR models",
+        "Notable fix: correct storage size on MacOS"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "paperless-ngx-28",
+      "appId": "paperless-ngx",
+      "appSlug": "paperless-ngx",
+      "appName": "Paperless-ngx",
+      "domainCategory": "Dokumente",
+      "version": "v3.3.0",
+      "publishedAt": "2026-10-06T03:55:22Z",
+      "sourceUrl": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.3.0",
+      "revision": 1,
+      "titleDe": "Paperless-ngx v3.3.0",
+      "summaryDe": "Die Version 3.3.0 von Paperless-ngx bringt mehrere Verbesserungen, neue Funktionen und Fehlerbehebungen mit sich.",
+      "changes": [
+        "Verbesserung: mehr Kontrolle über Vorschlagsanfragen",
+        "Verbesserung: Manifest CORS für Anmeldeinformationen setzen",
+        "Verbesserung: Django-Admin mit 2FA einbeziehen",
+        "Funktion: Barcode-Inhalte speichern, auflisten und durchsuchen",
+        "Verbesserung: Unterstützung für separate Einbettungs-API-Schlüssel",
+        "Verbesserung: Unterstützung für zusätzliche Parameter für LLMs",
+        "Fehlerbehebung: Setzen des ProcessedMail-Besitzers basierend auf dem Regelbesitzer in allen Fällen",
+        "Fehlerbehebung: Sicherstellen, dass die Protokollrotationseinstellungen in Ganzzahlen umgewandelt werden",
+        "Fehlerbehebung: pdf.js CMaps versenden, damit CJK-Dokumente im Viewer gerendert werden",
+        "Fehlerbehebung: Pointer-Events für PDF-Links im pngx-Viewer zulassen"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "uptime-kuma-40",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.5",
+      "publishedAt": "2026-09-16T13:31:07Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.5",
+      "revision": 1,
+      "titleDe": "Uptime Kuma Version 2.5.5",
+      "summaryDe": "Die Version 2.5.5 von Uptime Kuma behebt einen Speicherleck-Fehler im TCP-Monitor.",
+      "changes": [],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "uptime-kuma-41",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.4",
+      "publishedAt": "2026-09-11T10:09:10Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.4",
+      "revision": 1,
+      "titleDe": "Uptime Kuma Version 2.5.4",
+      "summaryDe": "Die Version 2.5.4 von Uptime Kuma bringt neue Funktionen, Verbesserungen und Bugfixes mit sich, sowie wichtige Sicherheitsupdates.",
+      "changes": [
+        "Neuer Notification Provider: Signalgrid",
+        "Neuer Notification Provider: Notify!",
+        "Neuer Notification Provider: Amoot SMS",
+        "SFTP Monitor Typ mit Passwort- und privatem Schlüssel-Authentifizierung hinzugefügt",
+        "Verbesserung: Passwort-Anzeige-Option auf der Anmeldeseite",
+        "Bugfix: Browser-Kontext immer schließen",
+        "Bugfix: iOS PWA-Icon hat schwarzen Hintergrund",
+        "Bugfix: Ping-Timeout-Obergrenzen im Monitor-Formular korrigiert",
+        "Bugfix: move afterCreate zur initialen MariaDB-Pool-Konfiguration",
+        "Bugfix: Akzeptierte Statuscodes im benutzerdefinierten Bereich bei Tag-Erstellung verworfen",
+        "Sicherheitsfix: jsonata auf Version 2.2.2 aktualisiert"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "uptime-kuma-42",
+      "appId": "uptime-kuma",
+      "appSlug": "uptime-kuma",
+      "appName": "Uptime Kuma",
+      "domainCategory": "Monitoring",
+      "version": "2.5.3",
+      "publishedAt": "2026-08-22T09:20:48Z",
+      "sourceUrl": "https://github.com/louislam/uptime-kuma/releases/tag/2.5.3",
+      "revision": 1,
+      "titleDe": "Uptime Kuma Version 2.5.3",
+      "summaryDe": "Die Version 2.5.3 von Uptime Kuma wurde veröffentlicht und enthält Bugfixes.",
+      "changes": [
+        "#7754 fix: release with wrong version number"
+      ],
+      "upgradeNotes": [],
+      "securityStatus": "unknown",
+      "breakingChangesStatus": "unknown",
+      "eventTypes": [
+        "unclear"
+      ],
+      "evidence": []
+    }
+  ]
+}

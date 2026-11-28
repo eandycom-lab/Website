@@ -6,6 +6,8 @@ import Sidebar from "../components/Sidebar.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
+import snapshot from "../data/radar-snapshot.json";
+import type { PublishedRadarItem } from "../lib/radar";
 
 const posts = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -15,6 +17,7 @@ const featured = posts[0];
 const gridPosts = posts.slice(1, 5);
 const remainingPosts = posts.slice(5);
 const totalPages = remainingPosts.length > 0 ? 1 + Math.ceil(remainingPosts.length / 6) : 1;
+const latestRadar = ((snapshot.items ?? []) as PublishedRadarItem[]).slice(0, 5);
 
 const resolveImg = (img?: string) => {
 	if (!img) return "/blog-placeholder-1.jpg";
@@ -75,7 +78,29 @@ const resolveImg = (img?: string) => {
 					</nav>
 				)}
 
-				<div class="article-box" style="margin-top: 2rem; padding: 1.5rem;">
+				
+                                {latestRadar.length > 0 && (
+                                        <div class="article-box" style="margin-top: 2rem; padding: 1.5rem;">
+                                                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.85rem;">
+                                                        <h2 class="section-header" style="margin: 0;">Neueste Updates</h2>
+                                                        <a href="/updates/" style="font-size: 0.88rem; font-weight: 600; color: var(--accent-light);">Alle Updates →</a>
+                                                </div>
+                                                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;">
+                                                        {latestRadar.map((u) => (
+                                                                <li style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; font-size: 0.92rem; color: var(--text-muted);">
+                                                                        <span>
+                                                                                <a href={`/updates/${u.appSlug}/`} style="color: var(--text-main); font-weight: 600;">{u.appName} {u.version}</a>
+                                                                                {" – "}
+                                                                                {u.summaryDe}
+                                                                        </span>
+                                                                        <a href={u.sourceUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent-light); font-size: 0.84rem; white-space: nowrap;">Quelle →</a>
+                                                                </li>
+                                                        ))}
+                                                </ul>
+                                        </div>
+                                )}
+
+                                <div class="article-box" style="margin-top: 2rem; padding: 1.5rem;">
 					<h2 class="section-header" style="margin-top: 0;">Digitale Souveränität im eigenen Homelab</h2>
 					<p style="color: var(--text-muted); margin-bottom: 0.75rem;">
 						Auf <strong>SysAI Blog</strong> findest du praxiserprobte Schritt-für-Schritt-Anleitungen für deinen eigenen Server-Stack – von schlankem Linux-Monitoring mit Beszel über Docker-Compose-Setups bis hin zur lokalen KI-Integration per <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer">Model Context Protocol (MCP)</a> und <a href="https://ollama.com/" target="_blank" rel="noopener noreferrer">Ollama</a>.
