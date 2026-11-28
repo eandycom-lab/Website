@@ -115,6 +115,7 @@ href={new URL("rss.xml", Astro.site)}
 <link rel="canonical" href={canonicalURL} />
 
 <title>{title}</title>
+{Astro.props.noindex && <meta name="robots" content="noindex, nofollow" />}
 <meta name="description" content={description} />
 
 <meta property="og:type" content={isArticle ? "article" : "website"} />

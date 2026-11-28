@@ -10,23 +10,20 @@ const WEB3FORMS_ACCESS_KEY = "fbcb1b6d-0397-4752-8306-d024ec262772";
 
 <html lang="de">
 <head>
-<BaseHead
+<BaseHead noindex={true}
 title="Impressum | sysai.sh"`}
 description="Impressum und gesetzliche Pflichtangaben für sysai.sh".`}
 />
 </head>
 <body>
 <Header />
-<main class="container legal-page">
+<main data-pagefind-ignore class="container legal-page">
     <h1>Impressum</h1>
 
     <h2>Angaben gemäß § 5 DDG</h2>
-    <p>
-      Andreas Thieme<br />
-      [Straße Hausnummer / c/o Impressums-Service]<br />
-      [PLZ Ort]<br />
-      Deutschland
-    </p>
+    <div class="impressum-card" style="margin: 1.5rem 0;">
+      <img src="/images/impressum-anschrift.svg" alt="Angaben gemäß § 5 DDG" width="440" height="145" loading="eager" style="max-width: 100%; height: auto; border-radius: 8px;" />
+    </div>
 
     <h2>Kontakt</h2>
     <p>
