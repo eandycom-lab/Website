@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T17:55:28.602Z",
+  "generatedAt": "2026-11-28T18:02:58.219Z",
   "isPreviewSample": false,
   "items": [
     {
@@ -27,7 +27,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -48,7 +48,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -71,7 +71,8 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature",
+        "bugfix"
       ],
       "evidence": []
     },
@@ -99,7 +100,8 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "breaking_changes",
+        "feature"
       ],
       "evidence": []
     },
@@ -128,7 +130,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -157,7 +159,8 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "breaking_changes",
+        "bugfix"
       ],
       "evidence": []
     },
@@ -185,7 +188,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -206,7 +209,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -230,7 +233,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -258,7 +261,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -283,7 +286,9 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "breaking_changes",
+        "feature",
+        "bugfix"
       ],
       "evidence": []
     },
@@ -307,7 +312,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -331,7 +336,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -352,7 +357,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -376,7 +381,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -400,7 +405,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -424,7 +429,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -448,7 +453,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -480,7 +485,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -507,7 +512,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -531,7 +536,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -565,7 +570,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -589,7 +594,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -610,7 +615,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -640,7 +645,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -672,7 +677,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature"
       ],
       "evidence": []
     },
@@ -693,7 +698,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     },
@@ -726,7 +731,8 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "feature",
+        "bugfix"
       ],
       "evidence": []
     },
@@ -749,7 +755,7 @@
       "securityStatus": "unknown",
       "breakingChangesStatus": "unknown",
       "eventTypes": [
-        "unclear"
+        "bugfix"
       ],
       "evidence": []
     }

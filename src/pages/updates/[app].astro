@@ -19,6 +19,14 @@ const { app } = Astro.props;
 const allItems = ((snapshot.items ?? []) as PublishedRadarItem[])
   .filter((item) => item.appSlug === app.slug)
   .sort((a, b) => new Date(b.publishedAt).valueOf() - new Date(a.publishedAt).valueOf());
+
+const eventLabels: Record<string, string> = {
+  security: "Security",
+  breaking_changes: "Breaking Changes",
+  feature: "Feature",
+  bugfix: "Bugfix",
+  unclear: "Unklar",
+};
 ---
 
 <!doctype html>
@@ -63,9 +71,43 @@ const allItems = ((snapshot.items ?? []) as PublishedRadarItem[])
                 </div>
                 <h2 style="margin: 0 0 0.45rem 0; font-size: 1.1rem;">{item.titleDe}</h2>
                 <p style="margin: 0 0 0.75rem 0; color: var(--text-muted);">{item.summaryDe}</p>
-                <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent-light); font-size: 0.88rem; font-weight: 600;">
-                  Offizielle Release Notes →
-                </a>
+
+                {item.changes.length > 0 && (
+                  <details style="margin: 0 0 0.75rem 0; font-size: 0.9rem; color: var(--text-muted);">
+                    <summary style="cursor: pointer; color: var(--accent-light); font-weight: 500;">
+                      Wichtigste Änderungen ({item.changes.length})
+                    </summary>
+                    <ul style="margin: 0.45rem 0 0 1.2rem; padding: 0; display: flex; flex-direction: column; gap: 0.25rem;">
+                      {item.changes.map((ch) => (
+                        <li>{ch}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+
+                {item.upgradeNotes.length > 0 && (
+                  <div style="margin: 0 0 0.75rem 0; padding: 0.65rem 0.85rem; border-left: 3px solid var(--accent-light); background: rgba(255,255,255,0.02); font-size: 0.88rem;">
+                    <strong>Herstellerhinweise / Upgrade:</strong>
+                    <ul style="margin: 0.35rem 0 0 1.1rem; padding: 0;">
+                      {item.upgradeNotes.map((note) => (
+                        <li>{note}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                  <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                    {item.eventTypes.filter((ev, _, arr) => ev !== "unclear" || arr.length === 1).map((ev) => (
+                      <span style="padding: 0.18rem 0.55rem; border-radius: 999px; font-size: 0.78rem; background: rgba(255,255,255,0.06); color: var(--text-main);">
+                        {eventLabels[ev] ?? ev}
+                      </span>
+                    ))}
+                  </div>
+                  <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent-light); font-size: 0.88rem; font-weight: 600;">
+                    Offizielle Release Notes →
+                  </a>
+                </div>
               </article>
             ))}
           </div>
