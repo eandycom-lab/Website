@@ -1,13 +1,13 @@
-﻿{
-    "siteTitle":  "SysAI Blog – Praxis-Guides für Linux, Self-Hosting \u0026 KI",
-    "siteDescription":  "Dein Stack, deine Regeln: Unabhängige Tutorials und Praxis-Guides zu Linux-Servern, Docker, Self-Hosting, Home Assistant und lokaler KI mit Ollama.",
-    "aboutTitle":  "Über das Projekt",
-    "aboutImage":  "/images/unbenannt.webp",
-    "aboutText":  "Blog rund um die Themen Linux, Self-Hosting, Docker-Stacks, lokale KI-Modelle",
-    "categories":  [
-                       "Linux \u0026 OS",
-                       "Self-Hosting",
-                       "Local AI",
-                       "Home Automation"
-                   ]
+{
+  "siteTitle": "SysAI Blog – Praxis-Guides für Linux, Self-Hosting & KI",
+  "siteDescription": "Dein Stack, deine Regeln: Unabhängige Tutorials und Praxis-Guides zu Linux-Servern, Docker, Self-Hosting, Home Assistant und lokaler KI mit Ollama.",
+  "aboutTitle": "Über das Projekt",
+  "aboutImage": "/images/AT.webp",
+  "aboutText": "Blog rund um die Themen Linux, Self-Hosting, Docker-Stacks, lokale KI-Modelle",
+  "categories": [
+    "Linux & OS",
+    "Self-Hosting",
+    "Local AI",
+    "Home Automation"
+  ]
 }
