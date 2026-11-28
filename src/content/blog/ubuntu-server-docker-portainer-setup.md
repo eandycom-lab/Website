@@ -22,7 +22,9 @@ Lade dir das offizielle Ubuntu Server ISO herunter und bringe es per Ventoy oder
 - **SSH aktivieren** (importiere am besten direkt deinen SSH-Key von GitHub oder hinterlege deinen Public Key).
 
 ### Sicherheits-Grundregel: VPN-only & kein Port-Forwarding!
-Dein Homelab gehört **nicht** direkt ins Internet. Setze keine Portweiterleitungen am Router auf Port 80, 443 oder gar 22. Der Zugang von außen sollte **ausschließlich über ein VPN** erfolgen (z. B. WireGuard auf der OPNsense/Fritz!Box, Tailscale oder Netbird).
+Dein Homelab gehört **nicht** direkt ins Internet. Setze keine Portweiterleitungen am Router auf Port 80, 443 oder gar 22. Der Zugang von außen sollte **ausschließlich über ein VPN** erfolgen (z. B. WireGuard auf der OPNsense/Fritz!Box, Tailscale oder Netbird):
+
+![Server-Hardening und VPN-Only-Architektur](/images/ubuntu-server-docker-portainer-setup-2.webp)
 
 ### SSH absichern & Passwort-Login deaktivieren
 Verbinde dich per SSH mit deinem Server und schalte den unsicheren Passwort-Login ab:
@@ -44,7 +46,7 @@ sudo systemctl restart ssh
 ```
 
 ### Firewall (UFW) konfigurieren
-Standardmäßig blockieren wir jeglichen eingehenden Traffic und erlauben nur SSH sowie die lokalen Ports für Portainer:
+Standardmäßig blockieren wir jeglichen eingehenden Traffic und erlauben nur SSH sowie den lokalen Port für Portainer:
 
 ```bash
 # Standardregeln
@@ -54,7 +56,7 @@ sudo ufw default allow outgoing
 # SSH erlauben
 sudo ufw allow 22/tcp comment 'SSH'
 
-# Docker / Portainer Ports (nur im lokalen Subnetz oder VPN!)
+# Portainer Web-UI (nur im lokalen Subnetz oder VPN erreichbar)
 sudo ufw allow 9443/tcp comment 'Portainer HTTPS'
 
 # Firewall aktivieren
@@ -111,17 +113,19 @@ docker compose version && docker run --rm hello-world
 Wild verstreute Docker-Container auf dem Server führen schnell zu Chaos. Erstelle eine feste Verzeichnisstruktur unter `/opt/stacks/` für alle kommenden Dienste:
 
 ```bash
-sudo mkdir -p /opt/stacks/portainer
+sudo mkdir -p /opt/stacks/portainer/data
 sudo chown -R $USER:$USER /opt/stacks
 ```
 
-Jeder Dienst bekommt dort seinen eigenen Unterordner mit einer dedizierten `docker-compose.yml` und einem `data`-Verzeichnis für persistente Volumes.
+Jeder Dienst bekommt dort seinen eigenen Unterordner mit einer dedizierten `docker-compose.yml` und einem `data`-Verzeichnis für persistente Volumes:
+
+![Docker und Portainer Stack-Architektur](/images/ubuntu-server-docker-portainer-setup-3.webp)
 
 ---
 
-## 4. Portainer CE via Docker Compose starten
+## 4. Portainer CE (LTS) via Docker Compose starten
 
-Portainer bietet ein schlankes Web-Interface, um Container, Images, Netzwerke und Volumes im Blick zu behalten, Logs zu prüfen und Stacks direkt per Compose-Code zu verwalten.
+Portainer bietet ein schlankes Web-Interface, um Container, Images, Netzwerke und Volumes im Blick zu behalten, Logs zu prüfen und Stacks direkt per Compose-Code zu verwalten. Für den produktiven Homelab-Betrieb empfiehlt sich ausdrücklich das **LTS-Image** (`portainer/portainer-ce:lts`), um unerwartete Breaking Changes zu vermeiden.
 
 Wechsle in das Verzeichnis und erstelle die Konfiguration:
 ```bash
@@ -134,7 +138,7 @@ Füge folgenden Inhalt ein:
 ```yaml
 services:
   portainer:
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ce:lts
     container_name: portainer
     restart: unless-stopped
     security_opt:
@@ -158,7 +162,7 @@ Rufe nun im Browser über dein lokales Netz oder VPN die Adresse auf:
 
 ---
 
-## 5. Wie geht es weiter? (Interne Verweise)
+## 5. Wie geht es weiter?
 
 Dein Fundament steht! Jetzt kannst du tiefer in das Docker-Management einsteigen oder deinen Server überwachen:
 - **Docker-Manager vergleichen:** Falls du neben Portainer auch schlankere Alternativen suchst, lies meinen [Docker-Manager-Vergleich (Portainer vs. Dockge vs. Komodo)](/blog/docker-manager-vergleich-portainer-dockge-komodo).
@@ -169,7 +173,7 @@ Dein Fundament steht! Jetzt kannst du tiefer in das Docker-Management einsteigen
 
 ## Praxis-Empfehlung & One-Liner für die Shell
 
-Hier ist das schlüsselfertige Setup-Skript, das das System aktualisiert, Docker installiert, die Verzeichnisstruktur anlegt und Portainer startet:
+Hier ist das schlüsselfertige Setup-Skript, das das System aktualisiert, Docker installiert, die Verzeichnisstruktur anlegt und Portainer CE (LTS) startet:
 
 ```bash
 # Update & Docker-Installation
@@ -184,12 +188,13 @@ sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io doc
 # Rechte anpassen
 sudo usermod -aG docker $USER
 
-# Portainer Stack anlegen & starten
-mkdir -p /opt/stacks/portainer/data
+# Portainer LTS Stack anlegen & starten
+sudo mkdir -p /opt/stacks/portainer/data
+sudo chown -R $USER:$USER /opt/stacks
 cat << 'STACK' > /opt/stacks/portainer/docker-compose.yml
 services:
   portainer:
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ce:lts
     container_name: portainer
     restart: unless-stopped
     security_opt:
@@ -201,6 +206,6 @@ services:
       - /opt/stacks/portainer/data:/data
 STACK
 
-cd /opt/stacks/portainer && docker compose up -d
+cd /opt/stacks/portainer && sudo docker compose up -d
 echo "=== Portainer läuft unter https://$(hostname -I | awk '{print $1}'):9443 ==="
 ```
