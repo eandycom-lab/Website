@@ -91,5 +91,153 @@
       "home-assistant-bare-metal-vs-docker-vergleich",
       "pv-waermepumpe-home-assistant-energy-dashboard"
     ]
+  },
+  {
+    "id": "nextcloud",
+    "slug": "nextcloud",
+    "name": "Nextcloud Server",
+    "category": "Self-Hosting",
+    "domainCategory": "Cloud & Sync",
+    "website": "https://nextcloud.com/",
+    "repository": "https://github.com/nextcloud/server",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "nextcloud",
+      "repo": "server",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": false,
+    "relatedGuides": []
+  },
+  {
+    "id": "vaultwarden",
+    "slug": "vaultwarden",
+    "name": "Vaultwarden",
+    "category": "Self-Hosting",
+    "domainCategory": "Sicherheit",
+    "website": "https://github.com/dani-garcia/vaultwarden",
+    "repository": "https://github.com/dani-garcia/vaultwarden",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "dani-garcia",
+      "repo": "vaultwarden",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": false,
+    "relatedGuides": []
+  },
+  {
+    "id": "jellyfin",
+    "slug": "jellyfin",
+    "name": "Jellyfin",
+    "category": "Self-Hosting",
+    "domainCategory": "Medien",
+    "website": "https://jellyfin.org/",
+    "repository": "https://github.com/jellyfin/jellyfin",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "jellyfin",
+      "repo": "jellyfin",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": false,
+    "relatedGuides": []
+  },
+  {
+    "id": "pihole",
+    "slug": "pihole",
+    "name": "Pi-hole",
+    "category": "Self-Hosting",
+    "domainCategory": "Netzwerk",
+    "website": "https://pi-hole.net/",
+    "repository": "https://github.com/pi-hole/pi-hole",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "pi-hole",
+      "repo": "pi-hole",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": false,
+    "relatedGuides": []
+  },
+  {
+    "id": "beszel",
+    "slug": "beszel",
+    "name": "Beszel",
+    "category": "Self-Hosting",
+    "domainCategory": "Monitoring",
+    "website": "https://beszel.dev/",
+    "repository": "https://github.com/henrygd/beszel",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "henrygd",
+      "repo": "beszel",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": false,
+    "relatedGuides": []
+  },
+  {
+    "id": "restic",
+    "slug": "restic",
+    "name": "Restic",
+    "category": "Linux & OS",
+    "domainCategory": "Backup",
+    "website": "https://restic.net/",
+    "repository": "https://github.com/restic/restic",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "restic",
+      "repo": "restic",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": false,
+    "relatedGuides": [
+      "linux-backup-loesungen-vergleich-restic-borg-kopia"
+    ]
+  },
+  {
+    "id": "borgbackup",
+    "slug": "borgbackup",
+    "name": "BorgBackup",
+    "category": "Linux & OS",
+    "domainCategory": "Backup",
+    "website": "https://www.borgbackup.org/",
+    "repository": "https://github.com/borgbackup/borg",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "borgbackup",
+      "repo": "borg",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": false,
+    "relatedGuides": [
+      "linux-backup-loesungen-vergleich-restic-borg-kopia"
+    ]
+  },
+  {
+    "id": "open-webui",
+    "slug": "open-webui",
+    "name": "Open WebUI",
+    "category": "Local AI",
+    "domainCategory": "Local AI",
+    "website": "https://openwebui.com/",
+    "repository": "https://github.com/open-webui/open-webui",
+    "releaseSource": {
+      "type": "github_releases",
+      "owner": "open-webui",
+      "repo": "open-webui",
+      "includePrereleases": false
+    },
+    "monitoringEnabled": true,
+    "pilot": false,
+    "relatedGuides": []
   }
 ]
