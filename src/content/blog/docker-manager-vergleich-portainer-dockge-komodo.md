@@ -1,7 +1,7 @@
 ---
 title: "Docker-Manager im Homelab-Test: Portainer, Dockge und Komodo im Vergleich"
 description: "Welches Web-UI passt am besten ins Self-Hosting-Setup? Ein praxisnaher Vergleich von Portainer CE, Dockge und Komodo für Linux-Server."
-pubDate: "2026-11-22"
+pubDate: 2026-11-22T12:00:00
 heroImage: "/images/docker-manager-vergleich-portainer-dockge-komodo.webp"
 category: "Self-Hosting"
 tags: ["Docker", "Portainer", "Dockge", "Komodo", "Self-Hosting", "Homelab"]
@@ -10,6 +10,8 @@ tags: ["Docker", "Portainer", "Dockge", "Komodo", "Self-Hosting", "Homelab"]
 Wer mehrere Dienste wie Nextcloud, Paperless-ngx, Vaultwarden oder Monitoring-Tools per Docker auf einem eigenen Linux-Server betreibt, steht früher oder später vor derselben Frage: Alles rein über das Terminal und `docker compose` verwalten – oder eine visuelle Oberfläche vorschalten, die Stacks, Logs und Updates übersichtlich bündelt? *(Falls Docker bei dir noch gar nicht installiert ist, findest du hier zuerst die komplette [Schritt-für-Schritt-Anleitung für Ubuntu Server, Docker und Portainer](/blog/ubuntu-server-docker-portainer-setup/).)*
 
 Lange Zeit gab es darauf fast nur eine Antwort: **Portainer**. Inzwischen haben sich mit **Dockge** und **Komodo** jedoch zwei spannende Alternativen etabliert, die völlig unterschiedliche Philosophien verfolgen. Zeit für einen direkten Praxisvergleich aus dem Homelab-Alltag.
+
+---
 
 ## Die 3 Kandidaten im direkten Vergleich
 
@@ -20,6 +22,14 @@ Lange Zeit gab es darauf fast nur eine Antwort: **Portainer**. Inzwischen haben 
 | **Ressourcenbedarf** | Mittel (ca. 100–150 MB RAM) | Sehr gering (ca. 30–50 MB RAM) | Mittel bis höher (inkl. Datenbank-Container) |
 | **Multi-Server** | Ja (über Portainer Agent) | Eingeschränkt (Agent-Verbund) | Ja, nativ und sehr stark ausgeprägt |
 | **Ideal für** | Einsteiger & Allrounder | Puristen & Compose-Fans | Fortgeschrittene & GitOps-Workflows |
+
+---
+
+## Architektur im Detail: Wie die drei Tools arbeiten
+
+Auf den ersten Blick verwalten alle drei Tools Docker-Container – unter der Haube unterscheiden sie sich jedoch fundamental darin, wo Konfigurationsdateien liegen und wie Änderungen ausgerollt werden:
+
+![Architektur-Vergleich Portainer CE, Dockge und Komodo](/images/docker-manager-vergleich-portainer-dockge-komodo-2.webp)
 
 ---
 
@@ -65,7 +75,9 @@ Die Ersteinrichtung ist spürbar komplexer als bei Dockge oder Portainer, da Kom
 
 ---
 
-## Meine Empfehlung: Portainer CE
+## Entscheidungs-Matrix & Meine Empfehlung: Portainer CE
+
+![Entscheidungs-Matrix: Welcher Docker-Manager passt ins Homelab](/images/docker-manager-vergleich-portainer-dockge-komodo-3.webp)
 
 Für die allermeisten Homelab- und Self-Hosting-Setups ist **Portainer CE** nach wie vor die beste Wahl. Während Dockge bewusst minimalistisch bleibt und Komodo seine Stärken erst bei mehreren Servern mit kompletten GitOps-Pipelines ausspielt, bietet Portainer im Alltag genau die Mischung aus Übersicht, Stabilität und Tiefe, die man wirklich braucht:
 
@@ -77,10 +89,10 @@ Für die allermeisten Homelab- und Self-Hosting-Setups ist **Portainer CE** nach
 
 ## Quick-Start: Portainer CE in 60 Sekunden installieren
 
-Mit diesem Einzeiler legst du auf deinem Linux-Server ein sauberes Projektverzeichnis unter `/opt/portainer` an, erstellst die `docker-compose.yml` und startest Portainer CE direkt:
+Mit diesem Einzeiler legst du auf deinem Linux-Server ein sauberes Projektverzeichnis unter `/opt/stacks/portainer` an, erstellst die `docker-compose.yml` und startest Portainer CE direkt:
 
 ```bash
-sudo mkdir -p /opt/portainer && cd /opt/portainer && cat << 'YAML' | sudo tee docker-compose.yml > /dev/null
+sudo mkdir -p /opt/stacks/portainer/data && cd /opt/stacks/portainer && cat << 'YAML' | sudo tee docker-compose.yml > /dev/null
 services:
   portainer:
     image: portainer/portainer-ce:lts
@@ -90,7 +102,7 @@ services:
       - no-new-privileges:true
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/data
     ports:
       - "9443:9443"
